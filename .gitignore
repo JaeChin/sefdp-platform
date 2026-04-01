@@ -12,9 +12,11 @@ out/
 .env
 .env.local
 .env.*.local
-!.env.example
+
 /docs
 docs/
+.claude/
+/.claude/
 
 # IDE
 .vscode/
