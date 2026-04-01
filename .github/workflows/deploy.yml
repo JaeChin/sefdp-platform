@@ -1,0 +1,49 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            cd /opt/sefdp
+            ./infra/scripts/deploy.sh
+
+      - name: Post-deploy health check
+        run: |
+          MAX_RETRIES=12
+          RETRY_INTERVAL=10
+          HEALTH_URL="${{ secrets.HEALTH_CHECK_URL }}"
+
+          for i in $(seq 1 $MAX_RETRIES); do
+            if curl -sf "$HEALTH_URL" > /dev/null 2>&1; then
+              echo "Health check passed on attempt $i"
+              exit 0
+            fi
+            echo "Health check attempt $i/$MAX_RETRIES failed, retrying in ${RETRY_INTERVAL}s..."
+            sleep $RETRY_INTERVAL
+          done
+
+          echo "Health check failed after $MAX_RETRIES attempts"
+          exit 1
+
+      # TODO: Replace with actual notification (Slack, email, etc.)
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "::error::Deployment failed or health check did not pass."
+          echo "Notify the team: deployment to production failed for commit ${{ github.sha }}"

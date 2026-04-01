@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__MCP_DOCKER__browser_navigate",
+      "Bash(find \"/c/Users/Jae/Cursor Projects/NEP-Project/apps/web/app/\\(dares\\)\" -type f -o -type d)",
+      "Bash(find \"/c/Users/Jae/Cursor Projects/NEP-Project/apps/web/app/\\(marketplace\\)\" -type f -o -type d)",
+      "Bash(find \"/c/Users/Jae/Cursor Projects/NEP-Project/apps/web/app/\\(admin\\)\" -type f -o -type d)",
+      "Bash(find '/c/Users/Jae/Cursor Projects/NEP-Project/apps/web/app' -type f -name *.tsx)",
+      "Bash(find '/c/Users/Jae/Cursor Projects/NEP-Project/packages' -type f -name *.ts -o -name *.tsx)",
+      "Bash(git -C \"C:\\\\Users\\\\Jae\\\\Cursor Projects\\\\NEP-Project\" log --oneline -15)"
+    ]
+  }
+}

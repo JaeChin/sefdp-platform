@@ -1,0 +1,7 @@
+{
+  "extends": "@sefdp/config/typescript/base",
+  "compilerOptions": {
+    "outDir": "./dist"
+  },
+  "include": ["src/**/*.ts"]
+}

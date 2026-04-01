@@ -1,0 +1,52 @@
+{
+  "name": "@sefdp/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsup src/index.ts --format esm --dts",
+    "start": "node dist/index.js",
+    "lint": "eslint src/",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist .turbo",
+    "db:generate": "dotenv -e ../../.env -- drizzle-kit generate",
+    "db:migrate": "dotenv -e ../../.env -- drizzle-kit migrate",
+    "db:push": "dotenv -e ../../.env -- drizzle-kit push",
+    "db:studio": "dotenv -e ../../.env -- drizzle-kit studio"
+  },
+  "dependencies": {
+    "@fastify/cors": "^9",
+    "@fastify/helmet": "^11",
+    "@fastify/multipart": "^8",
+    "@fastify/rate-limit": "^9",
+    "@fastify/websocket": "^10",
+    "@sefdp/shared": "workspace:*",
+    "argon2": "^0.41",
+    "bullmq": "^5",
+    "dotenv": "^16",
+    "drizzle-orm": "^0.36",
+    "fastify": "^4",
+    "ioredis": "^5",
+    "jsonwebtoken": "^9",
+    "minio": "^8",
+    "nanoid": "^5",
+    "pino": "^9",
+    "pino-pretty": "^11",
+    "postgres": "^3",
+    "resend": "^4",
+    "zod": "^3"
+  },
+  "devDependencies": {
+    "@sefdp/config": "workspace:*",
+    "@types/jsonwebtoken": "^9",
+    "@types/node": "^20",
+    "dotenv-cli": "^11.0.0",
+    "drizzle-kit": "^0.28",
+    "tsup": "^8",
+    "tsx": "^4",
+    "typescript": "^5",
+    "vitest": "^2"
+  }
+}
