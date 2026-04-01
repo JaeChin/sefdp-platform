@@ -13,6 +13,7 @@ import {
   BadgeCheck,
 } from 'lucide-react';
 import Link from 'next/link';
+import type { Route } from 'next';
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
 import { PageHeader } from '@/components/shared/page-header';
 
@@ -120,7 +121,7 @@ const activityFeed: {
 const quickLinks: {
   label: string;
   description: string;
-  href: string;
+  href: Route;
   icon: React.ElementType;
 }[] = [
   {

@@ -3,12 +3,13 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { LucideIcon } from 'lucide-react';
+import type { Route } from 'next';
 import { cn } from '@sefdp/ui';
 
 export interface NavItem {
   icon: LucideIcon;
   label: string;
-  href: string;
+  href: Route;
 }
 
 interface SidebarProps {

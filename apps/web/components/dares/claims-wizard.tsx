@@ -321,7 +321,7 @@ function DocUploadSlot({
         <p className="mt-0.5 text-xs text-slate-500">{slot.description}</p>
         {status === 'uploaded' && (
           <p className="mt-1 font-mono text-xs text-green-600">
-            ✓ {slot.id.replace(/_/g, '-')}-verified.{slot.accept.split(',')[0].replace('.', '')}
+            ✓ {slot.id.replace(/_/g, '-')}-verified.{(slot.accept.split(',')[0] ?? '').replace('.', '')}
           </p>
         )}
       </div>
@@ -450,7 +450,7 @@ export function ClaimsWizard({ onClose }: ClaimsWizardProps) {
   // ── Navigation ────────────────────────────────────────────────────────────
 
   const goNext = async () => {
-    const fields = STEP_FIELDS[step];
+    const fields = STEP_FIELDS[step] ?? [];
     const valid = fields.length > 0 ? await trigger(fields) : true;
     if (step === 2 && !allRequiredDocsUploaded) return;
     if (valid) setStep((s) => Math.min(s + 1, 3));

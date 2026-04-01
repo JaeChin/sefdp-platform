@@ -360,14 +360,14 @@ export default function DaresDashboardPage() {
       />
 
       {/* ── KPI Cards ───────────────────────────────────────────── */}
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-5">
         {kpiCards.map((card) => (
           <div
             key={card.title}
             className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
           >
             <p className="text-xs font-medium text-slate-500">{card.title}</p>
-            <p className="mt-2 font-mono text-2xl font-bold tracking-tight text-[#0A2540]">
+            <p className="mt-2 font-mono text-xl font-bold leading-tight tracking-tight text-[#0A2540]">
               {card.value}
             </p>
             <div className="my-2 h-9">
