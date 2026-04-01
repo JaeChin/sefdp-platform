@@ -1,6 +1,7 @@
 'use client';
 
 import { LogOut, User } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@sefdp/ui';
 
 interface HeaderProps {
@@ -9,6 +10,8 @@ interface HeaderProps {
 }
 
 export function Header({ userName = 'User', roleBadge }: HeaderProps) {
+  const router = useRouter();
+
   return (
     <header className="flex h-16 items-center justify-between border-b bg-card px-6">
       <div className="text-sm font-medium text-muted-foreground">
@@ -25,7 +28,12 @@ export function Header({ userName = 'User', roleBadge }: HeaderProps) {
             </span>
           )}
         </div>
-        <Button variant="ghost" size="sm" className="text-muted-foreground">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-muted-foreground"
+          onClick={() => router.push('/login')}
+        >
           <LogOut className="mr-2 h-4 w-4" />
           Logout
         </Button>

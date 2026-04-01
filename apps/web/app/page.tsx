@@ -45,7 +45,7 @@ export default function HomePage() {
               Request Access
             </a>
             <Link
-              href="/dashboard"
+              href="/login"
               className="rounded-lg bg-[#00A86B] px-4 py-2 text-sm text-white transition-all duration-200 hover:bg-[#00A86B]/90"
             >
               Sign In
