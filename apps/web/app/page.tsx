@@ -1,28 +1,37 @@
 import Link from 'next/link';
-import { ArrowRight, Zap, TrendingUp, Store, Check } from 'lucide-react';
+import { ArrowRight, Zap, TrendingUp, ShieldCheck, FileCheck, Lock } from 'lucide-react';
 
 export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col bg-[#0A2540]">
 
-      {/* ── Section 1: Navigation Header ────────────────────────────── */}
-      <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#0A2540]/95 backdrop-blur-sm">
+      {/* ── Section 1: Navigation ─────────────────────────────────────── */}
+      <nav className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#0A2540]/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           {/* Logo */}
           <div className="flex items-center gap-2">
             <span className="font-display text-xl font-bold text-white">SEF-DP</span>
-            <span className="h-2 w-2 rounded-full bg-[#00A86B]" aria-hidden="true" />
+            <span className="h-2 w-2 animate-pulse rounded-full bg-[#00A86B]" aria-hidden="true" />
           </div>
 
-          {/* Center nav links — hidden on mobile */}
+          {/* Center nav links */}
           <div className="hidden items-center gap-8 md:flex">
-            <a href="#platform" className="text-sm text-slate-300 transition-colors hover:text-white">
+            <a
+              href="#platform"
+              className="text-sm tracking-wide text-slate-300 transition-colors hover:text-white"
+            >
               Platform
             </a>
-            <a href="#about" className="text-sm text-slate-300 transition-colors hover:text-white">
+            <a
+              href="#about"
+              className="text-sm tracking-wide text-slate-300 transition-colors hover:text-white"
+            >
               About
             </a>
-            <a href="#contact" className="text-sm text-slate-300 transition-colors hover:text-white">
+            <a
+              href="#contact"
+              className="text-sm tracking-wide text-slate-300 transition-colors hover:text-white"
+            >
               Contact
             </a>
           </div>
@@ -31,13 +40,13 @@ export default function HomePage() {
           <div className="flex items-center gap-3">
             <a
               href="#"
-              className="rounded-lg border border-white/20 px-4 py-2 text-sm text-white transition-colors hover:bg-white/10"
+              className="rounded-lg border border-white/20 px-4 py-2 text-sm text-white transition-all duration-200 hover:bg-white/10"
             >
               Request Access
             </a>
             <Link
               href="/dashboard"
-              className="rounded-lg bg-[#00A86B] px-4 py-2 text-sm text-white transition-colors hover:bg-[#00A86B]/90"
+              className="rounded-lg bg-[#00A86B] px-4 py-2 text-sm text-white transition-all duration-200 hover:bg-[#00A86B]/90"
             >
               Sign In
             </Link>
@@ -47,13 +56,10 @@ export default function HomePage() {
 
       {/* ── Section 2: Hero ──────────────────────────────────────────── */}
       <section className="flex flex-col items-center px-6 pb-16 pt-24 text-center">
-        {/* Programme badge */}
-        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#00A86B]/40 bg-[#00A86B]/10 px-4 py-1.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#00A86B]" aria-hidden="true" />
-          <span className="text-sm font-medium text-[#00A86B]">
-            Nigeria DARES Programme · World Bank · $750M
-          </span>
-        </div>
+        {/* Programme label */}
+        <p className="mb-8 text-xs uppercase tracking-[0.2em] text-[#00A86B]">
+          World Bank DARES Programme · Nigeria · 2026
+        </p>
 
         {/* Headline */}
         <h1 className="mx-auto max-w-3xl font-display text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
@@ -71,25 +77,29 @@ export default function HomePage() {
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
           <Link
             href="/dashboard"
-            className="rounded-lg bg-[#00A86B] px-6 py-3 font-medium text-white transition-colors hover:bg-[#00A86B]/90"
+            className="inline-flex items-center gap-2 rounded-lg bg-[#00A86B] px-6 py-3 font-semibold tracking-wide text-white transition-all duration-200 hover:bg-[#00A86B]/90"
           >
             Open DARES Dashboard
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           <Link
             href="/marketplace/overview"
-            className="rounded-lg border border-white/30 px-6 py-3 font-medium text-white transition-colors hover:bg-white/10"
+            className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-6 py-3 font-semibold tracking-wide text-white transition-all duration-200 hover:bg-white/10"
           >
             Browse Marketplace
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
+
+        {/* Honest positioning line */}
+        <p className="mt-5 text-center text-xs text-slate-500">
+          Platform currently in active development. Access by invitation only.
+        </p>
 
         {/* Product Cards */}
         <div className="mt-14 grid w-full max-w-3xl gap-5 sm:grid-cols-2">
           {/* DARES Card */}
-          <Link
-            href="/dashboard"
-            className="group relative flex flex-col items-start overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-7 text-left backdrop-blur-sm transition-all hover:border-[#00A86B]/50 hover:bg-white/10"
-          >
+          <div className="flex flex-col items-start overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-7 text-left backdrop-blur-sm">
             <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-[#00A86B]/30 bg-[#00A86B]/15">
               <Zap className="h-6 w-6 text-[#00A86B]" aria-hidden="true" />
             </div>
@@ -101,22 +111,12 @@ export default function HomePage() {
               Manage project applications, milestone tracking, claims verification, and PAYGO
               disbursement calculations for the DARES programme.
             </p>
-            <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#00A86B]">
-              Open Dashboard
-              <ArrowRight
-                className="h-4 w-4 transition-transform group-hover:translate-x-1"
-                aria-hidden="true"
-              />
-            </span>
-          </Link>
+          </div>
 
           {/* Marketplace Card */}
-          <Link
-            href="/marketplace/overview"
-            className="group relative flex flex-col items-start overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-7 text-left backdrop-blur-sm transition-all hover:border-[#00A86B]/50 hover:bg-white/10"
-          >
+          <div className="flex flex-col items-start overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-7 text-left backdrop-blur-sm">
             <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-[#00A86B]/30 bg-[#00A86B]/15">
-              <Store className="h-6 w-6 text-[#00A86B]" aria-hidden="true" />
+              <TrendingUp className="h-6 w-6 text-[#00A86B]" aria-hidden="true" />
             </div>
             <h2 className="font-display text-xl font-bold text-white">Marketplace</h2>
             <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-[#00A86B]">
@@ -126,42 +126,41 @@ export default function HomePage() {
               Connect IFC-screened solar developers with DFIs, commercial banks, and impact investors
               through credit-scored project profiles.
             </p>
-            <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#00A86B]">
-              Browse Marketplace
-              <ArrowRight
-                className="h-4 w-4 transition-transform group-hover:translate-x-1"
-                aria-hidden="true"
-              />
-            </span>
-          </Link>
+          </div>
         </div>
       </section>
 
-      {/* ── Section 3: Stats ─────────────────────────────────────────── */}
-      <section className="px-6 pb-16">
-        <div className="mx-auto max-w-4xl rounded-2xl border border-white/10 bg-white/5 p-8">
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-            <div className="border-t-2 border-[#00A86B] pt-4 text-center">
-              <p className="font-mono text-3xl font-bold text-white">$750M</p>
-              <p className="mt-1 text-sm text-slate-400">DARES Programme Value</p>
-            </div>
-            <div className="border-t-2 border-[#00A86B] pt-4 text-center">
-              <p className="font-mono text-3xl font-bold text-white">847</p>
-              <p className="mt-1 text-sm text-slate-400">Active Projects</p>
-            </div>
-            <div className="border-t-2 border-[#00A86B] pt-4 text-center">
-              <p className="font-mono text-3xl font-bold text-white">₦44B+</p>
-              <p className="mt-1 text-sm text-slate-400">Disbursements Tracked</p>
-            </div>
-            <div className="border-t-2 border-[#00A86B] pt-4 text-center">
-              <p className="font-mono text-3xl font-bold text-white">9</p>
-              <p className="mt-1 text-sm text-slate-400">Institutional Financiers</p>
+      {/* ── Section 3: Programme Context Strip ──────────────────────── */}
+      <section className="border-t border-white/[0.08] py-12">
+        <div className="mx-auto max-w-4xl px-6">
+          <div className="grid gap-12 sm:grid-cols-2">
+            {/* Left — programme description */}
+            <p className="text-sm leading-relaxed text-slate-300">
+              The DARES programme is a $750M World Bank initiative to scale distributed renewable
+              energy access across Nigeria. SEF-DP provides the digital infrastructure for
+              application management, claims verification, and investment matching.
+            </p>
+
+            {/* Right — clean data points */}
+            <div className="flex flex-col gap-6">
+              <div>
+                <p className="font-mono text-2xl text-white">847</p>
+                <p className="mt-1 text-sm text-slate-400">Active project applications</p>
+              </div>
+              <div>
+                <p className="font-mono text-2xl text-white">$750M</p>
+                <p className="mt-1 text-sm text-slate-400">Total programme value</p>
+              </div>
+              <div>
+                <p className="font-mono text-2xl text-white">6</p>
+                <p className="mt-1 text-sm text-slate-400">Financing windows managed</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Section 4: Who Is This For? ──────────────────────────────── */}
+      {/* ── Section 4: Who Is This For ───────────────────────────────── */}
       <section id="platform" className="bg-white/5 py-16">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="mb-12 text-center font-display text-3xl font-bold text-white sm:text-4xl">
@@ -169,45 +168,39 @@ export default function HomePage() {
           </h2>
 
           <div className="grid gap-8 sm:grid-cols-2">
-            {/* Left — Programme Managers */}
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
+            {/* Left — Programme Management */}
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-8 border-l-2 border-l-[#00A86B]/30">
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-[#00A86B]/30 bg-[#00A86B]/15">
                 <Zap className="h-6 w-6 text-[#00A86B]" aria-hidden="true" />
               </div>
               <h3 className="font-display text-xl font-bold text-white">
-                For Programme Managers
+                Programme Management
               </h3>
               <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-[#00A86B]">
                 DARES Portfolio Management
               </p>
               <ul className="mt-6 space-y-3">
                 {[
-                  'Track 847+ projects from application to disbursement',
+                  'Track projects from application to disbursement',
                   'Automated claims verification with PAYGO calculations',
                   'Real-time KPI dashboards for World Bank reporting',
                   'Full audit trail for every disbursement decision',
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3 text-sm text-slate-300">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#00A86B]" aria-hidden="true" />
+                    <span className="mt-0.5 shrink-0 text-slate-400" aria-hidden="true">—</span>
                     {item}
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/dashboard"
-                className="mt-8 inline-flex items-center gap-1 text-sm font-semibold text-[#00A86B] transition-colors hover:text-[#00A86B]/80"
-              >
-                Open Dashboard →
-              </Link>
             </div>
 
-            {/* Right — Investors & Developers */}
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
+            {/* Right — Investment & Matching */}
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-8 border-l-2 border-l-[#00A86B]/30">
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-[#00A86B]/30 bg-[#00A86B]/15">
                 <TrendingUp className="h-6 w-6 text-[#00A86B]" aria-hidden="true" />
               </div>
               <h3 className="font-display text-xl font-bold text-white">
-                For Investors &amp; Developers
+                Investment &amp; Matching
               </h3>
               <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-[#00A86B]">
                 SEF-DP Marketplace
@@ -220,54 +213,40 @@ export default function HomePage() {
                   'Structured due diligence documentation built-in',
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3 text-sm text-slate-300">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#00A86B]" aria-hidden="true" />
+                    <span className="mt-0.5 shrink-0 text-slate-400" aria-hidden="true">—</span>
                     {item}
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/marketplace/overview"
-                className="mt-8 inline-flex items-center gap-1 text-sm font-semibold text-[#00A86B] transition-colors hover:text-[#00A86B]/80"
-              >
-                Browse Marketplace →
-              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Section 5: Trust Signals ─────────────────────────────────── */}
-      <section id="about" className="border-t border-white/10 py-12">
+      {/* ── Section 5: Compliance Strip ──────────────────────────────── */}
+      <section id="about" className="border-t border-white/[0.08] py-10">
         <div className="mx-auto max-w-4xl px-6">
-          <p className="mb-8 text-center text-sm uppercase tracking-wider text-slate-400">
-            Operated in partnership with
-          </p>
+          <div className="grid divide-y divide-white/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            {/* Item 1 — NDPA */}
+            <div className="flex flex-col items-center gap-2 py-8 text-center sm:px-8 sm:py-0">
+              <ShieldCheck className="h-6 w-6 text-[#00A86B]" aria-hidden="true" />
+              <p className="font-medium text-white">Nigerian NDPA Compliant</p>
+              <p className="text-xs text-slate-400">Data residency and privacy standards</p>
+            </div>
 
-          {/* Partner badges */}
-          <div className="mb-10 flex flex-wrap items-center justify-center gap-3">
-            {[
-              'World Bank Group',
-              'IFC',
-              'SEforALL',
-              'Rural Electrification Agency Nigeria',
-            ].map((partner) => (
-              <span
-                key={partner}
-                className="rounded-full border border-white/20 px-4 py-2 text-sm text-slate-300"
-              >
-                {partner}
-              </span>
-            ))}
-          </div>
+            {/* Item 2 — World Bank reference */}
+            <div className="flex flex-col items-center gap-2 py-8 text-center sm:px-8 sm:py-0">
+              <FileCheck className="h-6 w-6 text-[#00A86B]" aria-hidden="true" />
+              <p className="font-medium text-white">World Bank Programme</p>
+              <p className="font-mono text-xs text-[#00A86B]">DARES RFQ/2026/61763</p>
+            </div>
 
-          {/* Testimonial quote */}
-          <div className="mx-auto max-w-2xl rounded-xl border border-white/10 bg-white/5 p-6">
-            <p className="text-base leading-relaxed text-slate-200">
-              &ldquo;The use of this platform will improve value for money, transparency, economy,
-              efficiency, effectiveness, integrity, and openness of the $750M Nigeria DARES
-              program.&rdquo;
-            </p>
-            <p className="mt-4 text-sm text-slate-400">— The World Bank</p>
+            {/* Item 3 — Audit trail */}
+            <div className="flex flex-col items-center gap-2 py-8 text-center sm:px-8 sm:py-0">
+              <Lock className="h-6 w-6 text-[#00A86B]" aria-hidden="true" />
+              <p className="font-medium text-white">Audit Trail</p>
+              <p className="text-xs text-slate-400">Every disbursement action logged</p>
+            </div>
           </div>
         </div>
       </section>
@@ -307,7 +286,7 @@ export default function HomePage() {
 
             {/* Version + compliance */}
             <div className="sm:text-right">
-              <p className="font-mono text-xs text-slate-500">SEF-DP v2.0</p>
+              <p className="font-mono text-xs text-[#00A86B]/50">SEF-DP v1.0-beta</p>
               <p className="mt-1 text-xs text-slate-500">
                 All data subject to Nigerian NDPA and World Bank data governance policies
               </p>
@@ -317,7 +296,7 @@ export default function HomePage() {
           {/* Bottom strip */}
           <div className="mt-6 border-t border-white/10 pt-6 text-center">
             <p className="text-xs text-slate-500">
-              © 2026 SEF-DP Platform. Built for Africa&apos;s energy transition.
+              © 2026 SEF-DP Platform · Built for Africa&apos;s energy transition
             </p>
           </div>
         </div>

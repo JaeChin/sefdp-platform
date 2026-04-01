@@ -923,8 +923,12 @@ export function ClaimsWizard({ onClose }: ClaimsWizardProps) {
 
                   <div className="mt-5 border-t border-[#00A86B]/20 pt-5">
                     <p className="text-xs font-medium text-slate-500">Calculated Grant Amount</p>
-                    <p className="mt-1 font-mono text-4xl font-bold tracking-tight text-[#00A86B]">
-                      {calculatedAmountNgn > 0 ? formatNgn(calculatedAmountNgn) : '₦—'}
+                    <p
+                      className={`mt-1 font-mono text-4xl font-bold tracking-tight ${
+                        calculatedAmountNgn > 0 ? 'text-[#00A86B]' : 'text-slate-400'
+                      }`}
+                    >
+                      {calculatedAmountNgn > 0 ? formatNgn(calculatedAmountNgn) : '₦0.00'}
                     </p>
                     {calculatedAmountNgn > 0 && verifiedConnectionsNum > 0 && (
                       <p className="mt-2 font-mono text-xs text-slate-500">

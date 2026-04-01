@@ -25,7 +25,7 @@ export function MarketplaceShell({ children }: { children: React.ReactNode }) {
     <div className="flex h-screen overflow-hidden">
       <Sidebar items={marketplaceNavItems} title="Marketplace" />
       <div className="flex flex-1 flex-col overflow-hidden">
-        <Header />
+        <Header userName="Marketplace User" roleBadge="Financier Portal" />
         <main className="flex-1 overflow-y-auto p-6">{children}</main>
       </div>
     </div>

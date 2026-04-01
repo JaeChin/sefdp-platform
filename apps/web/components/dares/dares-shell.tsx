@@ -27,7 +27,7 @@ export function DaresShell({ children }: { children: React.ReactNode }) {
     <div className="flex h-screen overflow-hidden">
       <Sidebar items={daresNavItems} title="DARES" />
       <div className="flex flex-1 flex-col overflow-hidden">
-        <Header />
+        <Header userName="PMU Administrator" roleBadge="World Bank · DARES" />
         <main className="flex-1 overflow-y-auto p-6">{children}</main>
       </div>
     </div>
