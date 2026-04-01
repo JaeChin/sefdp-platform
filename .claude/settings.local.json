@@ -9,7 +9,8 @@
       "Bash(find '/c/Users/Jae/Cursor Projects/NEP-Project/packages' -type f -name *.ts -o -name *.tsx)",
       "Bash(git -C \"C:\\\\Users\\\\Jae\\\\Cursor Projects\\\\NEP-Project\" log --oneline -15)",
       "Bash(pnpm --filter @sefdp/web exec tsc --noEmit)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(pnpm run:*)"
     ]
   }
 }
