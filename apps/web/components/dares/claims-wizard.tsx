@@ -7,6 +7,7 @@ import { z } from 'zod';
 import {
   X,
   Check,
+  CheckCircle,
   CheckCircle2,
   AlertCircle,
   AlertTriangle,
@@ -16,6 +17,7 @@ import {
   ChevronLeft,
   Loader2,
   Receipt,
+  Sparkles,
 } from 'lucide-react';
 
 // ─── Schema ───────────────────────────────────────────────────────────────────
@@ -278,10 +280,12 @@ function DocUploadSlot({
   slot,
   status,
   onUpload,
+  aiState = 'idle',
 }: {
   slot: DocSlot;
   status: 'pending' | 'uploading' | 'uploaded';
   onUpload: () => void;
+  aiState?: 'idle' | 'analysing' | 'complete';
 }) {
   return (
     <div
@@ -320,9 +324,23 @@ function DocUploadSlot({
         </p>
         <p className="mt-0.5 text-xs text-slate-500">{slot.description}</p>
         {status === 'uploaded' && (
-          <p className="mt-1 font-mono text-xs text-green-600">
-            ✓ {slot.id.replace(/_/g, '-')}-verified.{(slot.accept.split(',')[0] ?? '').replace('.', '')}
-          </p>
+          <div className="mt-1 flex flex-wrap items-center gap-2">
+            <p className="font-mono text-xs text-green-600">
+              ✓ {slot.id.replace(/_/g, '-')}-verified.{(slot.accept.split(',')[0] ?? '').replace('.', '')}
+            </p>
+            {aiState === 'analysing' && (
+              <span className="inline-flex animate-pulse items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
+                <Loader2 className="h-3 w-3 animate-spin" aria-hidden="true" />
+                AI Analysing...
+              </span>
+            )}
+            {aiState === 'complete' && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+                <Check className="h-3 w-3" aria-hidden="true" />
+                AI Verified
+              </span>
+            )}
+          </div>
         )}
       </div>
       <button
@@ -376,6 +394,8 @@ export function ClaimsWizard({ onClose }: ClaimsWizardProps) {
     bank_letter: 'pending',
     variance_explanation: 'pending',
   });
+  const [meterAiState, setMeterAiState] = useState<'idle' | 'analysing' | 'complete'>('idle');
+  const [aiAutoFillApplied, setAiAutoFillApplied] = useState(false);
 
   const form = useForm<WizardFormData>({
     resolver: zodResolver(wizardSchema),
@@ -397,6 +417,7 @@ export function ClaimsWizard({ onClose }: ClaimsWizardProps) {
     register,
     watch,
     trigger,
+    setValue,
     formState: { errors },
     handleSubmit,
   } = form;
@@ -425,6 +446,8 @@ export function ClaimsWizard({ onClose }: ClaimsWizardProps) {
     const n = Number(verifiedConnections);
     return Number.isFinite(n) && n > 0 ? Math.floor(n) : 0;
   }, [verifiedConnections]);
+
+  const step2IsEmpty = !verifiedConnections && !avgConsumption && !uptime;
 
   const calculatedAmountNgn = verifiedConnectionsNum * RATE_PER_CONNECTION_NGN;
 
@@ -462,6 +485,12 @@ export function ClaimsWizard({ onClose }: ClaimsWizardProps) {
     setDocStatuses((prev) => ({ ...prev, [docId]: 'uploading' }));
     setTimeout(() => {
       setDocStatuses((prev) => ({ ...prev, [docId]: 'uploaded' }));
+      if (docId === 'meter_data') {
+        setMeterAiState('analysing');
+        setTimeout(() => {
+          setMeterAiState('complete');
+        }, 2500);
+      }
     }, 1500);
   };
 
@@ -601,6 +630,8 @@ export function ClaimsWizard({ onClose }: ClaimsWizardProps) {
                     bank_letter: 'pending',
                     variance_explanation: 'pending',
                   });
+                  setMeterAiState('idle');
+                  setAiAutoFillApplied(false);
                 }}
                 className="rounded-lg bg-[#0A2540] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#0A2540]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0A2540]"
               >
@@ -986,12 +1017,73 @@ export function ClaimsWizard({ onClose }: ClaimsWizardProps) {
                 {/* Doc slots */}
                 <div className="space-y-3">
                   {requiredDocs.map((slot) => (
-                    <DocUploadSlot
-                      key={slot.id}
-                      slot={slot}
-                      status={docStatuses[slot.id] ?? 'pending'}
-                      onUpload={() => uploadDoc(slot.id)}
-                    />
+                    <div key={slot.id}>
+                      <DocUploadSlot
+                        slot={slot}
+                        status={docStatuses[slot.id] ?? 'pending'}
+                        onUpload={() => uploadDoc(slot.id)}
+                        aiState={slot.id === 'meter_data' ? meterAiState : 'idle'}
+                      />
+                      {/* AI analysis panel — only for Smart Meter Data Export */}
+                      {slot.id === 'meter_data' && meterAiState === 'complete' && (
+                        <div className="mt-3 rounded-lg border border-[#00A86B]/20 bg-[#00A86B]/5 p-4">
+                          {/* Header */}
+                          <div className="flex items-center">
+                            <Sparkles className="h-4 w-4 shrink-0 text-[#00A86B]" aria-hidden="true" />
+                            <span className="ml-2 text-sm font-medium text-[#00A86B]">
+                              AI Document Analysis
+                            </span>
+                            <span className="ml-auto text-xs text-slate-400">
+                              Powered by SEF-DP Intelligence
+                            </span>
+                          </div>
+                          {/* Extracted data 2×2 grid */}
+                          <div className="mt-3 grid grid-cols-2 gap-3">
+                            {[
+                              { label: 'Active Connections', value: '847' },
+                              { label: 'Avg Daily Consumption', value: '4.8 kWh/day' },
+                              { label: 'System Uptime', value: '96.5%' },
+                              { label: 'Claim Period', value: 'Oct 2025 – Mar 2026' },
+                            ].map((point) => (
+                              <div key={point.label} className="rounded-md bg-white/10 px-3 py-2">
+                                <p className="text-xs text-slate-400">{point.label}</p>
+                                <p className="mt-0.5 font-mono text-sm font-semibold text-white">
+                                  {point.value}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                          {/* Anomaly status */}
+                          <div className="mt-3 flex items-center gap-2">
+                            <CheckCircle className="h-4 w-4 shrink-0 text-[#00A86B]" aria-hidden="true" />
+                            <p className="text-sm text-slate-300">
+                              No anomalies detected. Data consistent with submitted performance metrics.
+                            </p>
+                          </div>
+                          {/* Auto-fill action */}
+                          {step2IsEmpty && !aiAutoFillApplied && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setValue('verifiedConnections', 847, { shouldValidate: true });
+                                setValue('avgDailyConsumptionKwh', 4.8, { shouldValidate: true });
+                                setValue('uptimePercent', 96.5, { shouldValidate: true });
+                                setAiAutoFillApplied(true);
+                              }}
+                              className="mt-3 text-xs text-[#00A86B] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00A86B]"
+                            >
+                              Auto-fill performance data from this document →
+                            </button>
+                          )}
+                          {aiAutoFillApplied && (
+                            <p className="mt-3 flex items-center gap-1.5 text-xs text-[#00A86B]">
+                              <Check className="h-3 w-3 shrink-0" aria-hidden="true" />
+                              Performance data applied from AI analysis
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   ))}
                 </div>
 
