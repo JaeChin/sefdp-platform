@@ -5,6 +5,8 @@ import { CheckCircle2, Eye, Handshake, Clock, MessageSquare, Layers, X, ChevronD
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@sefdp/ui';
 
+const CBN_RATE = 1_580; // NGN per USD — CBN official rate, update as needed
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 type ProjectType = 'mini_grid' | 'shs' | 'c_and_i' | 'hybrid';
@@ -20,7 +22,7 @@ interface Project {
   type: ProjectType;
   typeLabel: string;
   ifcScore: number;
-  capitalNeededUsd: string;
+  capitalNeededNGN: number;
   capitalBucket: CapitalBucket;
   capacityKwp: number;
   status: ProjectStatus;
@@ -38,7 +40,7 @@ const projects: Project[] = [
     type: 'mini_grid',
     typeLabel: 'Mini-grid',
     ifcScore: 74,
-    capitalNeededUsd: '$1,200,000',
+    capitalNeededNGN: 1_200_000 * CBN_RATE,
     capitalBucket: '500k_2m',
     capacityKwp: 850,
     status: 'seeking_financing',
@@ -52,7 +54,7 @@ const projects: Project[] = [
     type: 'c_and_i',
     typeLabel: 'C&I',
     ifcScore: 68,
-    capitalNeededUsd: '$3,400,000',
+    capitalNeededNGN: 3_400_000 * CBN_RATE,
     capitalBucket: 'over_2m',
     capacityKwp: 2100,
     status: 'in_discussion',
@@ -66,7 +68,7 @@ const projects: Project[] = [
     type: 'mini_grid',
     typeLabel: 'Mini-grid',
     ifcScore: 71,
-    capitalNeededUsd: '$890,000',
+    capitalNeededNGN: 890_000 * CBN_RATE,
     capitalBucket: '500k_2m',
     capacityKwp: 620,
     status: 'seeking_financing',
@@ -80,7 +82,7 @@ const projects: Project[] = [
     type: 'c_and_i',
     typeLabel: 'C&I',
     ifcScore: 82,
-    capitalNeededUsd: '$5,100,000',
+    capitalNeededNGN: 5_100_000 * CBN_RATE,
     capitalBucket: 'over_2m',
     capacityKwp: 3400,
     status: 'seeking_financing',
@@ -94,7 +96,7 @@ const projects: Project[] = [
     type: 'shs',
     typeLabel: 'SHS',
     ifcScore: 61,
-    capitalNeededUsd: '$420,000',
+    capitalNeededNGN: 420_000 * CBN_RATE,
     capitalBucket: 'under_500k',
     capacityKwp: 180,
     status: 'seeking_financing',
@@ -108,7 +110,7 @@ const projects: Project[] = [
     type: 'hybrid',
     typeLabel: 'Hybrid',
     ifcScore: 77,
-    capitalNeededUsd: '$2,200,000',
+    capitalNeededNGN: 2_200_000 * CBN_RATE,
     capitalBucket: '500k_2m',
     capacityKwp: 1450,
     status: 'in_discussion',
@@ -158,9 +160,9 @@ const stateOptions = ['All States', 'Borno', 'Enugu', 'Kano', 'Lagos', 'Niger', 
 
 const capitalOptions: { label: string; value: CapitalBucket | 'all' }[] = [
   { label: 'All Sizes', value: 'all' },
-  { label: 'Under $500k', value: 'under_500k' },
-  { label: '$500k–$2M', value: '500k_2m' },
-  { label: 'Over $2M', value: 'over_2m' },
+  { label: 'Under ₦790M', value: 'under_500k' },
+  { label: '₦790M–₦3.16B', value: '500k_2m' },
+  { label: 'Over ₦3.16B', value: 'over_2m' },
 ];
 
 const statusOptions: { label: string; value: ProjectStatus | 'all' }[] = [
@@ -606,7 +608,7 @@ export default function MarketplaceProjectsPage() {
                   <div>
                     <p className="text-xs text-slate-500">Capital Needed</p>
                     <p className="font-mono text-sm font-semibold text-[#0A2540]">
-                      {project.capitalNeededUsd}
+                      ₦{project.capitalNeededNGN.toLocaleString('en-NG')}
                     </p>
                   </div>
                   <div>
