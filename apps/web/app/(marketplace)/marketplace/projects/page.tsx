@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CheckCircle2, Eye, Handshake, Clock, MessageSquare } from 'lucide-react';
+import { CheckCircle2, Eye, Handshake, Clock, MessageSquare, Layers, X, ChevronDown } from 'lucide-react';
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@sefdp/ui';
 
@@ -170,6 +170,230 @@ const statusOptions: { label: string; value: ProjectStatus | 'all' }[] = [
   { label: 'Funded', value: 'funded' },
 ];
 
+// ─── Aggregation Data ─────────────────────────────────────────────────────────
+
+interface AggregationProject {
+  id: string;
+  name: string;
+  developer: string;
+  capacityKwp: number;
+  valueNgnM: number; // value in millions of Naira
+}
+
+const ANCHOR_PROJECT: AggregationProject = {
+  id: 'PRJ-2605',
+  name: 'Niger State SHS Programme',
+  developer: 'Rubitec Solar',
+  capacityKwp: 180,
+  valueNgnM: 420,
+};
+
+const AGGREGATION_CANDIDATES: AggregationProject[] = [
+  { id: 'AGG-01', name: 'Kaduna Rural Electrification Phase I', developer: 'Nayo Tropical Technology', capacityKwp: 210, valueNgnM: 390 },
+  { id: 'AGG-02', name: 'Plateau State Mini-Grid Cluster', developer: 'Arnergy Solar', capacityKwp: 340, valueNgnM: 520 },
+  { id: 'AGG-03', name: 'Kogi C&I Rooftop Portfolio', developer: 'Auxano Solar Nigeria', capacityKwp: 160, valueNgnM: 310 },
+  { id: 'AGG-04', name: 'Cross River SHS Expansion', developer: 'Rensource Distributed Energy', capacityKwp: 95, valueNgnM: 185 },
+  { id: 'AGG-05', name: 'Sokoto Rural Solar Initiative', developer: 'Havenhill Synergy', capacityKwp: 280, valueNgnM: 460 },
+  { id: 'AGG-06', name: 'Anambra Hybrid Grid Programme', developer: 'BlueCamel Energy', capacityKwp: 190, valueNgnM: 370 },
+];
+
+const DFI_THRESHOLD_NGN_M = 500;
+
+// ─── Aggregation Modal ────────────────────────────────────────────────────────
+
+function AggregationModal({ onClose }: { onClose: () => void }) {
+  const [selectedCandidateId, setSelectedCandidateId] = useState<string>('');
+
+  const selectedCandidate = AGGREGATION_CANDIDATES.find((p) => p.id === selectedCandidateId) ?? null;
+
+  const combinedCapacityKwp = selectedCandidate
+    ? ANCHOR_PROJECT.capacityKwp + selectedCandidate.capacityKwp
+    : ANCHOR_PROJECT.capacityKwp;
+
+  const combinedValueNgnM = selectedCandidate
+    ? ANCHOR_PROJECT.valueNgnM + selectedCandidate.valueNgnM
+    : ANCHOR_PROJECT.valueNgnM;
+
+  const meetsThreshold = combinedValueNgnM >= DFI_THRESHOLD_NGN_M;
+  const additionalFinanciers = meetsThreshold ? 3 : 0;
+
+  return (
+    /* Overlay */
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="aggregation-modal-title"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+    >
+      {/* Modal Card */}
+      <div className="relative w-full max-w-xl rounded-xl border border-slate-200 bg-white shadow-xl">
+
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0A2540]">
+              <Layers className="h-4 w-4 text-white" aria-hidden="true" />
+            </div>
+            <h2 id="aggregation-modal-title" className="font-display text-lg font-bold text-[#0A2540]">
+              Project Aggregation
+            </h2>
+          </div>
+          <button
+            onClick={onClose}
+            aria-label="Close modal"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700"
+          >
+            <X className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="px-6 py-5 space-y-5">
+
+          {/* Subtitle */}
+          <p className="text-sm text-slate-600">
+            Combine smaller projects to meet minimum deal sizes
+          </p>
+
+          {/* Selected for aggregation */}
+          <div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+              Selected for aggregation
+            </p>
+            <div className="space-y-2">
+              {/* Anchor project — fixed */}
+              <div className="flex items-center gap-3 rounded-lg border border-[#00A86B]/30 bg-green-50 px-4 py-3">
+                <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-[#00A86B]" aria-hidden="true" />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-[#0A2540] truncate">{ANCHOR_PROJECT.name}</p>
+                  <p className="text-xs text-slate-500">{ANCHOR_PROJECT.developer}</p>
+                </div>
+                <div className="text-right flex-shrink-0">
+                  <p className="font-mono text-sm font-bold text-[#0A2540]">₦{ANCHOR_PROJECT.valueNgnM}M</p>
+                  <p className="font-mono text-xs text-slate-400">{ANCHOR_PROJECT.capacityKwp} kWp</p>
+                </div>
+              </div>
+
+              {/* Second project selector */}
+              {selectedCandidate ? (
+                <div className="flex items-center gap-3 rounded-lg border border-[#00A86B]/30 bg-green-50 px-4 py-3">
+                  <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-[#00A86B]" aria-hidden="true" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-[#0A2540] truncate">{selectedCandidate.name}</p>
+                    <p className="text-xs text-slate-500">{selectedCandidate.developer}</p>
+                  </div>
+                  <div className="text-right flex-shrink-0">
+                    <p className="font-mono text-sm font-bold text-[#0A2540]">₦{selectedCandidate.valueNgnM}M</p>
+                    <p className="font-mono text-xs text-slate-400">{selectedCandidate.capacityKwp} kWp</p>
+                  </div>
+                  <button
+                    onClick={() => setSelectedCandidateId('')}
+                    aria-label="Remove project"
+                    className="ml-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded text-slate-400 hover:bg-white hover:text-slate-600"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              ) : (
+                <div className="relative">
+                  <select
+                    value={selectedCandidateId}
+                    onChange={(e) => setSelectedCandidateId(e.target.value)}
+                    className="w-full appearance-none rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-3 pr-10 text-sm text-slate-500 focus:border-[#00A86B] focus:outline-none focus:ring-2 focus:ring-[#00A86B]/20"
+                    aria-label="Add another project to aggregate"
+                  >
+                    <option value="">Add another project...</option>
+                    {AGGREGATION_CANDIDATES.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.name} — ₦{p.valueNgnM}M
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Combined Stats */}
+          <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-4 space-y-2.5">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-slate-600">Combined capacity</span>
+              <span className="font-mono text-sm font-semibold text-[#0A2540]">
+                {combinedCapacityKwp.toLocaleString()} kWp
+                {!selectedCandidate && (
+                  <span className="ml-2 text-xs font-normal text-slate-400">→ Select second project to combine</span>
+                )}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-slate-600">Combined value</span>
+              <div className="flex items-center gap-2">
+                <span className={`font-mono text-sm font-bold ${meetsThreshold && selectedCandidate ? 'text-[#00A86B]' : 'text-[#0A2540]'}`}>
+                  ₦{combinedValueNgnM.toLocaleString()}M
+                </span>
+                {!selectedCandidate && (
+                  <span className="text-xs text-slate-400">minimum ₦{DFI_THRESHOLD_NGN_M}M for most DFI mandates</span>
+                )}
+                {selectedCandidate && meetsThreshold && (
+                  <span className="inline-flex items-center gap-1 rounded-full border border-green-200 bg-green-50 px-2 py-0.5 text-xs font-medium text-[#00A86B]">
+                    <CheckCircle2 className="h-3 w-3" aria-hidden="true" />
+                    Meets DFI threshold
+                  </span>
+                )}
+                {selectedCandidate && !meetsThreshold && (
+                  <span className="text-xs text-amber-600">
+                    ₦{DFI_THRESHOLD_NGN_M - combinedValueNgnM}M below threshold
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Why aggregate callout */}
+          <div className="rounded-lg border border-[#0A2540]/10 bg-[#0A2540]/5 px-4 py-3 space-y-1.5">
+            <p className="text-xs font-semibold text-[#0A2540]">Why aggregate?</p>
+            <p className="text-xs text-slate-600">
+              Africa Finance Corporation requires minimum ₦500M deals.
+            </p>
+            {additionalFinanciers > 0 ? (
+              <p className="text-xs font-medium text-[#00A86B]">
+                Combining two ₦400M+ projects unlocks access to {additionalFinanciers} additional financiers.
+              </p>
+            ) : (
+              <p className="text-xs text-slate-500">
+                Combining two ₦400M+ projects unlocks access to 3 additional financiers.
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="flex items-center justify-end gap-3 border-t border-slate-100 px-6 py-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onClose}
+            className="border-slate-200 text-slate-600 hover:bg-slate-50"
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="default"
+            size="sm"
+            disabled={!selectedCandidate}
+            className="bg-[#00A86B] text-white hover:bg-[#00A86B]/90 disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            <Layers className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />
+            Submit Combined Profile
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function MarketplaceProjectsPage() {
@@ -178,6 +402,7 @@ export default function MarketplaceProjectsPage() {
   const [minScore, setMinScore] = useState<number>(0);
   const [selectedCapital, setSelectedCapital] = useState<CapitalBucket | 'all'>('all');
   const [selectedStatus, setSelectedStatus] = useState<ProjectStatus | 'all'>('all');
+  const [showAggregationModal, setShowAggregationModal] = useState(false);
 
   const filtered = projects.filter((p) => {
     if (selectedState !== 'All States' && p.state !== selectedState) return false;
@@ -190,10 +415,34 @@ export default function MarketplaceProjectsPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader
-        title="Projects"
-        description="Browse IFC-screened energy projects seeking financing. All projects are credit-scored and pre-verified."
-      />
+      {showAggregationModal && (
+        <AggregationModal onClose={() => setShowAggregationModal(false)} />
+      )}
+
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <PageHeader
+          title="Projects"
+          description="Browse IFC-screened energy projects seeking financing. All projects are credit-scored and pre-verified."
+        />
+        <div className="flex flex-shrink-0 items-center gap-2 pt-1">
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-slate-200 text-slate-700 hover:bg-slate-50"
+          >
+            List Project
+          </Button>
+          <Button
+            variant="default"
+            size="sm"
+            onClick={() => setShowAggregationModal(true)}
+            className="bg-[#0A2540] text-white hover:bg-[#0A2540]/90"
+          >
+            <Layers className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />
+            Aggregate Projects
+          </Button>
+        </div>
+      </div>
 
       {/* Filter Bar */}
       <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">

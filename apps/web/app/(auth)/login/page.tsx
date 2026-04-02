@@ -18,10 +18,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen w-full flex bg-[#0A2540]">
+    <div className="flex min-h-screen w-full bg-[#0A2540]">
 
       {/* ── Left panel ───────────────────────────────────────────────── */}
-      <div className="flex-1 flex items-center justify-center min-h-screen p-8 lg:w-3/5">
+      <div className="flex-1 flex flex-col items-center justify-center p-8 lg:w-3/5">
         <div className="w-full max-w-md">
           <div className="rounded-2xl border border-white/10 bg-white/5 p-10">
 
@@ -149,7 +149,7 @@ export default function LoginPage() {
       </div>
 
       {/* ── Right panel (desktop only) ───────────────────────────────── */}
-      <div className="hidden lg:flex lg:w-2/5 flex-col justify-between overflow-hidden border-l border-white/10 bg-white/[0.03] p-12">
+      <div className="hidden lg:flex lg:w-2/5 flex-col items-center justify-center p-12 border-l border-white/10 bg-white/[0.03]">
         {/* Quote + pills */}
         <div className="flex flex-1 flex-col justify-center">
           <p className="font-display text-2xl font-semibold italic leading-relaxed text-white">
