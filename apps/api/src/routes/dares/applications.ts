@@ -2,6 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import { eq, desc, sql } from 'drizzle-orm';
 import {
   createApplicationSchema,
+  updateApplicationSchema,
   paginationSchema,
   uuidParamSchema,
 } from '@sefdp/shared';
@@ -9,6 +10,7 @@ import { db } from '../../db/index.js';
 import { applications } from '../../db/schema/applications.js';
 import { authenticate } from '../../middleware/auth.js';
 import { requireRole } from '../../middleware/rbac.js';
+import { validateBody } from '../../lib/validation.js';
 
 export async function applicationRoutes(app: FastifyInstance): Promise<void> {
   app.addHook('preHandler', authenticate);
@@ -111,11 +113,18 @@ export async function applicationRoutes(app: FastifyInstance): Promise<void> {
     },
     async (request, reply) => {
       const { id } = uuidParamSchema.parse(request.params);
-      // TODO: validate update body against partial application schema
+      const result = validateBody(request.body, updateApplicationSchema, reply);
+      if (!result.success) return;
+      const body = result.data;
+
+      const updateData: Record<string, unknown> = { ...body };
+      if (body.reviewedAt) {
+        updateData.reviewedAt = new Date(body.reviewedAt);
+      }
 
       const [updated] = await db
         .update(applications)
-        .set(request.body as Record<string, unknown>)
+        .set(updateData)
         .where(eq(applications.id, id))
         .returning();
 

@@ -1,6 +1,7 @@
 export * from './organizations';
 export * from './users';
 export * from './refresh-tokens';
+export * from './password-reset-tokens';
 export * from './audit-logs';
 export * from './programs';
 export * from './projects';

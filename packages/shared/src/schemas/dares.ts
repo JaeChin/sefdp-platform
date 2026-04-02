@@ -50,9 +50,76 @@ export const uuidParamSchema = z.object({
   id: z.string().uuid('Invalid ID format'),
 });
 
+const APPLICATION_STATUSES = [
+  'draft',
+  'submitted',
+  'under_review',
+  'approved',
+  'rejected',
+  'revision_requested',
+] as const;
+
+const MILESTONE_STATUSES = [
+  'pending',
+  'in_progress',
+  'submitted',
+  'verified',
+  'approved',
+  'rejected',
+  'overdue',
+] as const;
+
+export const updateApplicationSchema = z
+  .object({
+    status: z.enum(APPLICATION_STATUSES).optional(),
+    score: z.number().int().min(0).max(100).optional(),
+    scoreBreakdown: z.record(z.string(), z.unknown()).optional(),
+    reviewerNotes: z.string().max(2000).optional(),
+    reviewedBy: z.string().uuid().optional(),
+    reviewedAt: z.string().datetime().optional(),
+  })
+  .strict();
+
+export const createMilestoneSchema = z
+  .object({
+    projectId: z.string().uuid('Invalid project ID'),
+    programId: z.string().uuid('Invalid program ID').optional(),
+    name: z.string().min(1, 'Milestone name is required').max(255),
+    description: z.string().max(2000).optional(),
+    sequenceOrder: z.number().int().nonnegative(),
+    targetDate: z.string().datetime().optional(),
+    connectionsRequired: z.number().int().nonnegative().optional(),
+    disbursementAmountUsd: z.number().nonnegative().optional(),
+  })
+  .strict();
+
+export const updateMilestoneStatusSchema = z
+  .object({
+    status: z.enum(MILESTONE_STATUSES),
+  })
+  .strict();
+
+export const verifyClaimSchema = z
+  .object({
+    connectionsVerified: z.number().int().nonnegative(),
+    verifiedAmountUsd: z.number().nonnegative(),
+  })
+  .strict();
+
+export const approveClaimSchema = z
+  .object({
+    approvedAmountUsd: z.number().nonnegative(),
+  })
+  .strict();
+
 export type CreateProjectInput = z.infer<typeof createProjectSchema>;
 export type UpdateProjectInput = z.infer<typeof updateProjectSchema>;
 export type CreateApplicationInput = z.infer<typeof createApplicationSchema>;
+export type UpdateApplicationInput = z.infer<typeof updateApplicationSchema>;
 export type SubmitClaimInput = z.infer<typeof submitClaimSchema>;
+export type VerifyClaimInput = z.infer<typeof verifyClaimSchema>;
+export type ApproveClaimInput = z.infer<typeof approveClaimSchema>;
+export type CreateMilestoneInput = z.infer<typeof createMilestoneSchema>;
+export type UpdateMilestoneStatusInput = z.infer<typeof updateMilestoneStatusSchema>;
 export type PaginationInput = z.infer<typeof paginationSchema>;
 export type UuidParam = z.infer<typeof uuidParamSchema>;

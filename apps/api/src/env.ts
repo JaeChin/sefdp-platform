@@ -16,6 +16,8 @@ const envSchema = z.object({
 
   CORS_ORIGINS: z.string().default('http://localhost:3000'),
 
+  WEB_URL: z.string().url().default('http://localhost:3000'),
+
   RATE_LIMIT_MAX: z.coerce.number().default(100),
   RATE_LIMIT_WINDOW_MS: z.coerce.number().default(60_000),
 
@@ -31,7 +33,12 @@ const envSchema = z.object({
 
   RESEND_API_KEY: z.string().default(''),
   RESEND_FROM_EMAIL: z.string().email().default('noreply@sefdp.com'),
+
+  // Optional — required when webhook endpoints are active
+  WEBHOOK_SECRET: z.string().min(32).optional(),
 });
+
+const WEAK_VALUES = new Set(['changeme', 'password', 'secret', 'admin', '12345678', 'sefdp_dev']);
 
 function validateEnv() {
   const result = envSchema.safeParse(process.env);
@@ -46,7 +53,32 @@ function validateEnv() {
     process.exit(1);
   }
 
-  return result.data;
+  const data = result.data;
+
+  // Production hardening: reject weak secrets
+  if (data.NODE_ENV === 'production') {
+    const weakSecrets = (
+      [
+        'POSTGRES_PASSWORD',
+        'REDIS_PASSWORD',
+        'MINIO_ROOT_PASSWORD',
+        'JWT_SECRET',
+      ] as const
+    ).filter((key) => {
+      const val = process.env[key];
+      return !val || val.length < 16 || WEAK_VALUES.has(val.toLowerCase());
+    });
+
+    if (weakSecrets.length > 0) {
+      console.error(
+        `Weak or missing secrets detected in production: ${weakSecrets.join(', ')}\n` +
+          'Each secret must be at least 16 characters and not a default/placeholder value.',
+      );
+      process.exit(1);
+    }
+  }
+
+  return data;
 }
 
 export const env = validateEnv();

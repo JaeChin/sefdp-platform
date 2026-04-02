@@ -12,6 +12,16 @@ export const logger = pino({
       'refreshToken',
       'accessToken',
       'token',
+      'tokenHash',
+      // User PII
+      'body.email',
+      'body.token',
+      'body.newPassword',
+      // Infrastructure credentials
+      'minio_access_key',
+      'minio_secret_key',
+      'MINIO_ROOT_USER',
+      'MINIO_ROOT_PASSWORD',
     ],
     censor: '[REDACTED]',
   },

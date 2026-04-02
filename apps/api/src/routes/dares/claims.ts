@@ -1,10 +1,17 @@
 import type { FastifyInstance } from 'fastify';
 import { eq, desc, sql } from 'drizzle-orm';
-import { submitClaimSchema, paginationSchema, uuidParamSchema } from '@sefdp/shared';
+import {
+  submitClaimSchema,
+  verifyClaimSchema,
+  approveClaimSchema,
+  paginationSchema,
+  uuidParamSchema,
+} from '@sefdp/shared';
 import { db } from '../../db/index.js';
 import { claims } from '../../db/schema/claims.js';
 import { authenticate } from '../../middleware/auth.js';
 import { requireRole } from '../../middleware/rbac.js';
+import { validateBody } from '../../lib/validation.js';
 
 export async function claimRoutes(app: FastifyInstance): Promise<void> {
   app.addHook('preHandler', authenticate);
@@ -94,29 +101,57 @@ export async function claimRoutes(app: FastifyInstance): Promise<void> {
     },
     async (request, reply) => {
       const { id } = uuidParamSchema.parse(request.params);
-      const body = request.body as {
-        connectionsVerified: number;
-        verifiedAmountUsd: number;
-      };
+      const result = validateBody(request.body, verifyClaimSchema, reply);
+      if (!result.success) return;
+      const body = result.data;
+
+      // Fetch original claim for business logic guards
+      const original = await db.query.claims.findFirst({
+        where: eq(claims.id, id),
+      });
+
+      if (!original) {
+        return reply.status(404).send({
+          success: false,
+          error: { code: 'NOT_FOUND', message: 'Claim not found' },
+        });
+      }
+
+      // Guard: verified connections cannot exceed claimed connections
+      if (body.connectionsVerified > original.connectionsClaimed) {
+        return reply.status(400).send({
+          success: false,
+          error: {
+            code: 'EXCEEDS_CLAIMED',
+            message: `Verified connections (${body.connectionsVerified}) cannot exceed claimed connections (${original.connectionsClaimed})`,
+          },
+        });
+      }
+
+      // Guard: verified amount cannot exceed claimed amount (amounts stored in cents)
+      const verifiedAmountCents = BigInt(Math.round(body.verifiedAmountUsd * 100));
+      if (verifiedAmountCents > original.claimedAmountUsd) {
+        const claimedUsd = Number(original.claimedAmountUsd) / 100;
+        return reply.status(400).send({
+          success: false,
+          error: {
+            code: 'EXCEEDS_CLAIMED',
+            message: `Verified amount ($${body.verifiedAmountUsd.toFixed(2)}) cannot exceed claimed amount ($${claimedUsd.toFixed(2)})`,
+          },
+        });
+      }
 
       const [updated] = await db
         .update(claims)
         .set({
           status: 'verified',
           connectionsVerified: body.connectionsVerified,
-          verifiedAmountUsd: BigInt(Math.round(body.verifiedAmountUsd * 100)),
+          verifiedAmountUsd: verifiedAmountCents,
           verifiedBy: request.user.userId,
           verifiedAt: new Date(),
         })
         .where(eq(claims.id, id))
         .returning();
-
-      if (!updated) {
-        return reply.status(404).send({
-          success: false,
-          error: { code: 'NOT_FOUND', message: 'Claim not found' },
-        });
-      }
 
       return reply.status(200).send({ success: true, data: updated });
     },
@@ -129,25 +164,58 @@ export async function claimRoutes(app: FastifyInstance): Promise<void> {
     },
     async (request, reply) => {
       const { id } = uuidParamSchema.parse(request.params);
-      const body = request.body as { approvedAmountUsd: number };
+      const result = validateBody(request.body, approveClaimSchema, reply);
+      if (!result.success) return;
+      const body = result.data;
 
-      const [updated] = await db
-        .update(claims)
-        .set({
-          status: 'approved',
-          approvedAmountUsd: BigInt(Math.round(body.approvedAmountUsd * 100)),
-          approvedBy: request.user.userId,
-          approvedAt: new Date(),
-        })
-        .where(eq(claims.id, id))
-        .returning();
+      // Fetch original claim to guard against approving more than verified
+      const original = await db.query.claims.findFirst({
+        where: eq(claims.id, id),
+      });
 
-      if (!updated) {
+      if (!original) {
         return reply.status(404).send({
           success: false,
           error: { code: 'NOT_FOUND', message: 'Claim not found' },
         });
       }
+
+      const approvedAmountCents = BigInt(Math.round(body.approvedAmountUsd * 100));
+
+      // Guard: approved amount cannot exceed verified amount (if verified)
+      if (original.verifiedAmountUsd !== null && approvedAmountCents > original.verifiedAmountUsd) {
+        const verifiedUsd = Number(original.verifiedAmountUsd) / 100;
+        return reply.status(400).send({
+          success: false,
+          error: {
+            code: 'EXCEEDS_VERIFIED',
+            message: `Approved amount ($${body.approvedAmountUsd.toFixed(2)}) cannot exceed verified amount ($${verifiedUsd.toFixed(2)})`,
+          },
+        });
+      }
+
+      // Guard: approved amount cannot exceed claimed amount
+      if (approvedAmountCents > original.claimedAmountUsd) {
+        const claimedUsd = Number(original.claimedAmountUsd) / 100;
+        return reply.status(400).send({
+          success: false,
+          error: {
+            code: 'EXCEEDS_CLAIMED',
+            message: `Approved amount ($${body.approvedAmountUsd.toFixed(2)}) cannot exceed claimed amount ($${claimedUsd.toFixed(2)})`,
+          },
+        });
+      }
+
+      const [updated] = await db
+        .update(claims)
+        .set({
+          status: 'approved',
+          approvedAmountUsd: approvedAmountCents,
+          approvedBy: request.user.userId,
+          approvedAt: new Date(),
+        })
+        .where(eq(claims.id, id))
+        .returning();
 
       return reply.status(200).send({ success: true, data: updated });
     },

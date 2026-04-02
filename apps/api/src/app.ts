@@ -23,13 +23,40 @@ export async function buildApp() {
     genReqId: () => crypto.randomUUID(),
   });
 
+  // --- CORS ---
+  // Guard: never allow wildcard with credentials=true (known CORS misconfiguration)
+  const corsOrigins = env.CORS_ORIGINS.split(',').map((o) => o.trim());
+  if (corsOrigins.includes('*')) {
+    if (env.NODE_ENV === 'production') {
+      throw new Error('CORS_ORIGINS cannot contain wildcard (*) in production');
+    }
+    app.log.warn('CORS_ORIGINS contains wildcard — restricting to localhost:3000 in development');
+    corsOrigins.splice(0, corsOrigins.length, 'http://localhost:3000');
+  }
+
   await app.register(cors, {
-    origin: env.CORS_ORIGINS.split(',').map((o) => o.trim()),
+    origin: corsOrigins,
     credentials: true,
   });
 
+  // --- Security headers ---
   await app.register(helmet, {
-    contentSecurityPolicy: false,
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'"],
+        // Tailwind CSS requires unsafe-inline for style attributes
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", 'data:', 'blob:'],
+        fontSrc: ["'self'"],
+        connectSrc: ["'self'"],
+        frameSrc: ["'none'"],
+        objectSrc: ["'none'"],
+        baseUri: ["'self'"],
+        formAction: ["'self'"],
+        upgradeInsecureRequests: [],
+      },
+    },
   });
 
   await app.register(rateLimit, {
@@ -89,12 +116,12 @@ export async function buildApp() {
     });
   });
 
+  // Health check — version deliberately omitted to avoid reconnaissance
   app.get('/health', async () => ({
     success: true,
     data: {
       status: 'healthy',
       timestamp: new Date().toISOString(),
-      version: process.env.npm_package_version ?? '0.0.0',
     },
   }));
 

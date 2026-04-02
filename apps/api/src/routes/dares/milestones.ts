@@ -1,10 +1,16 @@
 import type { FastifyInstance } from 'fastify';
 import { eq, desc, sql } from 'drizzle-orm';
-import { paginationSchema, uuidParamSchema } from '@sefdp/shared';
+import {
+  paginationSchema,
+  uuidParamSchema,
+  createMilestoneSchema,
+  updateMilestoneStatusSchema,
+} from '@sefdp/shared';
 import { db } from '../../db/index.js';
 import { milestones } from '../../db/schema/milestones.js';
 import { authenticate } from '../../middleware/auth.js';
 import { requireRole } from '../../middleware/rbac.js';
+import { validateBody } from '../../lib/validation.js';
 
 export async function milestoneRoutes(app: FastifyInstance): Promise<void> {
   app.addHook('preHandler', authenticate);
@@ -60,17 +66,9 @@ export async function milestoneRoutes(app: FastifyInstance): Promise<void> {
       preHandler: [requireRole('super_admin', 'pmu_admin')],
     },
     async (request, reply) => {
-      // TODO: add Zod schema for milestone creation
-      const body = request.body as {
-        projectId: string;
-        programId?: string;
-        name: string;
-        description?: string;
-        sequenceOrder: number;
-        targetDate?: string;
-        connectionsRequired?: number;
-        disbursementAmountUsd?: number;
-      };
+      const result = validateBody(request.body, createMilestoneSchema, reply);
+      if (!result.success) return;
+      const body = result.data;
 
       const [milestone] = await db
         .insert(milestones)
@@ -99,7 +97,9 @@ export async function milestoneRoutes(app: FastifyInstance): Promise<void> {
     },
     async (request, reply) => {
       const { id } = uuidParamSchema.parse(request.params);
-      const { status } = request.body as { status: typeof milestones.status.enumValues[number] };
+      const result = validateBody(request.body, updateMilestoneStatusSchema, reply);
+      if (!result.success) return;
+      const { status } = result.data;
 
       const [updated] = await db
         .update(milestones)

@@ -11,7 +11,9 @@
       "Bash(pnpm --filter @sefdp/web exec tsc --noEmit)",
       "Bash(npx tsc:*)",
       "Bash(pnpm run:*)",
-      "Bash(xargs grep:*)"
+      "Bash(xargs grep:*)",
+      "Bash(pnpm --filter web exec tsc --noEmit)",
+      "Bash(./node_modules/.bin/tsc --noEmit)"
     ]
   }
 }

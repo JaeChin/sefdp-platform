@@ -1,12 +1,18 @@
 import type { FastifyInstance } from 'fastify';
 import { eq, desc, sql } from 'drizzle-orm';
-import { paginationSchema, uuidParamSchema } from '@sefdp/shared';
-import type { UserRole } from '@sefdp/shared';
+import {
+  paginationSchema,
+  uuidParamSchema,
+  updateUserSchema,
+  createProgramSchema,
+  updateProgramSchema,
+} from '@sefdp/shared';
 import { db } from '../../db/index.js';
 import { users } from '../../db/schema/users.js';
 import { programs } from '../../db/schema/programs.js';
 import { authenticate } from '../../middleware/auth.js';
 import { requireRole } from '../../middleware/rbac.js';
+import { validateBody } from '../../lib/validation.js';
 
 export async function adminRoutes(app: FastifyInstance): Promise<void> {
   app.addHook('preHandler', authenticate);
@@ -65,7 +71,9 @@ export async function adminRoutes(app: FastifyInstance): Promise<void> {
 
   app.patch('/users/:id', async (request, reply) => {
     const { id } = uuidParamSchema.parse(request.params);
-    const body = request.body as { isActive?: boolean; role?: UserRole };
+    const result = validateBody(request.body, updateUserSchema, reply);
+    if (!result.success) return;
+    const body = result.data;
 
     const [updated] = await db
       .update(users)
@@ -119,18 +127,15 @@ export async function adminRoutes(app: FastifyInstance): Promise<void> {
   });
 
   app.post('/programs', async (request, reply) => {
-    const body = request.body as {
-      name: string;
-      type: string;
-      description?: string;
-      deadline?: string;
-    };
+    const result = validateBody(request.body, createProgramSchema, reply);
+    if (!result.success) return;
+    const body = result.data;
 
     const [program] = await db
       .insert(programs)
       .values({
         name: body.name,
-        type: body.type as 'minigrid_pbg' | 'minigrid_mst' | 'sas_pbg' | 'sas_catalytic',
+        type: body.type,
         description: body.description,
         deadline: body.deadline ? new Date(body.deadline) : null,
         createdBy: request.user.userId,
@@ -142,11 +147,18 @@ export async function adminRoutes(app: FastifyInstance): Promise<void> {
 
   app.patch('/programs/:id', async (request, reply) => {
     const { id } = uuidParamSchema.parse(request.params);
-    const body = request.body as Record<string, unknown>;
+    const result = validateBody(request.body, updateProgramSchema, reply);
+    if (!result.success) return;
+    const body = result.data;
+
+    const updateData: Record<string, unknown> = { ...body };
+    if (body.deadline) {
+      updateData.deadline = new Date(body.deadline);
+    }
 
     const [updated] = await db
       .update(programs)
-      .set(body)
+      .set(updateData)
       .where(eq(programs.id, id))
       .returning();
 
