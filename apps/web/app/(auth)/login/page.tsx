@@ -8,13 +8,32 @@ import { ShieldCheck, FileCheck, Check } from 'lucide-react';
 export default function LoginPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [stage, setStage] = useState<'credentials' | '2fa'>('credentials');
+  const [twoFaCode, setTwoFaCode] = useState('');
+  const [twoFaError, setTwoFaError] = useState(false);
+  const [twoFaLoading, setTwoFaLoading] = useState(false);
+  const [redirectTo, setRedirectTo] = useState<'/marketplace/overview' | '/dashboard'>('/marketplace/overview');
+  const DEMO_CODE = '123456';
 
   function handleSignIn(e: React.FormEvent) {
     e.preventDefault();
     setIsLoading(true);
     setTimeout(() => {
-      router.push('/dashboard');
+      setIsLoading(false);
+      setStage('2fa');
     }, 1500);
+  }
+
+  async function handleTwoFaSubmit() {
+    setTwoFaLoading(true);
+    await new Promise((r) => setTimeout(r, 1000));
+    if (twoFaCode === DEMO_CODE) {
+      router.push(redirectTo);
+    } else {
+      setTwoFaError(true);
+      setTwoFaLoading(false);
+      setTwoFaCode('');
+    }
   }
 
   return (
@@ -33,10 +52,16 @@ export default function LoginPage() {
             <p className="mt-1 text-sm text-slate-400">
               Sustainable Energy Finance Developer Platform
             </p>
+            {stage === '2fa' && (
+              <p className="mt-2 text-sm font-semibold text-[#00A86B]">
+                Two-Factor Authentication
+              </p>
+            )}
 
             <div className="my-6 border-b border-white/10" />
 
-            {/* Form */}
+            {stage === 'credentials' ? (
+            /* Form */
             <form onSubmit={handleSignIn} className="space-y-5">
               {/* Email */}
               <div>
@@ -49,7 +74,7 @@ export default function LoginPage() {
                 <input
                   id="email"
                   type="email"
-                  placeholder="your@organisation.org"
+                  placeholder="your@organisation.ng"
                   autoComplete="email"
                   className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-[#00A86B]/50 focus:outline-none"
                 />
@@ -117,6 +142,65 @@ export default function LoginPage() {
                 )}
               </button>
             </form>
+            ) : (
+            /* 2FA code entry */
+            <div className="space-y-4">
+              <div>
+                <p className="text-sm text-slate-300 mb-1">Verification Code</p>
+                <p className="text-xs text-slate-500 mb-4">
+                  A 6-digit code has been sent to j***@***.com via SMS.
+                </p>
+                {/* 6 individual digit boxes side by side */}
+                <div className="flex gap-2 justify-center mb-2">
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <input
+                      key={i}
+                      type="text"
+                      inputMode="numeric"
+                      maxLength={1}
+                      value={twoFaCode[i] || ''}
+                      onChange={(e) => {
+                        const val = e.target.value.replace(/\D/g, '');
+                        const next = twoFaCode.split('');
+                        next[i] = val;
+                        setTwoFaCode(next.join(''));
+                        setTwoFaError(false);
+                        // auto-advance focus to next input
+                        if (val && i < 5) {
+                          const inputs = document.querySelectorAll<HTMLInputElement>('.otp-input');
+                          inputs[i + 1]?.focus();
+                        }
+                      }}
+                      className={`otp-input w-10 h-12 text-center text-lg font-mono rounded-lg border bg-[#0d2d4a] text-white focus:outline-none focus:ring-2 focus:ring-[#00A86B] ${
+                        twoFaError ? 'border-red-500' : 'border-slate-600'
+                      }`}
+                    />
+                  ))}
+                </div>
+                {twoFaError && (
+                  <p className="text-xs text-red-400 text-center">Incorrect code. Try 123456 for demo.</p>
+                )}
+                <p className="text-xs text-slate-500 text-center mt-2">
+                  Demo code: <span className="font-mono text-[#00A86B]">123456</span>
+                </p>
+              </div>
+
+              <button
+                onClick={handleTwoFaSubmit}
+                disabled={twoFaCode.length < 6 || twoFaLoading}
+                className="w-full py-2.5 rounded-lg bg-[#00A86B] text-white text-sm font-semibold disabled:opacity-50 transition-opacity"
+              >
+                {twoFaLoading ? 'Verifying...' : 'Verify & Sign In'}
+              </button>
+
+              <button
+                onClick={() => { setStage('credentials'); setTwoFaCode(''); setTwoFaError(false); }}
+                className="w-full text-xs text-slate-500 hover:text-slate-300 transition-colors"
+              >
+                ← Back
+              </button>
+            </div>
+            )}
 
             {/* Demo shortcuts */}
             <div className="mt-8">
@@ -126,12 +210,14 @@ export default function LoginPage() {
               <div className="flex flex-col gap-1.5">
                 <Link
                   href="/dashboard"
+                  onClick={() => setRedirectTo('/dashboard')}
                   className="text-xs text-slate-400 transition-colors hover:text-[#00A86B]"
                 >
                   → Open as PMU Administrator
                 </Link>
                 <Link
                   href="/marketplace/overview"
+                  onClick={() => setRedirectTo('/marketplace/overview')}
                   className="text-xs text-slate-400 transition-colors hover:text-[#00A86B]"
                 >
                   → Open as Marketplace User
