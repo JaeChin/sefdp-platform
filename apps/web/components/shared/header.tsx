@@ -7,9 +7,10 @@ import { Button } from '@sefdp/ui';
 interface HeaderProps {
   userName?: string;
   roleBadge?: string;
+  children?: React.ReactNode;
 }
 
-export function Header({ userName = 'User', roleBadge }: HeaderProps) {
+export function Header({ userName = 'User', roleBadge, children }: HeaderProps) {
   const router = useRouter();
 
   return (
@@ -19,6 +20,7 @@ export function Header({ userName = 'User', roleBadge }: HeaderProps) {
       </div>
 
       <div className="flex items-center gap-4">
+        {children}
         <div className="flex items-center gap-2 text-sm">
           <User className="h-4 w-4 text-muted-foreground" />
           <span className="text-muted-foreground">{userName}</span>
