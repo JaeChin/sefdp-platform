@@ -37,17 +37,49 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen w-full bg-[#0A2540]">
+    <div className="flex min-h-screen w-full relative" style={{ background: "#0A2540" }}>
+
+      {/* Amber radial glow */}
+      <div style={{
+        position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0,
+        background: `radial-gradient(ellipse 80% 60% at 15% 20%, rgba(245,194,0,0.07) 0%, transparent 70%), radial-gradient(ellipse 60% 50% at 85% 80%, rgba(13,51,73,0.4) 0%, transparent 60%)`,
+      }} />
+
+      {/* Fine grid */}
+      <div style={{
+        position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0,
+        backgroundImage: `linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)`,
+        backgroundSize: "48px 48px",
+      }} />
+
+      {/* Noise texture */}
+      <div style={{
+        position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0, opacity: 0.03,
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+        backgroundRepeat: "repeat", backgroundSize: "128px 128px",
+      }} />
+
+      {/* 2px amber top bar */}
+      <div style={{
+        position: "fixed", top: 0, left: 0, right: 0, height: "2px", zIndex: 50,
+        background: "linear-gradient(90deg, transparent 0%, #F5C200 30%, #F5C200 70%, transparent 100%)",
+      }} />
 
       {/* ── Left panel ───────────────────────────────────────────────── */}
-      <div className="flex-1 flex flex-col items-center justify-center p-8 lg:w-3/5">
+      <div className="flex-1 flex flex-col items-center justify-center p-8 lg:w-3/5" style={{ position: "relative", zIndex: 1 }}>
         <div className="w-full max-w-md">
-          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-10">
+          <div className="rounded-2xl p-10 relative" style={{
+            background: "rgba(255,255,255,0.04)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "1px solid rgba(255,255,255,0.10)",
+            boxShadow: "0 0 0 1px rgba(245,194,0,0.06), 0 24px 48px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.07)",
+          }}>
 
             {/* Wordmark */}
             <div className="flex items-center gap-2">
               <span className="font-display text-xl font-bold text-white">SEF-DP</span>
-              <span className="h-2 w-2 rounded-full bg-[#00A86B]" aria-hidden="true" />
+              <span className="h-2 w-2 rounded-full" style={{ background: "#F5C200" }} aria-hidden="true" />
             </div>
             <p className="mt-1 text-sm text-slate-400">
               Sustainable Energy Finance Developer Platform
@@ -76,7 +108,10 @@ export default function LoginPage() {
                   type="email"
                   placeholder="your@organisation.ng"
                   autoComplete="email"
-                  className="w-full rounded-lg border border-white/15 bg-white/8 px-4 py-3 text-white placeholder:text-white/30 focus:border-[#00A86B]/50 focus:outline-none"
+                  className="w-full rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none"
+                  style={{ background: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.12)" }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(245,194,0,0.5)"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(245,194,0,0.08)"; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; e.currentTarget.style.boxShadow = "none"; }}
                 />
               </div>
 
@@ -93,7 +128,10 @@ export default function LoginPage() {
                   type="password"
                   placeholder="••••••••"
                   autoComplete="current-password"
-                  className="w-full rounded-lg border border-white/15 bg-white/8 px-4 py-3 text-white placeholder:text-white/30 focus:border-[#00A86B]/50 focus:outline-none"
+                  className="w-full rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none"
+                  style={{ background: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.12)" }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(245,194,0,0.5)"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(245,194,0,0.08)"; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; e.currentTarget.style.boxShadow = "none"; }}
                 />
               </div>
 
@@ -101,7 +139,7 @@ export default function LoginPage() {
               <div className="flex justify-end">
                 <Link
                   href="/forgot-password"
-                  className="text-sm text-[#00A86B] hover:underline"
+                  className="text-sm hover:underline" style={{ color: "#F5C200" }}
                 >
                   Forgot password?
                 </Link>
@@ -111,7 +149,8 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#00A86B] py-3 font-semibold text-white transition-all duration-200 hover:bg-[#00A86B]/90 disabled:cursor-not-allowed disabled:opacity-80"
+                className="flex w-full items-center justify-center gap-2 rounded-lg py-3 font-semibold text-white transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-80"
+                style={{ background: "linear-gradient(135deg, #F5C200 0%, #E6A800 100%)", color: "#0D1E2E", fontWeight: 600 }}
               >
                 {isLoading ? (
                   <>
@@ -171,9 +210,12 @@ export default function LoginPage() {
                           inputs[i + 1]?.focus();
                         }
                       }}
-                      className={`otp-input w-10 h-12 text-center text-lg font-mono rounded-lg border bg-white/8 text-white focus:outline-none focus:ring-2 focus:ring-[#00A86B] ${
-                        twoFaError ? 'border-red-500' : 'border-slate-600'
+                      className={`otp-input w-10 h-12 text-center text-lg font-mono rounded-lg border text-white focus:outline-none focus:ring-2 focus:ring-[#F5C200] ${
+                        twoFaError ? 'border-red-500' : ''
                       }`}
+                      style={{ background: "rgba(255,255,255,0.055)", border: twoFaError ? undefined : "1px solid rgba(255,255,255,0.12)" }}
+                      onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(245,194,0,0.5)"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(245,194,0,0.08)"; }}
+                      onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; e.currentTarget.style.boxShadow = "none"; }}
                     />
                   ))}
                 </div>
@@ -181,14 +223,15 @@ export default function LoginPage() {
                   <p className="text-xs text-red-400 text-center">Incorrect code. Try 123456 for demo.</p>
                 )}
                 <p className="text-xs text-slate-500 text-center mt-2">
-                  Demo code: <span className="font-mono text-[#00A86B]">123456</span>
+                  Demo code: <span className="font-mono" style={{ color: "#F5C200" }}>123456</span>
                 </p>
               </div>
 
               <button
                 onClick={handleTwoFaSubmit}
                 disabled={twoFaCode.length < 6 || twoFaLoading}
-                className="w-full py-2.5 rounded-lg bg-[#00A86B] text-white text-sm font-semibold disabled:opacity-50 transition-opacity"
+                className="w-full py-2.5 rounded-lg text-white text-sm font-semibold disabled:opacity-50 transition-opacity"
+                style={{ background: "linear-gradient(135deg, #F5C200 0%, #E6A800 100%)", color: "#0D1E2E" }}
               >
                 {twoFaLoading ? 'Verifying...' : 'Verify & Sign In'}
               </button>
@@ -204,7 +247,7 @@ export default function LoginPage() {
 
             <p className="mt-4 text-center text-xs text-slate-500">
               Don&apos;t have an account?{' '}
-              <Link href="/register" className="text-[#00A86B] hover:underline">
+              <Link href="/register" className="hover:underline" style={{ color: "#F5C200" }}>
                 Request access &rarr;
               </Link>
             </p>
@@ -219,21 +262,21 @@ export default function LoginPage() {
                 <Link
                   href="/dashboard"
                   onClick={() => setRedirectTo('/dashboard')}
-                  className="text-xs text-slate-400 transition-colors hover:text-[#00A86B]"
+                  className="text-xs text-slate-400 transition-colors hover:text-[#F5C200]"
                 >
                   → Open as PMU Administrator
                 </Link>
                 <Link
                   href="/marketplace/overview"
                   onClick={() => setRedirectTo('/marketplace/overview')}
-                  className="text-xs text-slate-400 transition-colors hover:text-[#00A86B]"
+                  className="text-xs text-slate-400 transition-colors hover:text-[#F5C200]"
                 >
                   → Open as Marketplace User
                 </Link>
                 <Link
                   href="/marketplace/regulator"
                   onClick={() => setRedirectTo('/marketplace/overview')}
-                  className="text-xs text-slate-400 transition-colors hover:text-[#00A86B]"
+                  className="text-xs text-slate-400 transition-colors hover:text-[#F5C200]"
                 >
                   → Open as CBN Regulator
                 </Link>
@@ -250,47 +293,53 @@ export default function LoginPage() {
       </div>
 
       {/* ── Right panel (desktop only) ───────────────────────────────── */}
-      <div className="hidden lg:flex lg:w-2/5 flex-col items-center justify-center p-12 border-l border-white/10 bg-white/[0.03]">
+      <div className="hidden lg:flex lg:w-2/5 flex-col items-center justify-center p-12" style={{ position: "relative", zIndex: 1, borderLeft: "1px solid rgba(255,255,255,0.07)", background: "rgba(245,194,0,0.02)" }}>
         {/* Quote + pills */}
         <div className="flex flex-1 flex-col justify-center">
-          <p className="font-display text-2xl font-semibold italic leading-relaxed text-white/80">
-            &ldquo;Digital infrastructure for Africa&apos;s energy transition.&rdquo;
+          <p className="text-3xl font-semibold leading-relaxed text-white/90" style={{ fontFamily: "'Sora', sans-serif" }}>
+            &ldquo;Digital infrastructure for{" "}
+            <span style={{ color: "#F5C200" }}>Africa&apos;s energy transition</span>.&rdquo;
           </p>
 
-          <div className="mt-10 flex flex-col items-start gap-3 max-w-sm">
+          <div className="mt-10 flex flex-col gap-5 max-w-xs">
             {[
-              { icon: ShieldCheck, label: 'Nigerian NDPA Compliant' },
-              { icon: FileCheck, label: 'SEforALL Partner Platform' },
-              { icon: Check, label: 'International Standards Aligned' },
-            ].map(({ icon: Icon, label }) => (
-              <div
-                key={label}
-                className="flex w-fit items-center gap-3 rounded-lg border border-white/10 bg-white/5 px-4 py-3"
-              >
-                <Icon className="h-4 w-4 shrink-0 text-[#00A86B]" aria-hidden="true" />
-                <span className="text-sm text-slate-300">{label}</span>
+              { Icon: ShieldCheck, label: "Nigerian NDPA Compliant", sub: "Data privacy regulated" },
+              { Icon: FileCheck, label: "SEforALL Partner Platform", sub: "UN sustainable energy initiative" },
+              { Icon: Check, label: "International Standards Aligned", sub: "World Bank verified framework" },
+            ].map(({ Icon, label, sub }, i) => (
+              <div key={i} className="flex items-start gap-3">
+                <div className="mt-0.5 flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center" style={{
+                  background: "rgba(245,194,0,0.12)",
+                  border: "1px solid rgba(245,194,0,0.25)",
+                }}>
+                  <Icon className="w-3.5 h-3.5" style={{ color: "#F5C200" }} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-white/85">{label}</p>
+                  <p className="text-xs text-white/40">{sub}</p>
+                </div>
               </div>
             ))}
           </div>
 
           {/* Abstract connection diagram */}
           <div className="mt-10 w-full max-w-xs mx-auto">
-            <svg viewBox="0 0 280 160" className="w-full opacity-20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 280 160" className="w-full" style={{ opacity: 0.45 }} fill="none" xmlns="http://www.w3.org/2000/svg">
               {/* Developer nodes */}
-              <circle cx="40" cy="40" r="16" stroke="#00A86B" strokeWidth="1.5" />
-              <circle cx="40" cy="80" r="16" stroke="#00A86B" strokeWidth="1.5" />
-              <circle cx="40" cy="120" r="16" stroke="#00A86B" strokeWidth="1.5" />
+              <circle cx="40" cy="40" r="16" stroke="#F5C200" strokeWidth="1.5" />
+              <circle cx="40" cy="80" r="16" stroke="#F5C200" strokeWidth="1.5" />
+              <circle cx="40" cy="120" r="16" stroke="#F5C200" strokeWidth="1.5" />
               {/* Financier nodes */}
               <circle cx="240" cy="55" r="16" stroke="white" strokeWidth="1.5" />
               <circle cx="240" cy="105" r="16" stroke="white" strokeWidth="1.5" />
               {/* Connection lines */}
-              <line x1="56" y1="40" x2="224" y2="55" stroke="#00A86B" strokeWidth="1" strokeDasharray="4 3" />
-              <line x1="56" y1="80" x2="224" y2="55" stroke="#00A86B" strokeWidth="1" strokeDasharray="4 3" />
-              <line x1="56" y1="80" x2="224" y2="105" stroke="#00A86B" strokeWidth="1" strokeDasharray="4 3" />
-              <line x1="56" y1="120" x2="224" y2="105" stroke="#00A86B" strokeWidth="1" strokeDasharray="4 3" />
+              <line x1="56" y1="40" x2="224" y2="55" stroke="#F5C200" strokeWidth="1" strokeDasharray="4 3" />
+              <line x1="56" y1="80" x2="224" y2="55" stroke="#F5C200" strokeWidth="1" strokeDasharray="4 3" />
+              <line x1="56" y1="80" x2="224" y2="105" stroke="#F5C200" strokeWidth="1" strokeDasharray="4 3" />
+              <line x1="56" y1="120" x2="224" y2="105" stroke="#F5C200" strokeWidth="1" strokeDasharray="4 3" />
               {/* Centre match node */}
-              <circle cx="140" cy="80" r="20" stroke="#00A86B" strokeWidth="1.5" fill="rgba(0,168,107,0.08)" />
-              <text x="140" y="85" textAnchor="middle" fill="#00A86B" fontSize="8" fontFamily="IBM Plex Mono">SEF-DP</text>
+              <circle cx="140" cy="80" r="20" stroke="#F5C200" strokeWidth="1.5" fill="rgba(245,194,0,0.1)" />
+              <text x="140" y="85" textAnchor="middle" fill="#F5C200" fontSize="8" fontFamily="IBM Plex Mono">SEF-DP</text>
             </svg>
             <p className="text-center text-xs text-white/25 mt-2 font-mono tracking-wide">Developer → Platform → Financier</p>
           </div>
