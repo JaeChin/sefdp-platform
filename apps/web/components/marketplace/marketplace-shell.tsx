@@ -46,7 +46,7 @@ function RegulatorLink() {
 
 export function MarketplaceShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white">
       <div className="flex flex-1 overflow-hidden">
         <Sidebar items={marketplaceNavItems} title="Marketplace" footer={<RegulatorLink />} />
         <div className="flex flex-1 flex-col overflow-hidden">

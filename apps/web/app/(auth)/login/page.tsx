@@ -12,7 +12,7 @@ export default function LoginPage() {
   const [twoFaCode, setTwoFaCode] = useState('');
   const [twoFaError, setTwoFaError] = useState(false);
   const [twoFaLoading, setTwoFaLoading] = useState(false);
-  const [redirectTo, setRedirectTo] = useState<'/marketplace/overview' | '/dashboard' | '/marketplace/regulator'>('/marketplace/overview');
+  const [redirectTo, setRedirectTo] = useState<'/marketplace/overview' | '/marketplace/regulator'>('/marketplace/overview');
   const DEMO_CODE = '123456';
 
   function handleSignIn(e: React.FormEvent) {
@@ -259,13 +259,6 @@ export default function LoginPage() {
                 <div className="flex-1 border-t border-white/10" />
               </div>
               <div className="flex flex-col gap-1.5">
-                <Link
-                  href="/dashboard"
-                  onClick={() => setRedirectTo('/dashboard')}
-                  className="text-xs text-slate-400 transition-colors hover:text-[#F5C200]"
-                >
-                  → Open as PMU Administrator
-                </Link>
                 <Link
                   href="/marketplace/overview"
                   onClick={() => setRedirectTo('/marketplace/overview')}
