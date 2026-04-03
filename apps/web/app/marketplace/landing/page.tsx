@@ -50,7 +50,7 @@ export default function MarketplaceLandingPage() {
       <div className="relative z-10 flex-1 flex flex-col justify-center items-center text-center px-8 py-24 w-full">
         <div className="inline-flex items-center gap-2 border border-white/20 rounded-full px-3 py-1.5 mb-8 mx-auto">
           <span className="w-1.5 h-1.5 rounded-full bg-[#00A86B]" />
-          <span className="text-xs text-white/60 font-medium">IFC Standards · World Bank Verified · NDPA Compliant</span>
+          <span className="text-xs text-white/60 font-medium">International Standards · World Bank Verified · NDPA Compliant</span>
         </div>
 
         <h1
@@ -62,7 +62,7 @@ export default function MarketplaceLandingPage() {
         </h1>
 
         <p className="text-lg text-white/55 mb-10 leading-relaxed max-w-xl mx-auto text-center">
-          IFC-screened solar developers. Pre-qualified DFIs and commercial banks.
+          Pre-screened solar developers. Pre-qualified DFIs and commercial banks.
           One platform purpose-built for Nigeria&apos;s energy transition.
         </p>
 
@@ -120,7 +120,7 @@ export default function MarketplaceLandingPage() {
               Turn your track record into investor-ready credibility
             </h3>
             <p className="text-sm text-white/50 leading-relaxed mb-6">
-              Submit your project once. Get IFC-methodology credit scoring, verified by World Bank programme data. Matched automatically to the right DFIs and commercial banks.
+              Submit your project once. Get credit scoring, verified by World Bank programme data. Matched automatically to the right DFIs and commercial banks.
             </p>
             <Link
               href="/register"
@@ -144,7 +144,7 @@ export default function MarketplaceLandingPage() {
               A pre-screened pipeline, ready for deployment
             </h3>
             <p className="text-sm text-white/50 leading-relaxed mb-6">
-              Browse IFC-screened projects with due diligence already completed. Filter by risk appetite, deal size, and geography. Syndicate with other institutions on larger opportunities.
+              Browse pre-screened projects with independent due diligence already completed. Filter by risk appetite, deal size, and geography. Syndicate with other institutions on larger opportunities.
             </p>
             <Link
               href="/register"

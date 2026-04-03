@@ -69,7 +69,7 @@ export default function HomePage() {
 
         {/* Subtitle */}
         <p className="mx-auto mt-6 max-w-2xl text-lg font-light leading-relaxed text-slate-300">
-          IFC-screened projects. World Bank-verified developers. One platform
+          Pre-screened projects. World Bank-verified developers. One platform
           connecting capital to impact.
         </p>
 
@@ -123,7 +123,7 @@ export default function HomePage() {
               Investor–Developer Platform
             </p>
             <p className="mt-3 text-sm leading-relaxed text-slate-300">
-              Connect IFC-screened solar developers with DFIs, commercial banks, and impact investors
+              Connect pre-screened solar developers with DFIs, commercial banks, and impact investors
               through credit-scored project profiles.
             </p>
           </div>
@@ -207,7 +207,7 @@ export default function HomePage() {
               </p>
               <ul className="mt-6 space-y-3">
                 {[
-                  'Browse IFC-screened, credit-scored solar projects',
+                  'Browse pre-screened, credit-scored solar projects',
                   'Verified developer profiles with audited track records',
                   'Match with DFIs, commercial banks, and impact funds',
                   'Structured due diligence documentation built-in',

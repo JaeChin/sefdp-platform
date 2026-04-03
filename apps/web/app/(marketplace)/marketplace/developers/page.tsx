@@ -105,7 +105,7 @@ export default function DevelopersPage() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <PageHeader
           title="Developers"
-          description="Browse verified developer profiles with IFC credit scores and audited track records."
+          description="Browse verified developer profiles with credit scores and audited track records."
         />
         <div className="flex items-center gap-1 border border-slate-200 rounded-lg p-1">
           <button
@@ -134,7 +134,7 @@ export default function DevelopersPage() {
               <tr className="border-b border-slate-200 text-left">
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400 w-12">Rank</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Developer</th>
-                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">IFC Score</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Credit Score</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Track Record</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Verified</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Projects Listed</th>
@@ -205,11 +205,11 @@ export default function DevelopersPage() {
                 {dev.location}
               </div>
 
-              {/* IFC Platform Score */}
+              {/* Credit Score */}
               <div
                 className={`mb-4 flex items-center justify-between rounded-lg border px-3 py-2.5 ${scoreStyle.bg} ${scoreStyle.border}`}
               >
-                <span className="text-xs font-medium text-slate-600">IFC Platform Score</span>
+                <span className="text-xs font-medium text-slate-600">Credit Score</span>
                 <span className={`font-mono text-2xl font-bold leading-none ${scoreStyle.text}`}>
                   {dev.ifcScore}
                   <span className="text-xs font-normal opacity-60">/100</span>

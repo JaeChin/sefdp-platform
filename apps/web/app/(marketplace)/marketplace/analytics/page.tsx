@@ -56,7 +56,7 @@ export default function MarketplaceAnalyticsPage() {
         {[
           { label: 'Match Volume', value: '31', sub: 'total matches to date' },
           { label: 'Deal Value', value: '₦4.2B', sub: 'capital in discussion' },
-          { label: 'Avg IFC Score', value: '76', sub: 'across listed projects', suffix: '/100' },
+          { label: 'Avg Credit Score', value: '76', sub: 'across listed projects', suffix: '/100' },
           { label: 'Active Developers', value: '18', sub: 'with listed projects' },
         ].map((card) => (
           <div

@@ -87,7 +87,7 @@ const activityFeed: {
   {
     id: 3,
     icon: RefreshCw,
-    text: 'IFC Credit Score updated: Novawatt Energy Ltd → 74/100',
+    text: 'Credit Score updated: Novawatt Energy Ltd → 74/100',
     time: 'Yesterday',
     borderClass: 'border-l-[#F59E0B]',
     iconClass: 'bg-amber-50 text-[#F59E0B]',
@@ -263,7 +263,7 @@ export default function MarketplaceOverviewPage() {
     <div className="space-y-8">
       <PageHeader
         title="SEF-DP Marketplace"
-        description="Connect developers with financiers — IFC-screened projects, credit-scored and ready for investment."
+        description="Connect developers with financiers — pre-screened projects, credit-scored and ready for investment."
       />
 
       {/* Stat Cards with Sparklines */}

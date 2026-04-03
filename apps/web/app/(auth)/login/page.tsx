@@ -261,7 +261,7 @@ export default function LoginPage() {
             {[
               { icon: ShieldCheck, label: 'Nigerian NDPA Compliant' },
               { icon: FileCheck, label: 'SEforALL Partner Platform' },
-              { icon: Check, label: 'IFC Standards Aligned' },
+              { icon: Check, label: 'International Standards Aligned' },
             ].map(({ icon: Icon, label }) => (
               <div
                 key={label}

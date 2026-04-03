@@ -12,7 +12,7 @@ const kpis = [
   { label: "Total Deals in Progress", value: "5" },
   { label: "Combined Deal Value", value: "₦4.2B" },
   { label: "Verified Developers", value: "3" },
-  { label: "Avg IFC Score", value: "76/100" },
+  { label: "Avg Credit Score", value: "76/100" },
 ];
 
 function getIfcScoreColor(score: number): string {
@@ -86,7 +86,7 @@ export default function RegulatorPage() {
               <th className="text-left text-xs font-semibold uppercase tracking-widest text-slate-400 px-5 py-3">Financier</th>
               <th className="text-left text-xs font-semibold uppercase tracking-widest text-slate-400 px-5 py-3">Type</th>
               <th className="text-left text-xs font-semibold uppercase tracking-widest text-slate-400 px-5 py-3">Deal Size</th>
-              <th className="text-left text-xs font-semibold uppercase tracking-widest text-slate-400 px-5 py-3">IFC Score</th>
+              <th className="text-left text-xs font-semibold uppercase tracking-widest text-slate-400 px-5 py-3">Credit Score</th>
               <th className="text-left text-xs font-semibold uppercase tracking-widest text-slate-400 px-5 py-3">Status</th>
               <th className="text-left text-xs font-semibold uppercase tracking-widest text-slate-400 px-5 py-3">Last Updated</th>
             </tr>

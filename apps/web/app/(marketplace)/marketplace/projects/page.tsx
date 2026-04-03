@@ -425,7 +425,7 @@ export default function MarketplaceProjectsPage() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <PageHeader
           title="Projects"
-          description="Browse IFC-screened energy projects seeking financing. All projects are credit-scored and pre-verified."
+          description="Browse pre-screened energy projects seeking financing. All projects are credit-scored and pre-verified."
         />
         <div className="flex flex-shrink-0 items-center gap-2 pt-1">
           <div className="flex items-center gap-1 border border-slate-200 rounded-lg p-1">
@@ -506,10 +506,10 @@ export default function MarketplaceProjectsPage() {
             </div>
           </div>
 
-          {/* IFC Score slider */}
+          {/* Credit Score slider */}
           <div className="flex flex-col gap-1">
             <label className="text-xs font-medium text-slate-500" htmlFor="score-filter">
-              Min IFC Score:{' '}
+              Min Credit Score:{' '}
               <span className="font-mono font-semibold text-[#0A2540]">{minScore}</span>
             </label>
             <input
@@ -583,7 +583,7 @@ export default function MarketplaceProjectsPage() {
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Developer</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Type</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">State</th>
-                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">IFC Score</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Credit Score</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Capital Needed</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Status</th>
               </tr>
@@ -663,11 +663,11 @@ export default function MarketplaceProjectsPage() {
                   </span>
                 </div>
 
-                {/* IFC Score */}
+                {/* Credit Score */}
                 <div
                   className={`mb-4 flex items-center justify-between rounded-lg border px-3 py-2.5 ${scoreStyle.bg} ${scoreStyle.border}`}
                 >
-                  <span className="text-xs font-medium text-slate-600">IFC Score</span>
+                  <span className="text-xs font-medium text-slate-600">Credit Score</span>
                   <span className={`font-mono text-2xl font-bold leading-none ${scoreStyle.text}`}>
                     {project.ifcScore}
                     <span className="text-xs font-normal opacity-60">/100</span>
