@@ -12,7 +12,7 @@ export default function LoginPage() {
   const [twoFaCode, setTwoFaCode] = useState('');
   const [twoFaError, setTwoFaError] = useState(false);
   const [twoFaLoading, setTwoFaLoading] = useState(false);
-  const [redirectTo, setRedirectTo] = useState<'/marketplace/overview' | '/dashboard'>('/marketplace/overview');
+  const [redirectTo, setRedirectTo] = useState<'/marketplace/overview' | '/dashboard' | '/marketplace/regulator'>('/marketplace/overview');
   const DEMO_CODE = '123456';
 
   function handleSignIn(e: React.FormEvent) {
@@ -202,6 +202,13 @@ export default function LoginPage() {
             </div>
             )}
 
+            <p className="mt-4 text-center text-xs text-slate-500">
+              Don&apos;t have an account?{' '}
+              <Link href="/register" className="text-[#00A86B] hover:underline">
+                Request access &rarr;
+              </Link>
+            </p>
+
             {/* Demo shortcuts */}
             <div className="mt-8">
               <p className="mb-2 text-xs uppercase tracking-widest text-slate-500">
@@ -221,6 +228,13 @@ export default function LoginPage() {
                   className="text-xs text-slate-400 transition-colors hover:text-[#00A86B]"
                 >
                   → Open as Marketplace User
+                </Link>
+                <Link
+                  href="/marketplace/regulator"
+                  onClick={() => setRedirectTo('/marketplace/overview')}
+                  className="text-xs text-slate-400 transition-colors hover:text-[#00A86B]"
+                >
+                  → Open as CBN Regulator
                 </Link>
               </div>
             </div>

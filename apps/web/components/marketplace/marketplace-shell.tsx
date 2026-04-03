@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard,
   FolderKanban,
@@ -7,6 +9,7 @@ import {
   Landmark,
   GitCompare,
   TrendingUp,
+  ShieldCheck,
 } from 'lucide-react';
 import { Sidebar, type NavItem } from '@/components/shared/sidebar';
 import { Header } from '@/components/shared/header';
@@ -20,11 +23,32 @@ const marketplaceNavItems: NavItem[] = [
   { icon: TrendingUp, label: 'Analytics', href: '/marketplace/analytics' },
 ];
 
+function RegulatorLink() {
+  const pathname = usePathname();
+  const isActive = pathname === '/marketplace/regulator';
+  return (
+    <div>
+      <div className="border-t border-slate-200 my-2" />
+      <Link
+        href="/marketplace/regulator"
+        className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+          isActive
+            ? 'bg-amber-50 text-amber-800'
+            : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'
+        }`}
+      >
+        <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
+        <span>Regulator View</span>
+      </Link>
+    </div>
+  );
+}
+
 export function MarketplaceShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar items={marketplaceNavItems} title="Marketplace" />
+        <Sidebar items={marketplaceNavItems} title="Marketplace" footer={<RegulatorLink />} />
         <div className="flex flex-1 flex-col overflow-hidden">
           <Header userName="Marketplace User" roleBadge="Financier Portal">
             {/* TODO: replace span + dot with <Image> src="/logos/seforall.svg" when asset arrives */}

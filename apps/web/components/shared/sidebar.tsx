@@ -15,9 +15,10 @@ export interface NavItem {
 interface SidebarProps {
   items: NavItem[];
   title: string;
+  footer?: React.ReactNode;
 }
 
-export function Sidebar({ items, title }: SidebarProps) {
+export function Sidebar({ items, title, footer }: SidebarProps) {
   const pathname = usePathname();
 
   return (
@@ -31,25 +32,28 @@ export function Sidebar({ items, title }: SidebarProps) {
         </span>
       </div>
 
-      <nav className="flex-1 space-y-1 px-3 py-4">
-        {items.map((item) => {
-          const isActive = pathname === item.href;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
-                isActive
-                  ? 'bg-primary/10 text-primary'
-                  : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
-              )}
-            >
-              <item.icon className="h-4 w-4" />
-              {item.label}
-            </Link>
-          );
-        })}
+      <nav className="flex-1 flex flex-col px-3 py-4">
+        <div className="space-y-1 flex-1">
+          {items.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                  isActive
+                    ? 'bg-primary/10 text-primary'
+                    : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+                )}
+              >
+                <item.icon className="h-4 w-4" />
+                {item.label}
+              </Link>
+            );
+          })}
+        </div>
+        {footer}
       </nav>
     </aside>
   );

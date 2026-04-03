@@ -405,6 +405,7 @@ export default function MarketplaceProjectsPage() {
   const [selectedCapital, setSelectedCapital] = useState<CapitalBucket | 'all'>('all');
   const [selectedStatus, setSelectedStatus] = useState<ProjectStatus | 'all'>('all');
   const [showAggregationModal, setShowAggregationModal] = useState(false);
+  const [view, setView] = useState<"cards" | "table">("cards");
 
   const filtered = projects.filter((p) => {
     if (selectedState !== 'All States' && p.state !== selectedState) return false;
@@ -427,6 +428,24 @@ export default function MarketplaceProjectsPage() {
           description="Browse IFC-screened energy projects seeking financing. All projects are credit-scored and pre-verified."
         />
         <div className="flex flex-shrink-0 items-center gap-2 pt-1">
+          <div className="flex items-center gap-1 border border-slate-200 rounded-lg p-1">
+            <button
+              onClick={() => setView("cards")}
+              className={`px-3 py-1.5 rounded text-xs font-semibold transition-colors ${
+                view === "cards" ? "bg-[#0A2540] text-white" : "text-slate-500 hover:text-slate-700"
+              }`}
+            >
+              Cards
+            </button>
+            <button
+              onClick={() => setView("table")}
+              className={`px-3 py-1.5 rounded text-xs font-semibold transition-colors ${
+                view === "table" ? "bg-[#0A2540] text-white" : "text-slate-500 hover:text-slate-700"
+              }`}
+            >
+              Ranked Table
+            </button>
+          </div>
           <Button
             variant="outline"
             size="sm"
@@ -549,10 +568,62 @@ export default function MarketplaceProjectsPage() {
         </div>
       </div>
 
-      {/* Project Grid */}
+      {/* Project Grid / Table */}
       {filtered.length === 0 ? (
         <div className="rounded-xl border border-slate-200 bg-white p-12 text-center shadow-sm">
           <p className="text-sm text-slate-500">No projects match the selected filters.</p>
+        </div>
+      ) : view === "table" ? (
+        <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-slate-200 text-left">
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400 w-12">Rank</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Project</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Developer</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Type</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">State</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">IFC Score</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Capital Needed</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {[...filtered].sort((a, b) => b.ifcScore - a.ifcScore).map((project, index) => {
+                const scoreColor =
+                  project.ifcScore >= 80 ? '#00A86B' : project.ifcScore >= 65 ? '#D97706' : '#DC2626';
+                const status = statusConfig[project.status];
+                const StatusIcon = status.icon;
+                return (
+                  <tr key={project.id} className="hover:bg-slate-50 transition-colors">
+                    <td className="py-3 text-xs font-mono text-slate-400">#{index + 1}</td>
+                    <td className="py-3 font-display text-sm font-semibold text-[#0A2540]">{project.name}</td>
+                    <td className="py-3 text-sm text-slate-600">{project.developer}</td>
+                    <td className="py-3">
+                      <span className="rounded-full border border-[#0A2540]/20 bg-[#0A2540]/5 px-2.5 py-0.5 text-xs font-medium text-[#0A2540]">
+                        {project.typeLabel}
+                      </span>
+                    </td>
+                    <td className="py-3 text-sm text-slate-600">{project.state}</td>
+                    <td className="py-3">
+                      <span className="font-mono text-sm font-bold" style={{ color: scoreColor }}>
+                        {project.ifcScore}
+                      </span>
+                    </td>
+                    <td className="py-3 font-mono text-sm text-[#0A2540]">
+                      ₦{project.capitalNeededNGN.toLocaleString('en-NG')}
+                    </td>
+                    <td className="py-3">
+                      <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${status.classes}`}>
+                        <StatusIcon className="h-3 w-3" aria-hidden="true" />
+                        {status.label}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

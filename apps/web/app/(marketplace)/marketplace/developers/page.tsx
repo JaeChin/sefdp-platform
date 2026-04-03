@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import { CheckCircle2, Eye, MapPin, Zap } from 'lucide-react';
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@sefdp/ui';
@@ -93,13 +96,86 @@ function getScoreStyle(score: number): { text: string; bg: string; border: strin
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function DevelopersPage() {
+  const [view, setView] = useState<"cards" | "table">("cards");
+
+  const sortedDevelopers = [...developers].sort((a, b) => b.ifcScore - a.ifcScore);
+
   return (
     <div className="space-y-6">
-      <PageHeader
-        title="Developers"
-        description="Browse verified developer profiles with IFC credit scores and audited track records."
-      />
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <PageHeader
+          title="Developers"
+          description="Browse verified developer profiles with IFC credit scores and audited track records."
+        />
+        <div className="flex items-center gap-1 border border-slate-200 rounded-lg p-1">
+          <button
+            onClick={() => setView("cards")}
+            className={`px-3 py-1.5 rounded text-xs font-semibold transition-colors ${
+              view === "cards" ? "bg-[#0A2540] text-white" : "text-slate-500 hover:text-slate-700"
+            }`}
+          >
+            Cards
+          </button>
+          <button
+            onClick={() => setView("table")}
+            className={`px-3 py-1.5 rounded text-xs font-semibold transition-colors ${
+              view === "table" ? "bg-[#0A2540] text-white" : "text-slate-500 hover:text-slate-700"
+            }`}
+          >
+            Ranked Table
+          </button>
+        </div>
+      </div>
 
+      {view === "table" ? (
+        <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-slate-200 text-left">
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400 w-12">Rank</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Developer</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">IFC Score</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Track Record</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Verified</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Projects Listed</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {sortedDevelopers.map((dev, index) => {
+                const scoreColor =
+                  dev.ifcScore >= 80 ? '#00A86B' : dev.ifcScore >= 65 ? '#D97706' : '#DC2626';
+                return (
+                  <tr key={dev.id} className="hover:bg-slate-50 transition-colors">
+                    <td className="py-3 text-xs font-mono text-slate-400">#{index + 1}</td>
+                    <td className="py-3 font-display text-sm font-semibold text-[#0A2540]">{dev.name}</td>
+                    <td className="py-3">
+                      <span className="font-mono text-sm font-bold" style={{ color: scoreColor }}>
+                        {dev.ifcScore}
+                      </span>
+                    </td>
+                    <td className="py-3 font-mono text-sm text-slate-600">
+                      {dev.yearsOperating ? `${dev.yearsOperating} yrs` : '—'}
+                    </td>
+                    <td className="py-3">
+                      {dev.verified ? (
+                        <span className="inline-flex items-center gap-1 rounded-full border border-green-200 bg-green-50 px-2 py-0.5 text-xs font-medium text-[#00A86B]">
+                          <CheckCircle2 className="h-3 w-3" aria-hidden="true" />
+                          Verified
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-xs font-medium text-slate-400">
+                          Pending
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-3 font-mono text-sm text-[#0A2540]">{dev.totalProjects}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      ) : (
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {developers.map((dev) => {
           const scoreStyle = getScoreStyle(dev.ifcScore);
@@ -211,6 +287,7 @@ export default function DevelopersPage() {
           );
         })}
       </div>
+      )}
     </div>
   );
 }
