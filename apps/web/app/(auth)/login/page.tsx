@@ -42,7 +42,7 @@ export default function LoginPage() {
       {/* ── Left panel ───────────────────────────────────────────────── */}
       <div className="flex-1 flex flex-col items-center justify-center p-8 lg:w-3/5">
         <div className="w-full max-w-md">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-10">
+          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-10">
 
             {/* Wordmark */}
             <div className="flex items-center gap-2">
@@ -76,7 +76,7 @@ export default function LoginPage() {
                   type="email"
                   placeholder="your@organisation.ng"
                   autoComplete="email"
-                  className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-[#00A86B]/50 focus:outline-none"
+                  className="w-full rounded-lg border border-white/15 bg-white/8 px-4 py-3 text-white placeholder:text-white/30 focus:border-[#00A86B]/50 focus:outline-none"
                 />
               </div>
 
@@ -93,7 +93,7 @@ export default function LoginPage() {
                   type="password"
                   placeholder="••••••••"
                   autoComplete="current-password"
-                  className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-[#00A86B]/50 focus:outline-none"
+                  className="w-full rounded-lg border border-white/15 bg-white/8 px-4 py-3 text-white placeholder:text-white/30 focus:border-[#00A86B]/50 focus:outline-none"
                 />
               </div>
 
@@ -171,7 +171,7 @@ export default function LoginPage() {
                           inputs[i + 1]?.focus();
                         }
                       }}
-                      className={`otp-input w-10 h-12 text-center text-lg font-mono rounded-lg border bg-[#0d2d4a] text-white focus:outline-none focus:ring-2 focus:ring-[#00A86B] ${
+                      className={`otp-input w-10 h-12 text-center text-lg font-mono rounded-lg border bg-white/8 text-white focus:outline-none focus:ring-2 focus:ring-[#00A86B] ${
                         twoFaError ? 'border-red-500' : 'border-slate-600'
                       }`}
                     />
@@ -210,10 +210,11 @@ export default function LoginPage() {
             </p>
 
             {/* Demo shortcuts */}
-            <div className="mt-8">
-              <p className="mb-2 text-xs uppercase tracking-widest text-slate-500">
-                Quick access (demo only)
-              </p>
+            <div className="mt-4 border border-dashed border-white/15 rounded-lg px-4 py-3">
+              <div className="flex items-center gap-2 mb-2.5">
+                <span className="text-[9px] font-bold uppercase tracking-widest text-white/30">Demo Access</span>
+                <div className="flex-1 border-t border-white/10" />
+              </div>
               <div className="flex flex-col gap-1.5">
                 <Link
                   href="/dashboard"
@@ -252,14 +253,14 @@ export default function LoginPage() {
       <div className="hidden lg:flex lg:w-2/5 flex-col items-center justify-center p-12 border-l border-white/10 bg-white/[0.03]">
         {/* Quote + pills */}
         <div className="flex flex-1 flex-col justify-center">
-          <p className="font-display text-2xl font-semibold italic leading-relaxed text-white">
+          <p className="font-display text-2xl font-semibold italic leading-relaxed text-white/80">
             &ldquo;Digital infrastructure for Africa&apos;s energy transition.&rdquo;
           </p>
 
           <div className="mt-10 flex flex-col items-start gap-3 max-w-sm">
             {[
               { icon: ShieldCheck, label: 'Nigerian NDPA Compliant' },
-              { icon: FileCheck, label: 'World Bank DARES Programme' },
+              { icon: FileCheck, label: 'SEforALL Partner Platform' },
               { icon: Check, label: 'IFC Standards Aligned' },
             ].map(({ icon: Icon, label }) => (
               <div
@@ -271,12 +272,30 @@ export default function LoginPage() {
               </div>
             ))}
           </div>
+
+          {/* Abstract connection diagram */}
+          <div className="mt-10 w-full max-w-xs mx-auto">
+            <svg viewBox="0 0 280 160" className="w-full opacity-20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* Developer nodes */}
+              <circle cx="40" cy="40" r="16" stroke="#00A86B" strokeWidth="1.5" />
+              <circle cx="40" cy="80" r="16" stroke="#00A86B" strokeWidth="1.5" />
+              <circle cx="40" cy="120" r="16" stroke="#00A86B" strokeWidth="1.5" />
+              {/* Financier nodes */}
+              <circle cx="240" cy="55" r="16" stroke="white" strokeWidth="1.5" />
+              <circle cx="240" cy="105" r="16" stroke="white" strokeWidth="1.5" />
+              {/* Connection lines */}
+              <line x1="56" y1="40" x2="224" y2="55" stroke="#00A86B" strokeWidth="1" strokeDasharray="4 3" />
+              <line x1="56" y1="80" x2="224" y2="55" stroke="#00A86B" strokeWidth="1" strokeDasharray="4 3" />
+              <line x1="56" y1="80" x2="224" y2="105" stroke="#00A86B" strokeWidth="1" strokeDasharray="4 3" />
+              <line x1="56" y1="120" x2="224" y2="105" stroke="#00A86B" strokeWidth="1" strokeDasharray="4 3" />
+              {/* Centre match node */}
+              <circle cx="140" cy="80" r="20" stroke="#00A86B" strokeWidth="1.5" fill="rgba(0,168,107,0.08)" />
+              <text x="140" y="85" textAnchor="middle" fill="#00A86B" fontSize="8" fontFamily="IBM Plex Mono">SEF-DP</text>
+            </svg>
+            <p className="text-center text-xs text-white/25 mt-2 font-mono tracking-wide">Developer → Platform → Financier</p>
+          </div>
         </div>
 
-        {/* Reference number */}
-        <p className="font-mono text-xs text-[#00A86B]/60">
-          DARES RFQ/2026/61763
-        </p>
       </div>
     </div>
   );

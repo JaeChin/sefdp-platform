@@ -23,7 +23,7 @@ export default function RegisterPage() {
       {/* ── Left panel ───────────────────────────────────────────────── */}
       <div className="flex-1 flex flex-col items-center justify-center p-8 lg:w-3/5">
         <div className="w-full max-w-md">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-10">
+          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-10">
 
             {/* Wordmark */}
             <div className="flex items-center gap-2">
@@ -58,179 +58,196 @@ export default function RegisterPage() {
               </div>
             ) : (
               /* Registration form */
-              <form onSubmit={handleSubmit} className="space-y-5">
-                {/* First Name + Last Name */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
+              <form onSubmit={handleSubmit}>
+                {/* Group 1 — About You */}
+                <div className="mb-5">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-4 flex items-center gap-3">
+                    About You
+                    <span className="flex-1 border-t border-white/10" />
+                  </p>
+                  {/* First Name + Last Name */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label
+                        htmlFor="firstName"
+                        className="mb-1.5 block text-sm font-medium text-slate-300"
+                      >
+                        First Name
+                      </label>
+                      <input
+                        id="firstName"
+                        type="text"
+                        placeholder="Jane"
+                        autoComplete="given-name"
+                        className="w-full rounded-lg border border-white/15 bg-white/8 px-4 py-3 text-white placeholder:text-white/30 focus:border-[#00A86B]/50 focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="lastName"
+                        className="mb-1.5 block text-sm font-medium text-slate-300"
+                      >
+                        Last Name
+                      </label>
+                      <input
+                        id="lastName"
+                        type="text"
+                        placeholder="Okafor"
+                        autoComplete="family-name"
+                        className="w-full rounded-lg border border-white/15 bg-white/8 px-4 py-3 text-white placeholder:text-white/30 focus:border-[#00A86B]/50 focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                  {/* Email Address */}
+                  <div className="mt-4">
                     <label
-                      htmlFor="firstName"
+                      htmlFor="email"
                       className="mb-1.5 block text-sm font-medium text-slate-300"
                     >
-                      First Name
+                      Email Address
                     </label>
                     <input
-                      id="firstName"
-                      type="text"
-                      placeholder="Jane"
-                      autoComplete="given-name"
-                      className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-[#00A86B]/50 focus:outline-none"
+                      id="email"
+                      type="email"
+                      placeholder="your@organisation.ng"
+                      autoComplete="email"
+                      className="w-full rounded-lg border border-white/15 bg-white/8 px-4 py-3 text-white placeholder:text-white/30 focus:border-[#00A86B]/50 focus:outline-none"
                     />
                   </div>
+                </div>
+
+                {/* Group 2 — Your Organisation */}
+                <div className="mb-5">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-4 flex items-center gap-3">
+                    Your Organisation
+                    <span className="flex-1 border-t border-white/10" />
+                  </p>
+                  {/* Organisation Name */}
                   <div>
                     <label
-                      htmlFor="lastName"
+                      htmlFor="organisation"
                       className="mb-1.5 block text-sm font-medium text-slate-300"
                     >
-                      Last Name
+                      Organisation Name
                     </label>
                     <input
-                      id="lastName"
+                      id="organisation"
                       type="text"
-                      placeholder="Okafor"
-                      autoComplete="family-name"
-                      className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-[#00A86B]/50 focus:outline-none"
+                      placeholder="Acme Solar Ltd"
+                      autoComplete="organization"
+                      className="w-full rounded-lg border border-white/15 bg-white/8 px-4 py-3 text-white placeholder:text-white/30 focus:border-[#00A86B]/50 focus:outline-none"
                     />
+                  </div>
+                  {/* Organisation Type */}
+                  <div className="mt-4">
+                    <label
+                      htmlFor="orgType"
+                      className="mb-1.5 block text-sm font-medium text-slate-300"
+                    >
+                      Organisation Type
+                    </label>
+                    <select
+                      id="orgType"
+                      defaultValue=""
+                      className="w-full appearance-none rounded-lg border border-white/15 bg-white/8 px-4 py-3 text-white focus:border-[#00A86B]/50 focus:outline-none [&>option]:bg-[#0A2540] [&>option]:text-white"
+                    >
+                      <option value="" disabled className="text-slate-500">
+                        Select organisation type
+                      </option>
+                      <option value="solar_developer">Solar Developer</option>
+                      <option value="dfi">DFI / Development Finance</option>
+                      <option value="commercial_bank">Commercial Bank</option>
+                      <option value="impact_fund">Impact Fund</option>
+                      <option value="private_equity">Private Equity</option>
+                      <option value="institutional_investor">Institutional Investor</option>
+                      <option value="consultant">Consultant / Advisory</option>
+                      <option value="government">Government / Regulator</option>
+                    </select>
+                  </div>
+                  {/* Role / Designation */}
+                  <div className="mt-4">
+                    <label
+                      htmlFor="role"
+                      className="mb-1.5 block text-sm font-medium text-slate-300"
+                    >
+                      Your Role / Designation
+                    </label>
+                    <select
+                      id="role"
+                      defaultValue=""
+                      className="w-full appearance-none rounded-lg border border-white/15 bg-white/8 px-4 py-3 text-white focus:border-[#00A86B]/50 focus:outline-none [&>option]:bg-[#0A2540] [&>option]:text-white [&>optgroup]:bg-[#0A2540] [&>optgroup]:text-slate-400"
+                    >
+                      <option value="" disabled className="text-slate-500">
+                        Select your role
+                      </option>
+                      <optgroup label="Executive">
+                        <option value="ceo">Chief Executive Officer</option>
+                        <option value="cfo">Chief Financial Officer</option>
+                        <option value="coo">Chief Operating Officer</option>
+                        <option value="md">Managing Director</option>
+                      </optgroup>
+                      <optgroup label="Management">
+                        <option value="director">Director</option>
+                        <option value="gm">General Manager</option>
+                        <option value="vp">Vice President</option>
+                        <option value="hod">Head of Department</option>
+                      </optgroup>
+                      <optgroup label="Professional">
+                        <option value="investment_analyst">Investment Analyst</option>
+                        <option value="portfolio_manager">Portfolio Manager</option>
+                        <option value="programme_officer">Programme Officer</option>
+                        <option value="project_manager">Project Manager</option>
+                        <option value="legal_counsel">Legal Counsel</option>
+                        <option value="compliance_officer">Compliance Officer</option>
+                        <option value="technical_advisor">Technical Advisor</option>
+                        <option value="financial_analyst">Financial Analyst</option>
+                        <option value="risk_analyst">Risk Analyst</option>
+                      </optgroup>
+                      <optgroup label="Other">
+                        <option value="other">Other</option>
+                      </optgroup>
+                    </select>
                   </div>
                 </div>
 
-                {/* Email Address */}
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="mb-1.5 block text-sm font-medium text-slate-300"
-                  >
-                    Email Address
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    placeholder="your@organisation.ng"
-                    autoComplete="email"
-                    className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-[#00A86B]/50 focus:outline-none"
-                  />
-                </div>
-
-                {/* Organisation Name */}
-                <div>
-                  <label
-                    htmlFor="organisation"
-                    className="mb-1.5 block text-sm font-medium text-slate-300"
-                  >
-                    Organisation Name
-                  </label>
-                  <input
-                    id="organisation"
-                    type="text"
-                    placeholder="Acme Solar Ltd"
-                    autoComplete="organization"
-                    className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-[#00A86B]/50 focus:outline-none"
-                  />
-                </div>
-
-                {/* Organisation Type */}
-                <div>
-                  <label
-                    htmlFor="orgType"
-                    className="mb-1.5 block text-sm font-medium text-slate-300"
-                  >
-                    Organisation Type
-                  </label>
-                  <select
-                    id="orgType"
-                    defaultValue=""
-                    className="w-full appearance-none rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white focus:border-[#00A86B]/50 focus:outline-none [&>option]:bg-[#0A2540] [&>option]:text-white"
-                  >
-                    <option value="" disabled className="text-slate-500">
-                      Select organisation type
-                    </option>
-                    <option value="solar_developer">Solar Developer</option>
-                    <option value="dfi">DFI / Development Finance</option>
-                    <option value="commercial_bank">Commercial Bank</option>
-                    <option value="impact_fund">Impact Fund</option>
-                    <option value="private_equity">Private Equity</option>
-                    <option value="institutional_investor">Institutional Investor</option>
-                    <option value="consultant">Consultant / Advisory</option>
-                    <option value="government">Government / Regulator</option>
-                  </select>
-                </div>
-
-                {/* Role / Designation */}
-                <div>
-                  <label
-                    htmlFor="role"
-                    className="mb-1.5 block text-sm font-medium text-slate-300"
-                  >
-                    Your Role / Designation
-                  </label>
-                  <select
-                    id="role"
-                    defaultValue=""
-                    className="w-full appearance-none rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white focus:border-[#00A86B]/50 focus:outline-none [&>option]:bg-[#0A2540] [&>option]:text-white [&>optgroup]:bg-[#0A2540] [&>optgroup]:text-slate-400"
-                  >
-                    <option value="" disabled className="text-slate-500">
-                      Select your role
-                    </option>
-                    <optgroup label="Executive">
-                      <option value="ceo">Chief Executive Officer</option>
-                      <option value="cfo">Chief Financial Officer</option>
-                      <option value="coo">Chief Operating Officer</option>
-                      <option value="md">Managing Director</option>
-                    </optgroup>
-                    <optgroup label="Management">
-                      <option value="director">Director</option>
-                      <option value="gm">General Manager</option>
-                      <option value="vp">Vice President</option>
-                      <option value="hod">Head of Department</option>
-                    </optgroup>
-                    <optgroup label="Professional">
-                      <option value="investment_analyst">Investment Analyst</option>
-                      <option value="portfolio_manager">Portfolio Manager</option>
-                      <option value="programme_officer">Programme Officer</option>
-                      <option value="project_manager">Project Manager</option>
-                      <option value="legal_counsel">Legal Counsel</option>
-                      <option value="compliance_officer">Compliance Officer</option>
-                      <option value="technical_advisor">Technical Advisor</option>
-                      <option value="financial_analyst">Financial Analyst</option>
-                      <option value="risk_analyst">Risk Analyst</option>
-                    </optgroup>
-                    <optgroup label="Other">
-                      <option value="other">Other</option>
-                    </optgroup>
-                  </select>
-                </div>
-
-                {/* Password */}
-                <div>
-                  <label
-                    htmlFor="password"
-                    className="mb-1.5 block text-sm font-medium text-slate-300"
-                  >
-                    Password
-                  </label>
-                  <input
-                    id="password"
-                    type="password"
-                    placeholder="••••••••"
-                    autoComplete="new-password"
-                    className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-[#00A86B]/50 focus:outline-none"
-                  />
-                </div>
-
-                {/* Confirm Password */}
-                <div>
-                  <label
-                    htmlFor="confirmPassword"
-                    className="mb-1.5 block text-sm font-medium text-slate-300"
-                  >
-                    Confirm Password
-                  </label>
-                  <input
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="••••••••"
-                    autoComplete="new-password"
-                    className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-[#00A86B]/50 focus:outline-none"
-                  />
+                {/* Group 3 — Security */}
+                <div className="mb-5">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-4 flex items-center gap-3">
+                    Security
+                    <span className="flex-1 border-t border-white/10" />
+                  </p>
+                  {/* Password */}
+                  <div>
+                    <label
+                      htmlFor="password"
+                      className="mb-1.5 block text-sm font-medium text-slate-300"
+                    >
+                      Password
+                    </label>
+                    <input
+                      id="password"
+                      type="password"
+                      placeholder="••••••••"
+                      autoComplete="new-password"
+                      className="w-full rounded-lg border border-white/15 bg-white/8 px-4 py-3 text-white placeholder:text-white/30 focus:border-[#00A86B]/50 focus:outline-none"
+                    />
+                  </div>
+                  {/* Confirm Password */}
+                  <div className="mt-4">
+                    <label
+                      htmlFor="confirmPassword"
+                      className="mb-1.5 block text-sm font-medium text-slate-300"
+                    >
+                      Confirm Password
+                    </label>
+                    <input
+                      id="confirmPassword"
+                      type="password"
+                      placeholder="••••••••"
+                      autoComplete="new-password"
+                      className="w-full rounded-lg border border-white/15 bg-white/8 px-4 py-3 text-white placeholder:text-white/30 focus:border-[#00A86B]/50 focus:outline-none"
+                    />
+                  </div>
                 </div>
 
                 {/* Submit button */}
