@@ -44,6 +44,13 @@ function statusDotColor(status: MatchCardProps["status"]): string {
   }
 }
 
+function tierBadge(score: number): { label: string; classes: string } {
+  if (score >= 85) return { label: "Excellent Match", classes: "bg-emerald-50 text-emerald-700 border border-emerald-200" };
+  if (score >= 75) return { label: "Strong Match",    classes: "bg-sky-50 text-sky-700 border border-sky-200" };
+  if (score >= 65) return { label: "Good Match",      classes: "bg-amber-50 text-amber-700 border border-amber-200" };
+  return                  { label: "Weak Match",      classes: "bg-red-50 text-red-700 border border-red-200" };
+}
+
 // ─── Animated dimension bar ───────────────────────────────────────────────────
 
 function DimensionBar({
@@ -142,8 +149,16 @@ export function MatchCard({
   return (
     <div
       ref={ref}
-      className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+      className="relative bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
     >
+      {(() => {
+        const { label, classes } = tierBadge(overallScore);
+        return (
+          <div className={`absolute top-3 right-3 text-[10px] font-semibold px-2 py-0.5 rounded-full z-10 ${classes}`}>
+            {label}
+          </div>
+        );
+      })()}
       <div className="max-w-3xl mx-auto">
       {/* Header */}
       <div className="flex items-start gap-4 px-5 pt-5 pb-4 border-b border-slate-100">
@@ -162,25 +177,28 @@ export function MatchCard({
 
         {/* Score ring — centred */}
         <div className="flex flex-col items-center gap-1.5 shrink-0">
-          <div
-            className="relative w-16 h-16 rounded-full"
-            style={{
-              background: `conic-gradient(${ringColor} ${overallScore * 3.6}deg, #e2e8f0 0deg)`,
-            }}
-          >
-            <div className="absolute inset-[7px] rounded-full bg-white flex flex-col items-center justify-center">
-              <span
-                className="text-base font-bold leading-none"
-                style={{
-                  color: ringColor,
-                  fontFamily: "'IBM Plex Mono', monospace",
-                }}
-              >
+          <div className="relative w-16 h-16">
+            <svg className="w-16 h-16 -rotate-90" viewBox="0 0 64 64">
+              {/* Track */}
+              <circle cx="32" cy="32" r="26" fill="none" stroke="#e2e8f0" strokeWidth="5" />
+              {/* Animated fill */}
+              <circle
+                cx="32" cy="32" r="26"
+                fill="none"
+                stroke={ringColor}
+                strokeWidth="5"
+                strokeLinecap="round"
+                strokeDasharray={`${2 * Math.PI * 26}`}
+                strokeDashoffset={animate ? 2 * Math.PI * 26 * (1 - overallScore / 100) : 2 * Math.PI * 26}
+                style={{ transition: "stroke-dashoffset 1s cubic-bezier(0.34, 1.56, 0.64, 1)" }}
+              />
+            </svg>
+            {/* Score label centred over the SVG */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-base font-bold leading-none" style={{ color: ringColor, fontFamily: "'IBM Plex Mono', monospace" }}>
                 {overallScore}
               </span>
-              <span className="text-[8px] font-medium text-slate-400 uppercase tracking-wide mt-0.5">
-                match
-              </span>
+              <span className="text-[8px] font-medium text-slate-400 uppercase tracking-wide mt-0.5">match</span>
             </div>
           </div>
         </div>

@@ -30,12 +30,12 @@ const MATCH_DATA: Array<{
     ],
   },
   {
-    developerProject: "Enugu Industrial Solar Park",
-    projectType: "C&I",
-    financier: "British International Investment",
+    developerProject: "Borno Rural Cluster Phase II",
+    projectType: "Mini-grid",
+    financier: "Africa Finance Corporation",
     financierType: "DFI",
     overallScore: 87,
-    status: "Interested",
+    status: "New Match",
     dimensions: [
       { label: "Project Type Alignment",  score: 91, weight: "primary" },
       { label: "Deal Size Compatibility", score: 84, weight: "primary" },
@@ -47,12 +47,12 @@ const MATCH_DATA: Array<{
     ],
   },
   {
-    developerProject: "Borno Rural Cluster Phase II",
-    projectType: "Mini-grid",
-    financier: "Africa Finance Corporation",
+    developerProject: "Enugu Industrial Solar Park",
+    projectType: "C&I",
+    financier: "British International Investment",
     financierType: "DFI",
     overallScore: 82,
-    status: "New Match",
+    status: "Interested",
     dimensions: [
       { label: "Project Type Alignment",  score: 86, weight: "primary" },
       { label: "Deal Size Compatibility", score: 79, weight: "primary" },
@@ -107,16 +107,23 @@ export default function MatchingPage() {
         description="View and manage matches between developers and financiers based on project criteria."
       />
 
-      {/* Summary bar */}
-      <div className="flex items-center gap-6 rounded-xl border border-slate-200 bg-white px-6 py-4 shadow-sm">
-        <span className="font-mono text-sm font-semibold text-[#0A2540]">5</span>
-        <span className="text-sm text-slate-500">active matches</span>
-        <span className="h-4 w-px bg-slate-200" />
-        <span className="font-mono text-sm font-semibold text-[#0A2540]">₦4.2B</span>
-        <span className="text-sm text-slate-500">in discussion</span>
-        <span className="h-4 w-px bg-slate-200" />
-        <span className="font-mono text-sm font-semibold text-[#00A86B]">2</span>
-        <span className="text-sm text-slate-500">new this week</span>
+      {/* Summary stat cards */}
+      <div className="grid grid-cols-3 gap-4">
+        <div className="bg-white border border-slate-200 rounded-xl px-5 py-4">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-1">Active Matches</p>
+          <p className="text-2xl font-bold text-slate-900" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>5</p>
+          <p className="text-xs text-slate-500 mt-1">across 4 financier types</p>
+        </div>
+        <div className="bg-white border border-slate-200 rounded-xl px-5 py-4">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-1">In Discussion</p>
+          <p className="text-2xl font-bold text-slate-900" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>₦4.2B</p>
+          <p className="text-xs text-slate-500 mt-1">combined deal value</p>
+        </div>
+        <div className="bg-white border border-slate-200 rounded-xl px-5 py-4">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-1">New This Week</p>
+          <p className="text-2xl font-bold text-[#00A86B]" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>2</p>
+          <p className="text-xs text-slate-500 mt-1">+1 syndication opportunity</p>
+        </div>
       </div>
 
       {/* Syndication Opportunities */}
@@ -144,6 +151,39 @@ export default function MatchingPage() {
             <p className="mb-3 text-xs font-medium uppercase tracking-wide text-slate-400">
               Syndicate Members
             </p>
+
+            {/* Stacked allocation bar */}
+            <div className="flex w-full h-2.5 rounded-full overflow-hidden mb-4 mt-2">
+              <div
+                className="bg-[#00A86B] transition-all duration-700"
+                style={{ width: "40%" }}
+                title="CrossBoundary Energy Access — 40% · ₦840M"
+              />
+              <div
+                className="bg-[#0A2540] transition-all duration-700"
+                style={{ width: "35%" }}
+                title="British International Investment — 35% · ₦735M"
+              />
+              <div
+                className="bg-slate-400 transition-all duration-700"
+                style={{ width: "25%" }}
+                title="Stanbic IBTC — 25% · ₦525M"
+              />
+            </div>
+
+            {/* Colour key */}
+            <div className="flex items-center gap-4 mb-3">
+              <span className="flex items-center gap-1.5 text-[10px] text-slate-500">
+                <span className="w-2 h-2 rounded-sm bg-[#00A86B] shrink-0" />CrossBoundary 40%
+              </span>
+              <span className="flex items-center gap-1.5 text-[10px] text-slate-500">
+                <span className="w-2 h-2 rounded-sm bg-[#0A2540] shrink-0" />BII 35%
+              </span>
+              <span className="flex items-center gap-1.5 text-[10px] text-slate-500">
+                <span className="w-2 h-2 rounded-sm bg-slate-400 shrink-0" />Stanbic 25%
+              </span>
+            </div>
+
             <div className="space-y-2.5">
               {/* CrossBoundary */}
               <div className="flex items-center gap-3">
