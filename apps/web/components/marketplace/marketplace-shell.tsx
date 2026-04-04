@@ -54,8 +54,8 @@ export function MarketplaceShell({ children }: { children: React.ReactNode }) {
   }, []);
 
   const filteredNavItems = marketplaceNavItems.filter((item) => {
-    if (role === 'developer' && item.label === 'Financiers') return false;
-    if (role === 'financier' && item.label === 'Developers') return false;
+    if (role === 'developer' && item.label === 'Developers') return false;
+    if (role === 'financier' && item.label === 'Financiers') return false;
     return true;
   });
 
