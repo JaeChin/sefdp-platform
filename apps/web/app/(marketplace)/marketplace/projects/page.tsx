@@ -119,6 +119,14 @@ const projects: Project[] = [
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
+/** Format a Naira amount in compact notation: ₦1.9B, ₦663.6M, etc. */
+function formatNGNCompact(amount: number): string {
+  if (amount >= 1_000_000_000) return `₦${(amount / 1_000_000_000).toFixed(1)}B`;
+  if (amount >= 1_000_000) return `₦${(amount / 1_000_000).toFixed(1)}M`;
+  if (amount >= 1_000) return `₦${(amount / 1_000).toFixed(1)}K`;
+  return `₦${amount}`;
+}
+
 function getScoreStyle(score: number): { text: string; bg: string; border: string } {
   if (score >= 80) return { text: 'text-[#00A86B]', bg: 'bg-green-50', border: 'border-green-200' };
   if (score >= 65) return { text: 'text-[#F59E0B]', bg: 'bg-amber-50', border: 'border-amber-200' };
@@ -611,7 +619,7 @@ export default function MarketplaceProjectsPage() {
                       </span>
                     </td>
                     <td className="py-3 font-mono text-sm text-[#0A2540]">
-                      ₦{project.capitalNeededNGN.toLocaleString('en-NG')}
+                      {formatNGNCompact(project.capitalNeededNGN)}
                     </td>
                     <td className="py-3">
                       <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${status.classes}`}>
@@ -679,7 +687,7 @@ export default function MarketplaceProjectsPage() {
                   <div>
                     <p className="text-xs text-slate-500">Capital Needed</p>
                     <p className="font-mono text-sm font-semibold text-[#0A2540]">
-                      ₦{project.capitalNeededNGN.toLocaleString('en-NG')}
+                      {formatNGNCompact(project.capitalNeededNGN)}
                     </p>
                   </div>
                   <div>
