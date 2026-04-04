@@ -328,13 +328,7 @@ export default function LoginPage() {
 
           <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
             <p style={{ fontSize: 10, color: '#64748b', letterSpacing: '0.1em', marginBottom: 8 }}>SUPPORTED BY</p>
-            <svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 32 Q10 8 32 6" stroke="#F59E0B" strokeWidth="3" strokeLinecap="round" fill="none"/>
-              <path d="M14 36 Q38 38 40 16" stroke="#F59E0B" strokeWidth="3" strokeLinecap="round" fill="none"/>
-              <text x="48" y="14" fontFamily="system-ui, sans-serif" fontSize="7" fontWeight="600" fill="#94a3b8" letterSpacing="0.5">SUSTAINABLE</text>
-              <text x="48" y="24" fontFamily="system-ui, sans-serif" fontSize="7" fontWeight="600" fill="#94a3b8" letterSpacing="0.5">ENERGY</text>
-              <text x="48" y="34" fontFamily="system-ui, sans-serif" fontSize="9" fontWeight="700" fill="#cbd5e1" letterSpacing="0.5">FOR ALL</text>
-            </svg>
+            <img src="/logos/seforall-logo.png" alt="Sustainable Energy for All" style={{ height: 40, objectFit: 'contain', mixBlendMode: 'screen' }} />
           </div>
 
           {/* Abstract connection diagram */}
