@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ShieldCheck, FileCheck, Check } from 'lucide-react';
+import { setDemoRole } from '@/lib/demo-role';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -259,20 +260,30 @@ export default function LoginPage() {
                 <div className="flex-1 border-t border-white/10" />
               </div>
               <div className="flex flex-col gap-1.5">
-                <Link
-                  href="/marketplace/overview"
-                  onClick={() => setRedirectTo('/marketplace/overview')}
-                  className="text-xs text-slate-400 transition-colors hover:text-[#F5C200]"
+                <button
+                  onClick={() => { setDemoRole('marketplace'); router.push('/marketplace/overview'); }}
+                  className="text-xs text-slate-400 transition-colors hover:text-[#F5C200] text-left"
                 >
                   → Open as Marketplace User
-                </Link>
-                <Link
-                  href="/marketplace/regulator"
-                  onClick={() => setRedirectTo('/marketplace/overview')}
-                  className="text-xs text-slate-400 transition-colors hover:text-[#F5C200]"
+                </button>
+                <button
+                  onClick={() => { setDemoRole('cbn'); router.push('/marketplace/regulator'); }}
+                  className="text-xs text-slate-400 transition-colors hover:text-[#F5C200] text-left"
                 >
                   → Open as CBN Regulator
-                </Link>
+                </button>
+                <button
+                  onClick={() => { setDemoRole('developer'); router.push('/marketplace/overview'); }}
+                  className="text-xs text-slate-400 transition-colors hover:text-[#F5C200] text-left"
+                >
+                  → Open as Developer
+                </button>
+                <button
+                  onClick={() => { setDemoRole('financier'); router.push('/marketplace/overview'); }}
+                  className="text-xs text-slate-400 transition-colors hover:text-[#F5C200] text-left"
+                >
+                  → Open as Financier
+                </button>
               </div>
             </div>
 
