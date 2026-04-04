@@ -302,8 +302,12 @@ export default function MarketplaceLandingPage() {
           Regulated under the oversight of the{" "}
           <span className="text-white/55 font-semibold">Central Bank of Nigeria</span>
         </span>
-        {/* TODO: replace with CBN logo asset when received */}
-        <span className="text-xs text-white/25 font-mono tracking-wide">CBN · In Partnership</span>
+        <div className="flex items-center gap-4">
+          <span className="text-[10px] text-white/30 uppercase tracking-widest">In partnership with</span>
+          <img src="/logos/seforall-logo.png" alt="Sustainable Energy for All" style={{ height: 28, objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.7 }} />
+          <div className="w-px h-4 bg-white/15" />
+          <span className="text-xs text-white/45 font-semibold">Central Bank of Nigeria</span>
+        </div>
       </div>
 
     </div>

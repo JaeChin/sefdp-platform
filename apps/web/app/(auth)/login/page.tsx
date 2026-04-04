@@ -326,6 +326,11 @@ export default function LoginPage() {
             ))}
           </div>
 
+          <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+            <p style={{ fontSize: 10, color: '#64748b', letterSpacing: '0.1em', marginBottom: 8 }}>SUPPORTED BY</p>
+            <img src="/logos/seforall-logo.png" alt="SEforALL" style={{ height: 28, objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.7 }} />
+          </div>
+
           {/* Abstract connection diagram */}
           <div className="mt-10 w-full max-w-xs mx-auto">
             <svg viewBox="0 0 280 160" className="w-full" style={{ opacity: 0.45 }} fill="none" xmlns="http://www.w3.org/2000/svg">

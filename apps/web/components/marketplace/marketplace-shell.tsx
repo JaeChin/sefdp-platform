@@ -13,6 +13,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { Sidebar, type NavItem } from '@/components/shared/sidebar';
+import SefdpLogo from '@/components/ui/sefdp-logo';
 import { Header } from '@/components/shared/header';
 import { getDemoRole, type DemoRole } from '@/lib/demo-role';
 
@@ -62,7 +63,7 @@ export function MarketplaceShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar items={filteredNavItems} title="Marketplace" logoHref="/marketplace/landing" footer={<RegulatorLink />} />
+        <Sidebar items={filteredNavItems} title="Marketplace" logoHref="/marketplace/landing" logo={<SefdpLogo size="sm" showWordmark={true} variant="dark" />} footer={<RegulatorLink />} />
         <div className="flex flex-1 flex-col overflow-hidden">
           <Header userName="Marketplace User" roleBadge="Financier Portal">
             <div className="flex items-center gap-2.5">
