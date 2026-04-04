@@ -304,9 +304,7 @@ export default function MarketplaceLandingPage() {
         </span>
         <div className="flex items-center gap-4">
           <span className="text-[10px] text-white/30 uppercase tracking-widest">In partnership with</span>
-          <div style={{ backgroundColor: 'white', borderRadius: 6, padding: '3px 8px', display: 'inline-flex', alignItems: 'center' }}>
-            <img src="/logos/seforall-logo.png" alt="Sustainable Energy for All" style={{ height: 24, objectFit: 'contain' }} />
-          </div>
+          <img src="/logos/seforall-logo.png" alt="Sustainable Energy for All" style={{ height: 32, objectFit: 'contain', mixBlendMode: 'screen', opacity: 0.9 }} />
           <div className="w-px h-4 bg-white/15" />
           <span className="text-xs text-white/45 font-semibold">Central Bank of Nigeria</span>
         </div>

@@ -328,9 +328,7 @@ export default function LoginPage() {
 
           <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
             <p style={{ fontSize: 10, color: '#64748b', letterSpacing: '0.1em', marginBottom: 8 }}>SUPPORTED BY</p>
-            <div style={{ backgroundColor: 'white', borderRadius: 6, padding: '3px 8px', display: 'inline-flex', alignItems: 'center' }}>
-              <img src="/logos/seforall-logo.png" alt="SEforALL" style={{ height: 24, objectFit: 'contain' }} />
-            </div>
+            <img src="/logos/seforall-logo.png" alt="SEforALL" style={{ height: 32, objectFit: 'contain', mixBlendMode: 'screen', opacity: 0.9 }} />
           </div>
 
           {/* Abstract connection diagram */}
