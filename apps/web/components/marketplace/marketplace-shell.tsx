@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -13,6 +14,7 @@ import {
 } from 'lucide-react';
 import { Sidebar, type NavItem } from '@/components/shared/sidebar';
 import { Header } from '@/components/shared/header';
+import { getDemoRole, type DemoRole } from '@/lib/demo-role';
 
 const marketplaceNavItems: NavItem[] = [
   { icon: LayoutDashboard, label: 'Overview', href: '/marketplace/overview' },
@@ -45,16 +47,32 @@ function RegulatorLink() {
 }
 
 export function MarketplaceShell({ children }: { children: React.ReactNode }) {
+  const [role, setRole] = useState<DemoRole>(null);
+
+  useEffect(() => {
+    setRole(getDemoRole());
+  }, []);
+
+  const filteredNavItems = marketplaceNavItems.filter((item) => {
+    if (role === 'developer' && item.label === 'Financiers') return false;
+    if (role === 'financier' && item.label === 'Developers') return false;
+    return true;
+  });
+
   return (
     <div className="min-h-screen flex flex-col">
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar items={marketplaceNavItems} title="Marketplace" logoHref="/marketplace/landing" footer={<RegulatorLink />} />
+        <Sidebar items={filteredNavItems} title="Marketplace" logoHref="/marketplace/landing" footer={<RegulatorLink />} />
         <div className="flex flex-1 flex-col overflow-hidden">
           <Header userName="Marketplace User" roleBadge="Financier Portal">
-            {/* TODO: replace span + dot with <Image> src="/logos/seforall.svg" when asset arrives */}
-            <div className="flex items-center gap-1.5 border border-slate-600 rounded px-2 py-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00A86B] shrink-0" />
-              <span className="text-xs text-slate-400 whitespace-nowrap">SEforALL Partner Platform</span>
+            <div className="flex items-center gap-2.5">
+              <span className="text-[11px] text-slate-500 whitespace-nowrap">In partnership with CBN</span>
+              <span className="text-slate-600 text-xs select-none">|</span>
+              {/* TODO: replace span + dot with <Image> src="/logos/seforall.svg" when asset arrives */}
+              <div className="flex items-center gap-1.5 border border-slate-600 rounded px-2 py-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00A86B] shrink-0" />
+                <span className="text-xs text-slate-400 whitespace-nowrap">SEforALL Partner Platform</span>
+              </div>
             </div>
           </Header>
           <main className="flex-1 overflow-y-auto p-6">{children}</main>
