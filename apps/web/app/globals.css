@@ -7,14 +7,15 @@
     @apply antialiased bg-background text-foreground;
   }
 
-  :root {
-    /* SEF-DP Design System — #0A2540 primary, #00A86B accent, #F8FAFC surface */
-    --background: 210 33% 98%;      /* #F8FAFC surface */
-    --foreground: 213 74% 15%;      /* #0A2540 deep navy */
+  /* Force light mode — institutional platform, no dark mode */
+  :root,
+  .dark {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
-    --card-foreground: 213 74% 15%;
+    --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 213 74% 15%;
+    --popover-foreground: 222.2 84% 4.9%;
     --primary: 213 74% 15%;         /* #0A2540 deep navy */
     --primary-foreground: 210 33% 98%;
     --secondary: 210 40% 96.1%;
@@ -30,28 +31,15 @@
     --ring: 153 100% 33%;           /* #00A86B energy green */
     --radius: 0.75rem;
   }
+}
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 142.1 76.2% 36.3%;
-    --primary-foreground: 355.7 100% 97.3%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 142.1 76.2% 36.3%;
-  }
+html, html.dark {
+  color-scheme: light;
+}
+
+body, html.dark body {
+  background-color: white;
+  color: rgb(17 24 39);
 }
 
 @keyframes fadeUp {
