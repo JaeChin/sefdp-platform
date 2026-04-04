@@ -304,7 +304,13 @@ export default function MarketplaceLandingPage() {
         </span>
         <div className="flex items-center gap-4">
           <span className="text-[10px] text-white/30 uppercase tracking-widest">In partnership with</span>
-          <img src="/logos/seforall-logo.png" alt="Sustainable Energy for All" style={{ height: 32, objectFit: 'contain', mixBlendMode: 'screen', opacity: 0.9 }} />
+          <svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 32 Q10 8 32 6" stroke="#F59E0B" strokeWidth="3" strokeLinecap="round" fill="none"/>
+            <path d="M14 36 Q38 38 40 16" stroke="#F59E0B" strokeWidth="3" strokeLinecap="round" fill="none"/>
+            <text x="48" y="14" fontFamily="system-ui, sans-serif" fontSize="7" fontWeight="600" fill="#94a3b8" letterSpacing="0.5">SUSTAINABLE</text>
+            <text x="48" y="24" fontFamily="system-ui, sans-serif" fontSize="7" fontWeight="600" fill="#94a3b8" letterSpacing="0.5">ENERGY</text>
+            <text x="48" y="34" fontFamily="system-ui, sans-serif" fontSize="9" fontWeight="700" fill="#cbd5e1" letterSpacing="0.5">FOR ALL</text>
+          </svg>
           <div className="w-px h-4 bg-white/15" />
           <span className="text-xs text-white/45 font-semibold">Central Bank of Nigeria</span>
         </div>
