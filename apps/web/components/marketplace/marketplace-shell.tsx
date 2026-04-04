@@ -48,7 +48,7 @@ export function MarketplaceShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar items={marketplaceNavItems} title="Marketplace" footer={<RegulatorLink />} />
+        <Sidebar items={marketplaceNavItems} title="Marketplace" logoHref="/marketplace/landing" footer={<RegulatorLink />} />
         <div className="flex flex-1 flex-col overflow-hidden">
           <Header userName="Marketplace User" roleBadge="Financier Portal">
             {/* TODO: replace span + dot with <Image> src="/logos/seforall.svg" when asset arrives */}

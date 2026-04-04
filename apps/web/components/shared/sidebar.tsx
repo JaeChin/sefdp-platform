@@ -15,16 +15,17 @@ export interface NavItem {
 interface SidebarProps {
   items: NavItem[];
   title: string;
+  logoHref?: string;
   footer?: React.ReactNode;
 }
 
-export function Sidebar({ items, title, footer }: SidebarProps) {
+export function Sidebar({ items, title, logoHref = '/', footer }: SidebarProps) {
   const pathname = usePathname();
 
   return (
     <aside className="flex h-full w-64 flex-col border-r bg-card">
       <div className="flex h-16 items-center border-b px-6">
-        <Link href="/" className="text-lg font-bold text-primary">
+        <Link href={logoHref as Route} className="text-lg font-bold text-primary">
           SEF-DP
         </Link>
         <span className="ml-2 rounded bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground">
