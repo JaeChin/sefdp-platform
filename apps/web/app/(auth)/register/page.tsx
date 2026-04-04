@@ -1,12 +1,24 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { ShieldCheck, FileCheck, Check } from 'lucide-react';
 
-export default function RegisterPage() {
+function RegisterForm() {
+  const searchParams = useSearchParams();
+  const roleType = searchParams.get('type') as 'developer' | 'financier' | null;
+
   const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  // Financier multi-select state
+  const [selectedCapitalTypes, setSelectedCapitalTypes] = useState<string[]>([]);
+  const [selectedStages, setSelectedStages] = useState<string[]>([]);
+  const [selectedTech, setSelectedTech] = useState<string[]>([]);
+  const [selectedDevStatus, setSelectedDevStatus] = useState<string[]>([]);
+  const [selectedOfftaker, setSelectedOfftaker] = useState<string[]>([]);
+  const [selectedDocs, setSelectedDocs] = useState<string[]>([]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -16,6 +28,51 @@ export default function RegisterPage() {
       setSubmitted(true);
     }, 1500);
   }
+
+  const inputClassName = "w-full rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none";
+  const inputStyle = { background: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.12)" };
+  const selectClassName = "w-full appearance-none rounded-lg px-4 py-3 text-white focus:outline-none [&>option]:bg-[#0A2540] [&>option]:text-white";
+  const textareaClassName = "w-full rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none min-h-[80px] resize-none";
+
+  function handleFocus(e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
+    e.currentTarget.style.borderColor = "rgba(245,194,0,0.5)";
+    e.currentTarget.style.boxShadow = "0 0 0 3px rgba(245,194,0,0.08)";
+  }
+  function handleBlur(e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
+    e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+    e.currentTarget.style.boxShadow = "none";
+  }
+
+  function renderMultiSelect(
+    label: string,
+    options: string[],
+    selected: string[],
+    setSelected: React.Dispatch<React.SetStateAction<string[]>>
+  ) {
+    return (
+      <div>
+        <label className="mb-1.5 block text-sm font-medium text-slate-300">{label}</label>
+        <div className="flex flex-wrap gap-2 mt-1">
+          {options.map((opt) => (
+            <label key={opt} className={`cursor-pointer rounded-full px-3 py-1.5 text-xs font-medium transition-all ${
+              selected.includes(opt)
+                ? 'text-white'
+                : 'text-white/50 hover:text-white/70'
+            }`} style={{
+              background: selected.includes(opt) ? 'rgba(0,168,107,0.25)' : 'rgba(255,255,255,0.055)',
+              border: `1px solid ${selected.includes(opt) ? 'rgba(0,168,107,0.5)' : 'rgba(255,255,255,0.12)'}`,
+            }}>
+              <input type="checkbox" className="sr-only" checked={selected.includes(opt)}
+                onChange={() => setSelected(prev => prev.includes(opt) ? prev.filter(v => v !== opt) : [...prev, opt])} />
+              {opt}
+            </label>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  const hasRole = roleType === 'developer' || roleType === 'financier';
 
   return (
     <div className="flex min-h-screen w-full relative" style={{ background: "#0A2540" }}>
@@ -48,7 +105,7 @@ export default function RegisterPage() {
 
       {/* ── Left panel ───────────────────────────────────────────────── */}
       <div className="flex-1 flex flex-col items-center justify-center p-8 lg:w-3/5" style={{ position: "relative", zIndex: 1 }}>
-        <div className="w-full max-w-md">
+        <div className={`w-full ${hasRole ? 'max-w-lg' : 'max-w-md'}`}>
           <div className="rounded-2xl p-10 relative" style={{
             background: "rgba(255,255,255,0.04)",
             backdropFilter: "blur(20px)",
@@ -66,6 +123,14 @@ export default function RegisterPage() {
               Sustainable Energy Finance Developer Platform
             </p>
 
+            {/* Role indicator badge */}
+            {roleType === 'developer' && (
+              <span className="mt-2 inline-block rounded-full px-3 py-1 text-xs font-semibold" style={{ background: "rgba(245,194,0,0.15)", color: "#F5C200", border: "1px solid rgba(245,194,0,0.3)" }}>Solar Developer Registration</span>
+            )}
+            {roleType === 'financier' && (
+              <span className="mt-2 inline-block rounded-full px-3 py-1 text-xs font-semibold" style={{ background: "rgba(0,168,107,0.15)", color: "#00A86B", border: "1px solid rgba(0,168,107,0.3)" }}>Financier Registration</span>
+            )}
+
             <div className="my-6 border-b border-white/10" />
 
             {submitted ? (
@@ -78,8 +143,7 @@ export default function RegisterPage() {
                   Account request submitted
                 </h2>
                 <p className="text-sm text-slate-400">
-                  You&apos;ll receive an email once your access is approved by the
-                  programme administrator.
+                  Registration received. Our team will be in touch.
                 </p>
                 <Link
                   href="/login"
@@ -88,6 +152,21 @@ export default function RegisterPage() {
                 >
                   &larr; Back to sign in
                 </Link>
+              </div>
+            ) : !hasRole ? (
+              /* Role selection screen */
+              <div className="space-y-4">
+                <p className="text-sm text-slate-300 text-center">Select your registration type</p>
+                <div className="grid grid-cols-2 gap-3">
+                  <Link href="/register?type=developer" className="rounded-xl p-4 text-center transition-all hover:scale-[1.02]" style={{ background: "rgba(245,194,0,0.08)", border: "1px solid rgba(245,194,0,0.25)" }}>
+                    <p className="text-sm font-semibold text-white">Solar Developer</p>
+                    <p className="text-xs text-white/40 mt-1">List projects & get matched</p>
+                  </Link>
+                  <Link href="/register?type=financier" className="rounded-xl p-4 text-center transition-all hover:scale-[1.02]" style={{ background: "rgba(0,168,107,0.08)", border: "1px solid rgba(0,168,107,0.25)" }}>
+                    <p className="text-sm font-semibold text-white">Financier / DFI</p>
+                    <p className="text-xs text-white/40 mt-1">Browse pre-screened pipeline</p>
+                  </Link>
+                </div>
               </div>
             ) : (
               /* Registration form */
@@ -112,10 +191,10 @@ export default function RegisterPage() {
                         type="text"
                         placeholder="Jane"
                         autoComplete="given-name"
-                        className="w-full rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none"
-                        style={{ background: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.12)" }}
-                        onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(245,194,0,0.5)"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(245,194,0,0.08)"; }}
-                        onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; e.currentTarget.style.boxShadow = "none"; }}
+                        className={inputClassName}
+                        style={inputStyle}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
                       />
                     </div>
                     <div>
@@ -130,10 +209,10 @@ export default function RegisterPage() {
                         type="text"
                         placeholder="Okafor"
                         autoComplete="family-name"
-                        className="w-full rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none"
-                        style={{ background: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.12)" }}
-                        onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(245,194,0,0.5)"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(245,194,0,0.08)"; }}
-                        onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; e.currentTarget.style.boxShadow = "none"; }}
+                        className={inputClassName}
+                        style={inputStyle}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
                       />
                     </div>
                   </div>
@@ -150,10 +229,10 @@ export default function RegisterPage() {
                       type="email"
                       placeholder="your@organisation.ng"
                       autoComplete="email"
-                      className="w-full rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none"
-                      style={{ background: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.12)" }}
-                      onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(245,194,0,0.5)"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(245,194,0,0.08)"; }}
-                      onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; e.currentTarget.style.boxShadow = "none"; }}
+                      className={inputClassName}
+                      style={inputStyle}
+                      onFocus={handleFocus}
+                      onBlur={handleBlur}
                     />
                   </div>
                 </div>
@@ -177,10 +256,10 @@ export default function RegisterPage() {
                       type="text"
                       placeholder="Acme Solar Ltd"
                       autoComplete="organization"
-                      className="w-full rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none"
-                      style={{ background: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.12)" }}
-                      onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(245,194,0,0.5)"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(245,194,0,0.08)"; }}
-                      onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; e.currentTarget.style.boxShadow = "none"; }}
+                      className={inputClassName}
+                      style={inputStyle}
+                      onFocus={handleFocus}
+                      onBlur={handleBlur}
                     />
                   </div>
                   {/* Organisation Type */}
@@ -194,10 +273,10 @@ export default function RegisterPage() {
                     <select
                       id="orgType"
                       defaultValue=""
-                      className="w-full appearance-none rounded-lg px-4 py-3 text-white focus:outline-none [&>option]:bg-[#0A2540] [&>option]:text-white"
-                      style={{ background: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.12)" }}
-                      onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(245,194,0,0.5)"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(245,194,0,0.08)"; }}
-                      onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; e.currentTarget.style.boxShadow = "none"; }}
+                      className={selectClassName}
+                      style={inputStyle}
+                      onFocus={handleFocus}
+                      onBlur={handleBlur}
                     >
                       <option value="" disabled className="text-slate-500">
                         Select organisation type
@@ -223,10 +302,10 @@ export default function RegisterPage() {
                     <select
                       id="role"
                       defaultValue=""
-                      className="w-full appearance-none rounded-lg px-4 py-3 text-white focus:outline-none [&>option]:bg-[#0A2540] [&>option]:text-white [&>optgroup]:bg-[#0A2540] [&>optgroup]:text-slate-400"
-                      style={{ background: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.12)" }}
-                      onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(245,194,0,0.5)"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(245,194,0,0.08)"; }}
-                      onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; e.currentTarget.style.boxShadow = "none"; }}
+                      className={`${selectClassName} [&>optgroup]:bg-[#0A2540] [&>optgroup]:text-slate-400`}
+                      style={inputStyle}
+                      onFocus={handleFocus}
+                      onBlur={handleBlur}
                     >
                       <option value="" disabled className="text-slate-500">
                         Select your role
@@ -280,10 +359,10 @@ export default function RegisterPage() {
                       type="password"
                       placeholder="••••••••"
                       autoComplete="new-password"
-                      className="w-full rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none"
-                      style={{ background: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.12)" }}
-                      onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(245,194,0,0.5)"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(245,194,0,0.08)"; }}
-                      onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; e.currentTarget.style.boxShadow = "none"; }}
+                      className={inputClassName}
+                      style={inputStyle}
+                      onFocus={handleFocus}
+                      onBlur={handleBlur}
                     />
                   </div>
                   {/* Confirm Password */}
@@ -299,13 +378,510 @@ export default function RegisterPage() {
                       type="password"
                       placeholder="••••••••"
                       autoComplete="new-password"
-                      className="w-full rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none"
-                      style={{ background: "rgba(255,255,255,0.055)", border: "1px solid rgba(255,255,255,0.12)" }}
-                      onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(245,194,0,0.5)"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(245,194,0,0.08)"; }}
-                      onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; e.currentTarget.style.boxShadow = "none"; }}
+                      className={inputClassName}
+                      style={inputStyle}
+                      onFocus={handleFocus}
+                      onBlur={handleBlur}
                     />
                   </div>
                 </div>
+
+                {/* ── Developer-specific sections ──────────────────────── */}
+                {roleType === 'developer' && (
+                  <>
+                    {/* Project Cost */}
+                    <div className="mb-5">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-4 flex items-center gap-3">
+                        Project Cost
+                        <span className="flex-1 border-t border-white/10" />
+                      </p>
+                      <div>
+                        <label htmlFor="financialModel" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Describe your preliminary financial model including capex, tariff and grant impact
+                        </label>
+                        <textarea
+                          id="financialModel"
+                          placeholder="Include capex breakdown, expected tariff, and anticipated grant impact..."
+                          className={textareaClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="fundingRequirement" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Total funding requirement (&#8358;)
+                        </label>
+                        <input
+                          id="fundingRequirement"
+                          type="text"
+                          placeholder="e.g. 500,000,000"
+                          className={inputClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="financingType" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Type of financing sought
+                        </label>
+                        <select
+                          id="financingType"
+                          defaultValue=""
+                          className={selectClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        >
+                          <option value="" disabled className="text-slate-500">Select financing type</option>
+                          <option value="equity">Equity</option>
+                          <option value="debt">Debt</option>
+                          <option value="mezzanine">Mezzanine</option>
+                          <option value="grant">Grant</option>
+                          <option value="blended_finance">Blended Finance</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Licences & Permits */}
+                    <div className="mb-5">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-4 flex items-center gap-3">
+                        Licences & Permits
+                        <span className="flex-1 border-t border-white/10" />
+                      </p>
+                      <div>
+                        <label htmlFor="licences" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          List applicable state licences and permits
+                        </label>
+                        <textarea
+                          id="licences"
+                          placeholder="e.g. NERC licence, state permits..."
+                          className={textareaClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="importWaiver" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Import waiver / tax holiday status
+                        </label>
+                        <select
+                          id="importWaiver"
+                          defaultValue=""
+                          className={selectClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        >
+                          <option value="" disabled className="text-slate-500">Select status</option>
+                          <option value="not_applicable">Not Applicable</option>
+                          <option value="applied">Applied</option>
+                          <option value="in_process">In Process</option>
+                          <option value="approved">Approved</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Developer History & Track Record */}
+                    <div className="mb-5">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-4 flex items-center gap-3">
+                        Developer History & Track Record
+                        <span className="flex-1 border-t border-white/10" />
+                      </p>
+                      <div>
+                        <label htmlFor="financialStatements" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Audited financial statements
+                        </label>
+                        <select
+                          id="financialStatements"
+                          defaultValue=""
+                          className={selectClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        >
+                          <option value="" disabled className="text-slate-500">Select availability</option>
+                          <option value="not_available">Not Available</option>
+                          <option value="tier1_bank">Available — Tier 1 Bank</option>
+                          <option value="other_bank">Available — Other Bank</option>
+                        </select>
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="cacStatus" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          CAC registration & tax certificates
+                        </label>
+                        <select
+                          id="cacStatus"
+                          defaultValue=""
+                          className={selectClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        >
+                          <option value="" disabled className="text-slate-500">Select status</option>
+                          <option value="not_available">Not Available</option>
+                          <option value="in_progress">In Progress</option>
+                          <option value="submitted">Submitted</option>
+                          <option value="verified">Verified</option>
+                        </select>
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="portfolioType" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Portfolio type
+                        </label>
+                        <select
+                          id="portfolioType"
+                          defaultValue=""
+                          className={selectClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        >
+                          <option value="" disabled className="text-slate-500">Select portfolio type</option>
+                          <option value="single">Single Project</option>
+                          <option value="portfolio">Portfolio of Projects</option>
+                        </select>
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="debtSummary" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Summarise key terms of any outstanding borrowings (leave blank if none)
+                        </label>
+                        <textarea
+                          id="debtSummary"
+                          placeholder="e.g. ₦200M facility from GTBank, 5-year tenor, 18% interest..."
+                          className={textareaClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="equityRaised" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Equity raised to date (&#8358;) — enter 0 if none
+                        </label>
+                        <input
+                          id="equityRaised"
+                          type="text"
+                          placeholder="e.g. 150,000,000"
+                          className={inputClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="existingPortfolio" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          List existing sites: project name, location, capex, connections, grants collected
+                        </label>
+                        <textarea
+                          id="existingPortfolio"
+                          placeholder="e.g. Sokoto Mini-Grid, Sokoto State, ₦450M capex, 800 connections..."
+                          className={textareaClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Project Details */}
+                    <div className="mb-5">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-4 flex items-center gap-3">
+                        Project Details
+                        <span className="flex-1 border-t border-white/10" />
+                      </p>
+                      <div>
+                        <label htmlFor="projectName" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Project name
+                        </label>
+                        <input
+                          id="projectName"
+                          type="text"
+                          placeholder="e.g. Katsina Solar Mini-Grid"
+                          className={inputClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="contactDetails" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Key contact name, phone, and email for this project
+                        </label>
+                        <textarea
+                          id="contactDetails"
+                          placeholder="e.g. Amina Yusuf, +234 803 XXX XXXX, amina@company.ng"
+                          className={textareaClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="projectDescription" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Describe the project: type, location, host community, timelines, risk matrix
+                        </label>
+                        <textarea
+                          id="projectDescription"
+                          placeholder="e.g. 500kW solar mini-grid in Dutsinma LGA, Katsina State..."
+                          className={textareaClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="epcContractor" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          EPC contractor if selected, or state &apos;In-house&apos;
+                        </label>
+                        <input
+                          id="epcContractor"
+                          type="text"
+                          placeholder="e.g. Greenlight Engineering Ltd"
+                          className={inputClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="technicalDesign" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Technical design available
+                        </label>
+                        <select
+                          id="technicalDesign"
+                          defaultValue=""
+                          className={selectClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        >
+                          <option value="" disabled className="text-slate-500">Select status</option>
+                          <option value="not_yet">Not yet</option>
+                          <option value="schematic">Schematic only</option>
+                          <option value="full_design">Full design available</option>
+                        </select>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* ── Financier-specific sections ──────────────────────── */}
+                {roleType === 'financier' && (
+                  <>
+                    {/* Type & Stage of Financing */}
+                    <div className="mb-5">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-4 flex items-center gap-3">
+                        Type & Stage of Financing
+                        <span className="flex-1 border-t border-white/10" />
+                      </p>
+                      {renderMultiSelect('Capital type', ['Equity', 'Debt', 'Mezzanine', 'Grants', 'Guarantees', 'Blended Finance'], selectedCapitalTypes, setSelectedCapitalTypes)}
+                      <div className="mt-4">
+                        {renderMultiSelect('Project stage supported', ['Early Development', 'Construction', 'Operational Refinancing', 'Portfolio Aggregation'], selectedStages, setSelectedStages)}
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="minTicket" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Minimum commitment per project (&#8358;)
+                        </label>
+                        <input
+                          id="minTicket"
+                          type="text"
+                          placeholder="e.g. 100,000,000"
+                          className={inputClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="maxTicket" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Maximum commitment per project (&#8358;)
+                        </label>
+                        <input
+                          id="maxTicket"
+                          type="text"
+                          placeholder="e.g. 2,000,000,000"
+                          className={inputClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="corporateSpv" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Corporate vs SPV
+                        </label>
+                        <select
+                          id="corporateSpv"
+                          defaultValue=""
+                          className={selectClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        >
+                          <option value="" disabled className="text-slate-500">Select preference</option>
+                          <option value="corporate">Corporate-level only</option>
+                          <option value="spv">Project SPV only</option>
+                          <option value="both">Both</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Investment Criteria */}
+                    <div className="mb-5">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-4 flex items-center gap-3">
+                        Investment Criteria
+                        <span className="flex-1 border-t border-white/10" />
+                      </p>
+                      {renderMultiSelect('Technology preferences', ['Solar PV', 'Wind', 'Biomass', 'Mini-grids', 'Battery Storage', 'Hybrid'], selectedTech, setSelectedTech)}
+                      <div className="mt-4">
+                        <label htmlFor="geoFocus" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Countries or regions of focus
+                        </label>
+                        <textarea
+                          id="geoFocus"
+                          placeholder="e.g. Nigeria, West Africa, Sub-Saharan Africa"
+                          className={textareaClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="minCapacity" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Minimum project size (kWp or MW)
+                        </label>
+                        <input
+                          id="minCapacity"
+                          type="text"
+                          placeholder="e.g. 100 kWp"
+                          className={inputClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        {renderMultiSelect('Required development status', ['Land rights secured', 'Permits in place', 'PPAs signed', 'Construction ready'], selectedDevStatus, setSelectedDevStatus)}
+                      </div>
+                      <div className="mt-4">
+                        {renderMultiSelect('Off-taker profile', ['Utility-scale', 'C&I clients', 'Government-backed', 'Smallholder/community'], selectedOfftaker, setSelectedOfftaker)}
+                      </div>
+                    </div>
+
+                    {/* Financial Terms & Structure */}
+                    <div className="mb-5">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-4 flex items-center gap-3">
+                        Financial Terms & Structure
+                        <span className="flex-1 border-t border-white/10" />
+                      </p>
+                      <div>
+                        <label htmlFor="tenor" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Loan tenor / investment horizon (years)
+                        </label>
+                        <input
+                          id="tenor"
+                          type="text"
+                          placeholder="e.g. 7"
+                          className={inputClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="security" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Collateral, guarantees, or escrow requirements
+                        </label>
+                        <textarea
+                          id="security"
+                          placeholder="e.g. First lien on project assets, escrow for debt service..."
+                          className={textareaClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="currency" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          defaultValue=""
+                          className={selectClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        >
+                          <option value="" disabled className="text-slate-500">Select currency preference</option>
+                          <option value="usd">USD only</option>
+                          <option value="ngn">NGN only</option>
+                          <option value="both">Both USD and NGN</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="blendedFinance" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Blended finance
+                        </label>
+                        <select
+                          id="blendedFinance"
+                          defaultValue=""
+                          className={selectClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        >
+                          <option value="" disabled className="text-slate-500">Select preference</option>
+                          <option value="not_open">Not open to blended finance</option>
+                          <option value="dfi_cofinancing">Open to co-financing with DFIs</option>
+                          <option value="grant_cofinancing">Open to grant co-financing</option>
+                          <option value="all_blended">Open to all blended structures</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Due Diligence & Process */}
+                    <div className="mb-5">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-4 flex items-center gap-3">
+                        Due Diligence & Process
+                        <span className="flex-1 border-t border-white/10" />
+                      </p>
+                      {renderMultiSelect('Required documentation', ['Financial model', 'Feasibility studies', 'EPC contracts', 'Permits', 'PPAs', 'Audited financials'], selectedDocs, setSelectedDocs)}
+                      <div className="mt-4">
+                        <label htmlFor="approvalTimeline" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Typical time to financial close (weeks)
+                        </label>
+                        <input
+                          id="approvalTimeline"
+                          type="text"
+                          placeholder="e.g. 12"
+                          className={inputClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label htmlFor="trackRecord" className="mb-1.5 block text-sm font-medium text-slate-300">
+                          Minimum developer experience or management team requirements
+                        </label>
+                        <textarea
+                          id="trackRecord"
+                          placeholder="e.g. Minimum 3 years operating mini-grids, proven connections track record..."
+                          className={textareaClassName}
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
 
                 {/* Submit button */}
                 <button
@@ -339,6 +915,8 @@ export default function RegisterPage() {
                       Submitting...
                     </>
                   ) : (
+                    roleType === 'developer' ? 'Register as Developer' :
+                    roleType === 'financier' ? 'Register as Financier' :
                     'Create Account'
                   )}
                 </button>
@@ -415,5 +993,17 @@ export default function RegisterPage() {
 
       </div>
     </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen w-full items-center justify-center" style={{ background: "#0A2540" }}>
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-white/20 border-t-white/60" />
+      </div>
+    }>
+      <RegisterForm />
+    </Suspense>
   );
 }

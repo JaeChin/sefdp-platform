@@ -178,7 +178,7 @@ export default function MarketplaceLandingPage() {
             <p className="text-sm text-white/50 leading-relaxed mb-6">
               Submit your project once. Get credit-methodology scoring verified by World Bank programme data. Matched automatically to the right DFIs and commercial banks.
             </p>
-            <Link href="/register" className="text-sm font-semibold transition-colors hover:opacity-80" style={{ color: "#F5C200" }}>
+            <Link href="/register?type=developer" className="text-sm font-semibold transition-colors hover:opacity-80" style={{ color: "#F5C200" }}>
               Request developer access →
             </Link>
           </div>
@@ -203,8 +203,90 @@ export default function MarketplaceLandingPage() {
             <p className="text-sm text-white/50 leading-relaxed mb-6">
               Browse pre-screened projects with independent due diligence already completed. Filter by risk appetite, deal size, and geography. Syndicate with other institutions on larger opportunities.
             </p>
-            <Link href="/register" className="text-sm font-semibold text-white/60 hover:text-white transition-colors">
+            <Link href="/register?type=financier" className="text-sm font-semibold text-white/60 hover:text-white transition-colors">
               Request financier access →
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Join the Platform CTA */}
+      <div className="relative px-10 py-16" style={{ zIndex: 10 }}>
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-white" style={{ fontFamily: "'Sora', sans-serif" }}>
+            Join the Platform
+          </h2>
+          <p className="text-sm text-white/50 mt-2">
+            Access by invitation. Select your role to begin registration.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-6 mt-10 max-w-3xl mx-auto">
+          {/* Developer card */}
+          <div className="rounded-xl p-8" style={{ background: "rgba(10,37,64,0.8)", border: "1px solid rgba(245,194,0,0.2)" }}>
+            <p className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "#F5C200" }}>
+              SOLAR DEVELOPER
+            </p>
+            <h3 className="text-lg font-bold text-white mt-2" style={{ fontFamily: "'Sora', sans-serif" }}>
+              Solar Developer
+            </h3>
+            <p className="text-sm text-white/50 mt-2 leading-relaxed">
+              List your project, get credit-scored, and connect with DFIs and commercial banks.
+            </p>
+            <ul className="mt-4 space-y-2">
+              <li className="flex items-start gap-2">
+                <span className="w-1 h-1 rounded-full bg-[#F5C200] mt-1.5 shrink-0" />
+                <span className="text-xs text-white/40">Pre-screening &amp; Credit Score</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1 h-1 rounded-full bg-[#F5C200] mt-1.5 shrink-0" />
+                <span className="text-xs text-white/40">Financier matching</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1 h-1 rounded-full bg-[#F5C200] mt-1.5 shrink-0" />
+                <span className="text-xs text-white/40">Grant track record verified</span>
+              </li>
+            </ul>
+            <Link
+              href="/register?type=developer"
+              className="block w-full rounded-lg py-2.5 text-sm font-semibold text-center mt-6"
+              style={{ background: "#F5C200", color: "#0D1E2E" }}
+            >
+              Register as Developer →
+            </Link>
+          </div>
+
+          {/* Financier card */}
+          <div className="rounded-xl p-8" style={{ background: "rgba(10,37,64,0.8)", border: "1px solid rgba(0,168,107,0.2)" }}>
+            <p className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "#00A86B" }}>
+              FINANCIER / DFI
+            </p>
+            <h3 className="text-lg font-bold text-white mt-2" style={{ fontFamily: "'Sora', sans-serif" }}>
+              Financier / DFI
+            </h3>
+            <p className="text-sm text-white/50 mt-2 leading-relaxed">
+              Browse pre-screened developer pipeline. Filter by deal size, stage, and instrument type.
+            </p>
+            <ul className="mt-4 space-y-2">
+              <li className="flex items-start gap-2">
+                <span className="w-1 h-1 rounded-full bg-[#00A86B] mt-1.5 shrink-0" />
+                <span className="text-xs text-white/40">Pre-qualified developer pipeline</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1 h-1 rounded-full bg-[#00A86B] mt-1.5 shrink-0" />
+                <span className="text-xs text-white/40">Credit-scored projects</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1 h-1 rounded-full bg-[#00A86B] mt-1.5 shrink-0" />
+                <span className="text-xs text-white/40">Deal flow analytics</span>
+              </li>
+            </ul>
+            <Link
+              href="/register?type=financier"
+              className="block w-full rounded-lg py-2.5 text-sm font-semibold text-center mt-6"
+              style={{ background: "#00A86B", color: "white" }}
+            >
+              Register as Financier →
             </Link>
           </div>
         </div>
