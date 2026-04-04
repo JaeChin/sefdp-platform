@@ -178,9 +178,6 @@ export default function MarketplaceLandingPage() {
             <p className="text-sm text-white/50 leading-relaxed mb-6">
               Submit your project once. Get credit-methodology scoring verified by World Bank programme data. Matched automatically to the right DFIs and commercial banks.
             </p>
-            <Link href="/register?type=developer" className="text-sm font-semibold transition-colors hover:opacity-80" style={{ color: "#F5C200" }}>
-              Request developer access →
-            </Link>
           </div>
         </div>
 
@@ -203,9 +200,6 @@ export default function MarketplaceLandingPage() {
             <p className="text-sm text-white/50 leading-relaxed mb-6">
               Browse pre-screened projects with independent due diligence already completed. Filter by risk appetite, deal size, and geography. Syndicate with other institutions on larger opportunities.
             </p>
-            <Link href="/register?type=financier" className="text-sm font-semibold text-white/60 hover:text-white transition-colors">
-              Request financier access →
-            </Link>
           </div>
         </div>
       </div>
