@@ -160,14 +160,14 @@ function NewMatchNotification() {
 
   useEffect(() => {
     // Show after 3 seconds
-    const showTimer = setTimeout(() => setVisible(true), 3000);
+    const showTimer = setTimeout(() => setVisible(true), 8000);
     return () => clearTimeout(showTimer);
   }, []);
 
   useEffect(() => {
     if (!visible) return;
     // Auto-dismiss after 8 seconds
-    const dismissTimer = setTimeout(() => setDismissed(true), 8000);
+    const dismissTimer = setTimeout(() => setDismissed(true), 15000);
     return () => clearTimeout(dismissTimer);
   }, [visible]);
 
@@ -247,7 +247,7 @@ function NewMatchNotification() {
           <div
             className="h-full bg-[#00A86B]"
             style={{
-              animation: 'progressDrain 8s linear both',
+              animation: 'progressDrain 15s linear both',
             }}
           />
         </div>
