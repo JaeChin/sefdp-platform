@@ -14,7 +14,8 @@
       "Bash(xargs grep:*)",
       "Bash(pnpm --filter web exec tsc --noEmit)",
       "Bash(./node_modules/.bin/tsc --noEmit)",
-      "Bash(pnpm typecheck:*)"
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm build:*)"
     ]
   }
 }

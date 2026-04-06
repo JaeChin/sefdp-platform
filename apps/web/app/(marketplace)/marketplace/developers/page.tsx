@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { CheckCircle2, Eye, MapPin, Zap } from 'lucide-react';
+import Link from 'next/link';
+import type { Route } from 'next';
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@sefdp/ui';
 
@@ -274,14 +276,28 @@ export default function DevelopersPage() {
 
               {/* Action */}
               <div className="mt-auto">
-                <Button
-                  variant="default"
-                  size="sm"
-                  className="w-full bg-[#0A2540] text-white hover:bg-[#0A2540]/90"
-                >
-                  <Eye className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />
-                  View Profile
-                </Button>
+                {dev.id === 'DEV-003' ? (
+                  <Button
+                    asChild
+                    variant="default"
+                    size="sm"
+                    className="w-full bg-[#0A2540] text-white hover:bg-[#0A2540]/90"
+                  >
+                    <Link href={'/marketplace/developers/greenlight' as Route}>
+                      <Eye className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />
+                      View Profile
+                    </Link>
+                  </Button>
+                ) : (
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="w-full bg-[#0A2540] text-white hover:bg-[#0A2540]/90"
+                  >
+                    <Eye className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />
+                    View Profile
+                  </Button>
+                )}
               </div>
             </article>
           );

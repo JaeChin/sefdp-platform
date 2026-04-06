@@ -1,4 +1,6 @@
 import { MapPin, Eye, GitCompare } from 'lucide-react';
+import Link from 'next/link';
+import type { Route } from 'next';
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@sefdp/ui';
 
@@ -166,14 +168,28 @@ export default function FinanciersPage() {
 
               {/* Action */}
               <div className="mt-auto">
-                <Button
-                  variant="default"
-                  size="sm"
-                  className="w-full bg-[#0A2540] text-white hover:bg-[#0A2540]/90"
-                >
-                  <Eye className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />
-                  View Criteria
-                </Button>
+                {fin.id === 'FIN-003' ? (
+                  <Button
+                    asChild
+                    variant="default"
+                    size="sm"
+                    className="w-full bg-[#0A2540] text-white hover:bg-[#0A2540]/90"
+                  >
+                    <Link href={'/marketplace/financiers/crossboundary' as Route}>
+                      <Eye className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />
+                      View Criteria
+                    </Link>
+                  </Button>
+                ) : (
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="w-full bg-[#0A2540] text-white hover:bg-[#0A2540]/90"
+                  >
+                    <Eye className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />
+                    View Criteria
+                  </Button>
+                )}
               </div>
             </article>
           );
