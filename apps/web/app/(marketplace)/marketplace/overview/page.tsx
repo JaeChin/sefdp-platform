@@ -215,7 +215,7 @@ function NewMatchNotification() {
         {/* Match name */}
         <p className="mt-0.5 text-xs text-slate-400">
           Matched with{' '}
-          <span className="font-medium text-slate-200">Africa Financiers Institute</span>
+          <span className="font-medium text-slate-200">NSIA</span>
         </p>
 
         {/* Match score */}
