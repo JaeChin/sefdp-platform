@@ -1,10 +1,10 @@
 'use client';
 
 const deals = [
-  { project: "Kano North Mini-Grid Expansion", developer: "Novawatt Energy Ltd", financier: "CrossBoundary Energy Access", type: "Mini-grid", dealSize: 840_000_000, ifcScore: 74, status: "In Discussion", updated: "2 Apr 2026" },
-  { project: "Enugu Industrial Solar Park", developer: "Greenlight Planet NG", financier: "British International Investment", type: "C&I", dealSize: 1_580_000_000, ifcScore: 82, status: "In Discussion", updated: "1 Apr 2026" },
-  { project: "Borno Rural Cluster Phase II", developer: "AfriSolar Power", financier: "Africa Finance Corporation", type: "Mini-grid", dealSize: 735_000_000, ifcScore: 71, status: "New Match", updated: "3 Apr 2026" },
-  { project: "Ogun Peri-Urban Grid", developer: "Starsight Energy", financier: "Stanbic IBTC", type: "Hybrid", dealSize: 525_000_000, ifcScore: 77, status: "In Discussion", updated: "31 Mar 2026" },
+  { project: "Kano North Mini-Grid Expansion", developer: "SOLAD", financier: "Emmanuel Financiers", type: "Mini-grid", dealSize: 840_000_000, ifcScore: 74, status: "In Discussion", updated: "2 Apr 2026" },
+  { project: "Enugu Industrial Solar Park", developer: "Solar For Business", financier: "NSIA", type: "C&I", dealSize: 1_580_000_000, ifcScore: 82, status: "In Discussion", updated: "1 Apr 2026" },
+  { project: "Borno Rural Cluster Phase II", developer: "RIPLE", financier: "Africa Financiers Institute", type: "Mini-grid", dealSize: 735_000_000, ifcScore: 71, status: "New Match", updated: "3 Apr 2026" },
+  { project: "Ogun Peri-Urban Grid", developer: "Ruth London Energy", financier: "Sterling Bank", type: "Hybrid", dealSize: 525_000_000, ifcScore: 77, status: "In Discussion", updated: "31 Mar 2026" },
   { project: "Niger State SHS Programme", developer: "Rubitec Solar", financier: "Pending Match", type: "SHS", dealSize: 663_600_000, ifcScore: 61, status: "Awaiting Match", updated: "2 Apr 2026" },
 ];
 
@@ -12,7 +12,7 @@ const kpis = [
   { label: "Total Deals in Progress", value: "5" },
   { label: "Combined Deal Value", value: "₦4.2B" },
   { label: "Verified Developers", value: "3" },
-  { label: "Avg Credit Score", value: "76/100" },
+  { label: "Avg Rating", value: "76/100" },
 ];
 
 function getIfcScoreColor(score: number): string {
@@ -86,7 +86,7 @@ export default function RegulatorPage() {
               <th className="text-left text-xs font-semibold uppercase tracking-widest text-slate-400 px-5 py-3">Financier</th>
               <th className="text-left text-xs font-semibold uppercase tracking-widest text-slate-400 px-5 py-3">Type</th>
               <th className="text-left text-xs font-semibold uppercase tracking-widest text-slate-400 px-5 py-3">Deal Size</th>
-              <th className="text-left text-xs font-semibold uppercase tracking-widest text-slate-400 px-5 py-3">Credit Score</th>
+              <th className="text-left text-xs font-semibold uppercase tracking-widest text-slate-400 px-5 py-3">Rating</th>
               <th className="text-left text-xs font-semibold uppercase tracking-widest text-slate-400 px-5 py-3">Status</th>
               <th className="text-left text-xs font-semibold uppercase tracking-widest text-slate-400 px-5 py-3">Last Updated</th>
             </tr>

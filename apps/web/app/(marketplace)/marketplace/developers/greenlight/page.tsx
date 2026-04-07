@@ -87,7 +87,7 @@ export default function GreenlightDeveloperPage() {
           <div className="space-y-3">
             <div className="flex flex-wrap items-center gap-3">
               <h1 className="font-display text-2xl font-bold text-[#0A2540]">
-                Greenlight Planet NG
+                Solar For Business
               </h1>
               <span className="inline-flex items-center gap-1 rounded-full border border-green-200 bg-green-50 px-2.5 py-0.5 text-xs font-medium text-[#00A86B]">
                 <CheckCircle2 className="h-3 w-3" aria-hidden="true" />
@@ -104,7 +104,7 @@ export default function GreenlightDeveloperPage() {
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Building2 className="h-3.5 w-3.5" aria-hidden="true" />
-                Sun King Nigeria
+                Solar For Business Nigeria
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
@@ -113,11 +113,11 @@ export default function GreenlightDeveloperPage() {
             </div>
           </div>
 
-          {/* Credit Score */}
+          {/* Rating */}
           <div
             className={`flex flex-col items-center rounded-xl border px-6 py-4 ${scoreStyle.bg} ${scoreStyle.border}`}
           >
-            <span className="text-xs font-medium text-slate-500">Credit Score</span>
+            <span className="text-xs font-medium text-slate-500">Rating</span>
             <span className={`font-mono text-4xl font-bold leading-none ${scoreStyle.text}`}>
               {score}
             </span>
@@ -151,16 +151,15 @@ export default function GreenlightDeveloperPage() {
         <h2 className="mb-4 font-display text-lg font-bold text-[#0A2540]">About</h2>
         <div className="space-y-4 text-sm leading-relaxed text-slate-600">
           <p>
-            Greenlight Planet Nigeria — operating under the Sun King brand — is the country&apos;s
-            leading off-grid solar developer and PAYG distributor. Active in Nigeria since 2011, the
-            company has delivered clean energy access to over two million individuals across 23 states
-            through a network of nearly 1,200 local Energy Officers and 24 flagship stores.
+            Solar For Business Nigeria is a leading off-grid solar developer and PAYG distributor.
+            Active in Nigeria since 2011, the company has delivered clean energy access to over two
+            million individuals across 23 states through a network of nearly 1,200 local Energy
+            Officers and 24 flagship stores.
           </p>
           <p>
-            The Nigerian subsidiary is backed by IFC, DFC, and British International Investment, and
-            operates as a wholly owned subsidiary of Greenlight Planet Inc. — a global group that has
-            raised over $874 million in total funding and impacted 60 million people across 65
-            countries.
+            The Nigerian subsidiary is backed by IFC, DFC, and leading development finance
+            institutions, and has raised significant funding to impact millions of people across
+            multiple countries.
           </p>
         </div>
       </section>

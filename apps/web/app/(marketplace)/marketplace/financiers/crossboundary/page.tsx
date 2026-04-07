@@ -35,7 +35,7 @@ const ddRequirements = [
 
 const portfolio = [
   {
-    name: 'ENGIE Energy Access Nigeria',
+    name: 'Partner Energy Access Nigeria',
     amount: '₦94,800,000,000',
     amountShort: '₦94.8B',
     location: 'Niger State',
@@ -72,14 +72,14 @@ export default function CrossBoundaryFinancierPage() {
           <div className="space-y-3">
             <div className="flex flex-wrap items-center gap-3">
               <h1 className="font-display text-2xl font-bold text-[#0A2540]">
-                CrossBoundary Energy Access
+                Emmanuel Financiers
               </h1>
               <span className="rounded-full border border-green-200 bg-green-50 px-2.5 py-0.5 text-xs font-semibold text-[#00A86B]">
                 Impact Fund
               </span>
             </div>
             <p className="text-sm text-slate-500">
-              Africa&apos;s first project finance platform for mini-grids
+              Dedicated project finance platform for African mini-grids
             </p>
             <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500">
               <span className="inline-flex items-center gap-1.5">
@@ -109,16 +109,16 @@ export default function CrossBoundaryFinancierPage() {
         <h2 className="mb-4 font-display text-lg font-bold text-[#0A2540]">About</h2>
         <div className="space-y-4 text-sm leading-relaxed text-slate-600">
           <p>
-            CrossBoundary Energy Access (CBEA) is Africa&apos;s first dedicated project finance
-            platform for solar mini-grids. In Nigeria, CBEA committed $60 million alongside World
-            Bank Performance-Based Grants administered by the Rural Electrification Agency — the
-            largest mini-grid project finance transaction on the continent.
+            Emmanuel Financiers is a dedicated project finance platform for solar mini-grids
+            across Africa. In Nigeria, the fund committed $60 million alongside World Bank
+            Performance-Based Grants administered by the Rural Electrification Agency — one of the
+            largest mini-grid project finance transactions on the continent.
           </p>
           <p>
-            CBEA uses a blended finance model, co-investing private capital alongside PBG grants to
-            accelerate mini-grid deployment. Their Nigeria operations are active across Niger State
-            and expanding, with a target of connecting 150,000 people by 2026. Backed by Bank of
-            America, Microsoft Climate Innovation Fund, and the African Development Bank.
+            The fund uses a blended finance model, co-investing private capital alongside PBG grants
+            to accelerate mini-grid deployment. Nigeria operations are active across Niger State and
+            expanding, with a target of connecting 150,000 people by 2026. Backed by leading
+            institutional investors and development finance institutions.
           </p>
         </div>
       </section>

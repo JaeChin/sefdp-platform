@@ -159,7 +159,7 @@ export default function MarketplaceLandingPage() {
       {/* Features — two columns with ghosted photos */}
       <div className="relative grid grid-cols-2 gap-0 border-b border-white/10" style={{ zIndex: 10 }}>
 
-        {/* Solar Developers */}
+        {/* Developers */}
         <div className="px-10 py-12 border-r border-white/10 relative overflow-hidden">
           <div style={{
             position: "absolute", top: 0, right: 0,
@@ -171,7 +171,7 @@ export default function MarketplaceLandingPage() {
             WebkitMaskImage: "linear-gradient(to left, rgba(0,0,0,0.8), transparent)",
           }} />
           <div className="relative max-w-sm">
-            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: "#F5C200" }}>For Solar Developers</p>
+            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: "#F5C200" }}>For Developers</p>
             <h3 className="text-xl font-bold text-white mb-3 leading-snug" style={{ fontFamily: "'Sora', sans-serif" }}>
               Turn your track record into investor-ready credibility
             </h3>
@@ -219,10 +219,10 @@ export default function MarketplaceLandingPage() {
           {/* Developer card */}
           <div className="rounded-xl p-8" style={{ background: "rgba(10,37,64,0.8)", border: "1px solid rgba(245,194,0,0.2)" }}>
             <p className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "#F5C200" }}>
-              SOLAR DEVELOPER
+              DEVELOPER
             </p>
             <h3 className="text-lg font-bold text-white mt-2" style={{ fontFamily: "'Sora', sans-serif" }}>
-              Solar Developer
+              Developer
             </h3>
             <p className="text-sm text-white/50 mt-2 leading-relaxed">
               List your project, get credit-scored, and connect with DFIs and commercial banks.
@@ -230,7 +230,7 @@ export default function MarketplaceLandingPage() {
             <ul className="mt-4 space-y-2">
               <li className="flex items-start gap-2">
                 <span className="w-1 h-1 rounded-full bg-[#F5C200] mt-1.5 shrink-0" />
-                <span className="text-xs text-white/40">Pre-screening &amp; Credit Score</span>
+                <span className="text-xs text-white/40">Pre-screening &amp; Rating</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1 h-1 rounded-full bg-[#F5C200] mt-1.5 shrink-0" />

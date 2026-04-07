@@ -45,7 +45,7 @@ const statCards: {
   {
     title: 'Active Financiers',
     value: 9,
-    delta: '+1 — BII joined Feb 2026',
+    delta: '+1 — NSIA joined Feb 2026',
     icon: Landmark,
     sparkline: [5, 6, 7, 7, 8, 8, 9],
   },
@@ -71,7 +71,7 @@ const activityFeed: {
   {
     id: 1,
     icon: Handshake,
-    text: 'Stanbic IBTC expressed interest in Kaduna Rural Electrification',
+    text: 'Sterling Bank expressed interest in Kaduna Rural Electrification',
     time: '2 hours ago',
     borderClass: 'border-l-[#00A86B]',
     iconClass: 'bg-green-50 text-[#00A86B]',
@@ -79,7 +79,7 @@ const activityFeed: {
   {
     id: 2,
     icon: Plus,
-    text: 'AfriSolar Power listed a new project: Borno C&I Solar Park (₦890M)',
+    text: 'RIPLE listed a new project: Borno C&I Solar Park (₦890M)',
     time: '5 hours ago',
     borderClass: 'border-l-blue-500',
     iconClass: 'bg-blue-50 text-blue-600',
@@ -87,7 +87,7 @@ const activityFeed: {
   {
     id: 3,
     icon: RefreshCw,
-    text: 'Credit Score updated: Novawatt Energy Ltd → 74/100',
+    text: 'Rating updated: SOLAD → 74/100',
     time: 'Yesterday',
     borderClass: 'border-l-[#F59E0B]',
     iconClass: 'bg-amber-50 text-[#F59E0B]',
@@ -95,7 +95,7 @@ const activityFeed: {
   {
     id: 4,
     icon: Handshake,
-    text: 'CrossBoundary Energy matched with Lagos Rooftop PBG Phase II',
+    text: 'Emmanuel Financiers matched with Lagos Rooftop PBG Phase II',
     time: 'Yesterday',
     borderClass: 'border-l-[#00A86B]',
     iconClass: 'bg-green-50 text-[#00A86B]',
@@ -103,7 +103,7 @@ const activityFeed: {
   {
     id: 5,
     icon: UserPlus,
-    text: 'New financier registered: British International Investment (BII)',
+    text: 'New financier registered: NSIA',
     time: '2 days ago',
     borderClass: 'border-l-blue-500',
     iconClass: 'bg-blue-50 text-blue-600',
@@ -111,7 +111,7 @@ const activityFeed: {
   {
     id: 6,
     icon: BadgeCheck,
-    text: 'Greenlight Planet NG achieved Verified Developer status',
+    text: 'Solar For Business achieved Verified Developer status',
     time: '3 days ago',
     borderClass: 'border-l-[#00A86B]',
     iconClass: 'bg-green-50 text-[#00A86B]',
@@ -215,7 +215,7 @@ function NewMatchNotification() {
         {/* Match name */}
         <p className="mt-0.5 text-xs text-slate-400">
           Matched with{' '}
-          <span className="font-medium text-slate-200">Africa Finance Corporation</span>
+          <span className="font-medium text-slate-200">Africa Financiers Institute</span>
         </p>
 
         {/* Match score */}
@@ -263,7 +263,7 @@ export default function MarketplaceOverviewPage() {
     <div className="space-y-8">
       <PageHeader
         title="SEF-DP Marketplace"
-        description="Connect developers with financiers — pre-screened projects, credit-scored and ready for investment."
+        description="Connect developers with financiers — pre-screened projects, rated and ready for investment."
       />
 
       {/* Stat Cards with Sparklines */}

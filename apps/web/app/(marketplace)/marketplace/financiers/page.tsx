@@ -25,7 +25,7 @@ interface Financier {
 const financiers: Financier[] = [
   {
     id: 'FIN-001',
-    name: 'British International Investment (BII)',
+    name: 'NSIA',
     type: 'DFI',
     location: 'London, UK',
     focusTags: ['Mini-grid', 'C&I'],
@@ -35,7 +35,7 @@ const financiers: Financier[] = [
   },
   {
     id: 'FIN-002',
-    name: 'Stanbic IBTC',
+    name: 'Sterling Bank',
     type: 'Commercial Bank',
     location: 'Lagos, Nigeria',
     focusTags: ['Mini-grid', 'C&I', 'SHS', 'Hybrid'],
@@ -45,7 +45,7 @@ const financiers: Financier[] = [
   },
   {
     id: 'FIN-003',
-    name: 'CrossBoundary Energy Access',
+    name: 'Emmanuel Financiers',
     type: 'Impact Fund',
     location: 'Nairobi, Kenya',
     focusTags: ['Mini-grid', 'SHS'],
@@ -55,7 +55,7 @@ const financiers: Financier[] = [
   },
   {
     id: 'FIN-004',
-    name: 'Africa Finance Corporation (AFC)',
+    name: 'Africa Financiers Institute',
     type: 'DFI',
     location: 'Lagos, Nigeria',
     focusTags: ['C&I', 'Hybrid'],

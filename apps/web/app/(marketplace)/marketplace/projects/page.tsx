@@ -34,7 +34,7 @@ const projects: Project[] = [
   {
     id: 'PRJ-2601',
     name: 'Kano North Mini-Grid Expansion',
-    developer: 'Novawatt Energy Ltd',
+    developer: 'SOLAD',
     verified: true,
     state: 'Kano',
     type: 'mini_grid',
@@ -48,7 +48,7 @@ const projects: Project[] = [
   {
     id: 'PRJ-2602',
     name: 'Lagos Island C&I Solar Portfolio',
-    developer: 'SolarFlow Nigeria',
+    developer: 'Python Renewable Energy',
     verified: false,
     state: 'Lagos',
     type: 'c_and_i',
@@ -62,7 +62,7 @@ const projects: Project[] = [
   {
     id: 'PRJ-2603',
     name: 'Borno Rural Cluster Phase II',
-    developer: 'AfriSolar Power',
+    developer: 'RIPLE',
     verified: true,
     state: 'Borno',
     type: 'mini_grid',
@@ -76,7 +76,7 @@ const projects: Project[] = [
   {
     id: 'PRJ-2604',
     name: 'Enugu Industrial Solar Park',
-    developer: 'Greenlight Planet NG',
+    developer: 'Solar For Business',
     verified: true,
     state: 'Enugu',
     type: 'c_and_i',
@@ -104,7 +104,7 @@ const projects: Project[] = [
   {
     id: 'PRJ-2606',
     name: 'Ogun Peri-Urban Grid',
-    developer: 'Starsight Energy',
+    developer: 'Ruth London Energy',
     verified: true,
     state: 'Ogun',
     type: 'hybrid',
@@ -365,7 +365,7 @@ function AggregationModal({ onClose }: { onClose: () => void }) {
           <div className="rounded-lg border border-[#0A2540]/10 bg-[#0A2540]/5 px-4 py-3 space-y-1.5">
             <p className="text-xs font-semibold text-[#0A2540]">Why aggregate?</p>
             <p className="text-xs text-slate-600">
-              Africa Finance Corporation requires minimum ₦500M deals.
+              Africa Financiers Institute requires minimum ₦500M deals.
             </p>
             {additionalFinanciers > 0 ? (
               <p className="text-xs font-medium text-[#00A86B]">
@@ -433,7 +433,7 @@ export default function MarketplaceProjectsPage() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <PageHeader
           title="Projects"
-          description="Browse pre-screened energy projects seeking financing. All projects are credit-scored and pre-verified."
+          description="Browse pre-screened energy projects seeking financing. All projects are rated and pre-verified."
         />
         <div className="flex flex-shrink-0 items-center gap-2 pt-1">
           <div className="flex items-center gap-1 border border-slate-200 rounded-lg p-1">
@@ -514,10 +514,10 @@ export default function MarketplaceProjectsPage() {
             </div>
           </div>
 
-          {/* Credit Score slider */}
+          {/* Rating slider */}
           <div className="flex flex-col gap-1">
             <label className="text-xs font-medium text-slate-500" htmlFor="score-filter">
-              Min Credit Score:{' '}
+              Min Rating:{' '}
               <span className="font-mono font-semibold text-[#0A2540]">{minScore}</span>
             </label>
             <input
@@ -591,7 +591,7 @@ export default function MarketplaceProjectsPage() {
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Developer</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Type</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">State</th>
-                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Credit Score</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Rating</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Capital Needed</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Status</th>
               </tr>
@@ -671,11 +671,11 @@ export default function MarketplaceProjectsPage() {
                   </span>
                 </div>
 
-                {/* Credit Score */}
+                {/* Rating */}
                 <div
                   className={`mb-4 flex items-center justify-between rounded-lg border px-3 py-2.5 ${scoreStyle.bg} ${scoreStyle.border}`}
                 >
-                  <span className="text-xs font-medium text-slate-600">Credit Score</span>
+                  <span className="text-xs font-medium text-slate-600">Rating</span>
                   <span className={`font-mono text-2xl font-bold leading-none ${scoreStyle.text}`}>
                     {project.ifcScore}
                     <span className="text-xs font-normal opacity-60">/100</span>

@@ -27,7 +27,7 @@ interface Developer {
 const developers: Developer[] = [
   {
     id: 'DEV-001',
-    name: 'Novawatt Energy Ltd',
+    name: 'SOLAD',
     verified: true,
     location: 'Lagos, Nigeria',
     ifcScore: 74,
@@ -39,7 +39,7 @@ const developers: Developer[] = [
   },
   {
     id: 'DEV-002',
-    name: 'AfriSolar Power',
+    name: 'RIPLE',
     verified: true,
     location: 'Abuja, Nigeria',
     ifcScore: 71,
@@ -51,7 +51,7 @@ const developers: Developer[] = [
   },
   {
     id: 'DEV-003',
-    name: 'Greenlight Planet NG',
+    name: 'Solar For Business',
     verified: true,
     location: 'Lagos, Nigeria',
     ifcScore: 82,
@@ -63,7 +63,7 @@ const developers: Developer[] = [
   },
   {
     id: 'DEV-004',
-    name: 'SolarFlow Nigeria',
+    name: 'Python Renewable Energy',
     verified: false,
     location: 'Lagos, Nigeria',
     ifcScore: 68,
@@ -75,7 +75,7 @@ const developers: Developer[] = [
   },
   {
     id: 'DEV-005',
-    name: 'Starsight Energy',
+    name: 'Ruth London Energy',
     verified: true,
     location: 'Lagos, Nigeria',
     ifcScore: 77,
@@ -107,7 +107,7 @@ export default function DevelopersPage() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <PageHeader
           title="Developers"
-          description="Browse verified developer profiles with credit scores and audited track records."
+          description="Browse verified developer profiles with ratings and audited track records."
         />
         <div className="flex items-center gap-1 border border-slate-200 rounded-lg p-1">
           <button
@@ -136,7 +136,7 @@ export default function DevelopersPage() {
               <tr className="border-b border-slate-200 text-left">
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400 w-12">Rank</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Developer</th>
-                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Credit Score</th>
+                <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Rating</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Track Record</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Verified</th>
                 <th className="pb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">Projects Listed</th>
@@ -207,11 +207,11 @@ export default function DevelopersPage() {
                 {dev.location}
               </div>
 
-              {/* Credit Score */}
+              {/* Rating */}
               <div
                 className={`mb-4 flex items-center justify-between rounded-lg border px-3 py-2.5 ${scoreStyle.bg} ${scoreStyle.border}`}
               >
-                <span className="text-xs font-medium text-slate-600">Credit Score</span>
+                <span className="text-xs font-medium text-slate-600">Rating</span>
                 <span className={`font-mono text-2xl font-bold leading-none ${scoreStyle.text}`}>
                   {dev.ifcScore}
                   <span className="text-xs font-normal opacity-60">/100</span>

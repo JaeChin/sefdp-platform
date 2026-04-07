@@ -33,10 +33,10 @@ const projectTypeData = [
 ];
 
 const topFinanciers = [
-  { name: 'CrossBoundary Energy Access', value: 1_840_000_000, display: '₦1.84B' },
-  { name: 'British International Investment', value: 1_470_000_000, display: '₦1.47B' },
-  { name: 'Africa Finance Corporation', value: 630_000_000, display: '₦630M' },
-  { name: 'Stanbic IBTC', value: 252_000_000, display: '₦252M' },
+  { name: 'Emmanuel Financiers', value: 1_840_000_000, display: '₦1.84B' },
+  { name: 'NSIA', value: 1_470_000_000, display: '₦1.47B' },
+  { name: 'Africa Financiers Institute', value: 630_000_000, display: '₦630M' },
+  { name: 'Sterling Bank', value: 252_000_000, display: '₦252M' },
 ];
 
 const maxFinancierValue = topFinanciers[0]?.value ?? 1;
@@ -56,7 +56,7 @@ export default function MarketplaceAnalyticsPage() {
         {[
           { label: 'Match Volume', value: '31', sub: 'total matches to date' },
           { label: 'Deal Value', value: '₦4.2B', sub: 'capital in discussion' },
-          { label: 'Avg Credit Score', value: '76', sub: 'across listed projects', suffix: '/100' },
+          { label: 'Avg Rating', value: '76', sub: 'across listed projects', suffix: '/100' },
           { label: 'Active Developers', value: '18', sub: 'with listed projects' },
         ].map((card) => (
           <div

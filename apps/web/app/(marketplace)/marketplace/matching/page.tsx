@@ -15,7 +15,7 @@ const MATCH_DATA: Array<{
   {
     developerProject: "Kano North Mini-Grid Expansion",
     projectType: "Mini-grid",
-    financier: "CrossBoundary Energy Access",
+    financier: "Emmanuel Financiers",
     financierType: "Impact Fund",
     overallScore: 91,
     status: "In Discussion",
@@ -32,7 +32,7 @@ const MATCH_DATA: Array<{
   {
     developerProject: "Borno Rural Cluster Phase II",
     projectType: "Mini-grid",
-    financier: "Africa Finance Corporation",
+    financier: "Africa Financiers Institute",
     financierType: "DFI",
     overallScore: 87,
     status: "New Match",
@@ -49,7 +49,7 @@ const MATCH_DATA: Array<{
   {
     developerProject: "Enugu Industrial Solar Park",
     projectType: "C&I",
-    financier: "British International Investment",
+    financier: "NSIA",
     financierType: "DFI",
     overallScore: 82,
     status: "Interested",
@@ -66,7 +66,7 @@ const MATCH_DATA: Array<{
   {
     developerProject: "Ogun Peri-Urban Grid",
     projectType: "Hybrid",
-    financier: "Stanbic IBTC",
+    financier: "Sterling Bank",
     financierType: "Commercial Bank",
     overallScore: 79,
     status: "In Discussion",
@@ -83,7 +83,7 @@ const MATCH_DATA: Array<{
   {
     developerProject: "Niger State SHS Programme",
     projectType: "SHS",
-    financier: "CrossBoundary Energy Access",
+    financier: "Emmanuel Financiers",
     financierType: "Impact Fund",
     overallScore: 74,
     status: "New Match",
@@ -157,39 +157,39 @@ export default function MatchingPage() {
               <div
                 className="bg-[#00A86B] transition-all duration-700"
                 style={{ width: "40%" }}
-                title="CrossBoundary Energy Access — 40% · ₦840M"
+                title="Emmanuel Financiers — 40% · ₦840M"
               />
               <div
                 className="bg-[#0A2540] transition-all duration-700"
                 style={{ width: "35%" }}
-                title="British International Investment — 35% · ₦735M"
+                title="NSIA — 35% · ₦735M"
               />
               <div
                 className="bg-slate-400 transition-all duration-700"
                 style={{ width: "25%" }}
-                title="Stanbic IBTC — 25% · ₦525M"
+                title="Sterling Bank — 25% · ₦525M"
               />
             </div>
 
             {/* Colour key */}
             <div className="flex items-center gap-4 mb-3">
               <span className="flex items-center gap-1.5 text-[10px] text-slate-500">
-                <span className="w-2 h-2 rounded-sm bg-[#00A86B] shrink-0" />CrossBoundary 40%
+                <span className="w-2 h-2 rounded-sm bg-[#00A86B] shrink-0" />Emmanuel 40%
               </span>
               <span className="flex items-center gap-1.5 text-[10px] text-slate-500">
-                <span className="w-2 h-2 rounded-sm bg-[#0A2540] shrink-0" />BII 35%
+                <span className="w-2 h-2 rounded-sm bg-[#0A2540] shrink-0" />NSIA 35%
               </span>
               <span className="flex items-center gap-1.5 text-[10px] text-slate-500">
-                <span className="w-2 h-2 rounded-sm bg-slate-400 shrink-0" />Stanbic 25%
+                <span className="w-2 h-2 rounded-sm bg-slate-400 shrink-0" />Sterling 25%
               </span>
             </div>
 
             <div className="space-y-2.5">
-              {/* CrossBoundary */}
+              {/* Emmanuel Financiers */}
               <div className="flex items-center gap-3">
                 <span className="text-[#00A86B] text-xs leading-none">●</span>
                 <span className="flex-1 min-w-0 text-sm font-medium text-[#0A2540]">
-                  CrossBoundary Energy Access
+                  Emmanuel Financiers
                 </span>
                 <span className="font-mono text-xs text-slate-500 shrink-0">40%</span>
                 <span className="text-slate-300 text-xs shrink-0">—</span>
@@ -201,11 +201,11 @@ export default function MatchingPage() {
                 </span>
               </div>
 
-              {/* British International Investment */}
+              {/* NSIA */}
               <div className="flex items-center gap-3">
                 <span className="text-[#00A86B] text-xs leading-none">●</span>
                 <span className="flex-1 min-w-0 text-sm font-medium text-[#0A2540]">
-                  British International Investment
+                  NSIA
                 </span>
                 <span className="font-mono text-xs text-slate-500 shrink-0">35%</span>
                 <span className="text-slate-300 text-xs shrink-0">—</span>
@@ -217,11 +217,11 @@ export default function MatchingPage() {
                 </span>
               </div>
 
-              {/* Stanbic IBTC */}
+              {/* Sterling Bank */}
               <div className="flex items-center gap-3">
                 <span className="text-[#00A86B] text-xs leading-none">●</span>
                 <span className="flex-1 min-w-0 text-sm font-medium text-[#0A2540]">
-                  Stanbic IBTC
+                  Sterling Bank
                 </span>
                 <span className="font-mono text-xs text-slate-500 shrink-0">25%</span>
                 <span className="text-slate-300 text-xs shrink-0">—</span>
