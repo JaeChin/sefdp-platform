@@ -215,9 +215,9 @@ export default function MarketplaceLandingPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-6 mt-10 max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 gap-6 mt-10 max-w-3xl mx-auto items-stretch">
           {/* Developer card */}
-          <div className="flex flex-col rounded-xl p-8" style={{ background: "rgba(10,37,64,0.8)", border: "1px solid rgba(245,194,0,0.2)" }}>
+          <div className="flex flex-col rounded-xl p-8 h-full" style={{ background: "rgba(10,37,64,0.8)", border: "1px solid rgba(245,194,0,0.2)" }}>
             <p className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "#F5C200" }}>
               DEVELOPER
             </p>
@@ -247,7 +247,7 @@ export default function MarketplaceLandingPage() {
           </div>
 
           {/* Financier card */}
-          <div className="flex flex-col rounded-xl p-8" style={{ background: "rgba(10,37,64,0.8)", border: "1px solid rgba(0,168,107,0.2)" }}>
+          <div className="flex flex-col rounded-xl p-8 h-full" style={{ background: "rgba(10,37,64,0.8)", border: "1px solid rgba(0,168,107,0.2)" }}>
             <p className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "#00A86B" }}>
               FINANCIER / DFI
             </p>
