@@ -100,7 +100,7 @@ export default function MarketplaceLandingPage() {
         <div className="inline-flex items-center gap-2 border border-white/20 rounded-full px-3 py-1.5 mb-8 mx-auto"
           style={{ animation: "fadeUp 0.6s ease forwards", opacity: 0, animationDelay: "0.1s" }}>
           <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#F5C200" }} />
-          <span className="text-xs text-white/60 font-medium">World Bank Verified · NDPA Compliant · SEforALL</span>
+          <span className="text-xs text-white/60 font-medium">NDPA Compliant · SEforALL</span>
         </div>
 
         <h1 className="text-6xl font-bold text-white leading-[1.08] tracking-tight mb-6"
@@ -228,10 +228,6 @@ export default function MarketplaceLandingPage() {
               List your project, get credit-scored, and connect with DFIs and commercial banks.
             </p>
             <ul className="mt-4 space-y-2">
-              <li className="flex items-start gap-2">
-                <span className="w-1 h-1 rounded-full bg-[#F5C200] mt-1.5 shrink-0" />
-                <span className="text-xs text-white/40">Pre-screening &amp; Rating</span>
-              </li>
               <li className="flex items-start gap-2">
                 <span className="w-1 h-1 rounded-full bg-[#F5C200] mt-1.5 shrink-0" />
                 <span className="text-xs text-white/40">Financier matching</span>

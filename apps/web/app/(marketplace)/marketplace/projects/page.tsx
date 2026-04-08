@@ -127,10 +127,8 @@ function formatNGNCompact(amount: number): string {
   return `₦${amount}`;
 }
 
-function getScoreStyle(score: number): { text: string; bg: string; border: string } {
-  if (score >= 80) return { text: 'text-[#00A86B]', bg: 'bg-green-50', border: 'border-green-200' };
-  if (score >= 65) return { text: 'text-[#F59E0B]', bg: 'bg-amber-50', border: 'border-amber-200' };
-  return { text: 'text-[#DC2626]', bg: 'bg-red-50', border: 'border-red-200' };
+function getScoreStyle(): { text: string; bg: string; border: string } {
+  return { text: 'text-[#00A86B]', bg: 'bg-green-50', border: 'border-green-200' };
 }
 
 const statusConfig: Record<
@@ -598,8 +596,7 @@ export default function MarketplaceProjectsPage() {
             </thead>
             <tbody className="divide-y divide-slate-100">
               {[...filtered].sort((a, b) => b.ifcScore - a.ifcScore).map((project, index) => {
-                const scoreColor =
-                  project.ifcScore >= 80 ? '#00A86B' : project.ifcScore >= 65 ? '#D97706' : '#DC2626';
+                const scoreColor = '#00A86B';
                 const status = statusConfig[project.status];
                 const StatusIcon = status.icon;
                 return (
@@ -636,7 +633,7 @@ export default function MarketplaceProjectsPage() {
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((project) => {
-            const scoreStyle = getScoreStyle(project.ifcScore);
+            const scoreStyle = getScoreStyle();
             const status = statusConfig[project.status];
             const StatusIcon = status.icon;
 

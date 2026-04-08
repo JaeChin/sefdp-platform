@@ -15,10 +15,8 @@ const kpis = [
   { label: "Avg Rating", value: "76/100" },
 ];
 
-function getIfcScoreColor(score: number): string {
-  if (score >= 80) return '#00A86B';
-  if (score >= 65) return '#D97706';
-  return '#DC2626';
+function getIfcScoreColor(): string {
+  return '#00A86B';
 }
 
 function getStatusBadge(status: string) {
@@ -101,7 +99,7 @@ export default function RegulatorPage() {
                 <td className="px-5 py-3" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>
                   ₦{(deal.dealSize / 1_000_000).toFixed(0)}M
                 </td>
-                <td className="px-5 py-3 font-semibold" style={{ color: getIfcScoreColor(deal.ifcScore), fontFamily: "'IBM Plex Mono', monospace" }}>
+                <td className="px-5 py-3 font-semibold" style={{ color: getIfcScoreColor(), fontFamily: "'IBM Plex Mono', monospace" }}>
                   {deal.ifcScore}
                 </td>
                 <td className="px-5 py-3">{getStatusBadge(deal.status)}</td>

@@ -27,7 +27,7 @@ const financiers: Financier[] = [
     id: 'FIN-001',
     name: 'NSIA',
     type: 'DFI',
-    location: 'London, UK',
+    location: 'Abuja, Nigeria',
     focusTags: ['Mini-grid', 'C&I'],
     dealSizeRange: '$500k–$10M',
     instruments: ['Equity', 'Debt'],

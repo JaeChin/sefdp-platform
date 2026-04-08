@@ -15,10 +15,8 @@ import { Button } from '@sefdp/ui';
 
 // ─── Score Helper ────────────────────────────────────────────────────────────
 
-function getScoreStyle(score: number) {
-  if (score >= 80) return { text: 'text-[#00A86B]', bg: 'bg-green-50', border: 'border-green-200' };
-  if (score >= 65) return { text: 'text-[#F59E0B]', bg: 'bg-amber-50', border: 'border-amber-200' };
-  return { text: 'text-[#DC2626]', bg: 'bg-red-50', border: 'border-red-200' };
+function getScoreStyle() {
+  return { text: 'text-[#00A86B]', bg: 'bg-green-50', border: 'border-green-200' };
 }
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -68,7 +66,7 @@ const projects = [
 
 export default function GreenlightDeveloperPage() {
   const score = 82;
-  const scoreStyle = getScoreStyle(score);
+  const scoreStyle = getScoreStyle();
 
   return (
     <div className="space-y-8">

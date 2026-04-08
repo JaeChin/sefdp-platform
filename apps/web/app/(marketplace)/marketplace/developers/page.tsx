@@ -89,10 +89,8 @@ const developers: Developer[] = [
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function getScoreStyle(score: number): { text: string; bg: string; border: string } {
-  if (score >= 80) return { text: 'text-[#00A86B]', bg: 'bg-green-50', border: 'border-green-200' };
-  if (score >= 65) return { text: 'text-[#F59E0B]', bg: 'bg-amber-50', border: 'border-amber-200' };
-  return { text: 'text-[#DC2626]', bg: 'bg-red-50', border: 'border-red-200' };
+function getScoreStyle(): { text: string; bg: string; border: string } {
+  return { text: 'text-[#00A86B]', bg: 'bg-green-50', border: 'border-green-200' };
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
@@ -144,8 +142,7 @@ export default function DevelopersPage() {
             </thead>
             <tbody className="divide-y divide-slate-100">
               {sortedDevelopers.map((dev, index) => {
-                const scoreColor =
-                  dev.ifcScore >= 80 ? '#00A86B' : dev.ifcScore >= 65 ? '#D97706' : '#DC2626';
+                const scoreColor = '#00A86B';
                 return (
                   <tr key={dev.id} className="hover:bg-slate-50 transition-colors">
                     <td className="py-3 text-xs font-mono text-slate-400">#{index + 1}</td>
@@ -180,7 +177,7 @@ export default function DevelopersPage() {
       ) : (
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {developers.map((dev) => {
-          const scoreStyle = getScoreStyle(dev.ifcScore);
+          const scoreStyle = getScoreStyle();
           const trackBarWidth = Math.min((dev.yearsOperating / 15) * 100, 100);
 
           return (

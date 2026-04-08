@@ -119,7 +119,7 @@ export default function MarketplaceAnalyticsPage() {
               <Area
                 type="monotone"
                 dataKey="closed"
-                name="Deals Closed"
+                name="Financial Close"
                 stroke="#0A2540"
                 strokeWidth={2}
                 fill="#0A2540"
@@ -134,7 +134,7 @@ export default function MarketplaceAnalyticsPage() {
             <span className="w-3 h-0.5 bg-[#00A86B] rounded" />Matches Made
           </span>
           <span className="flex items-center gap-1.5 text-xs text-slate-500">
-            <span className="w-3 h-0.5 bg-[#0A2540] rounded" />Deals Closed
+            <span className="w-3 h-0.5 bg-[#0A2540] rounded" />Financial Close
           </span>
         </div>
       </div>
