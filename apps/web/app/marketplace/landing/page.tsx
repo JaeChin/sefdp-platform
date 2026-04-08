@@ -217,7 +217,7 @@ export default function MarketplaceLandingPage() {
 
         <div className="grid grid-cols-2 gap-6 mt-10 max-w-3xl mx-auto">
           {/* Developer card */}
-          <div className="rounded-xl p-8" style={{ background: "rgba(10,37,64,0.8)", border: "1px solid rgba(245,194,0,0.2)" }}>
+          <div className="flex flex-col rounded-xl p-8" style={{ background: "rgba(10,37,64,0.8)", border: "1px solid rgba(245,194,0,0.2)" }}>
             <p className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "#F5C200" }}>
               DEVELOPER
             </p>
@@ -239,7 +239,7 @@ export default function MarketplaceLandingPage() {
             </ul>
             <Link
               href="/register?type=developer"
-              className="block w-full rounded-lg py-2.5 text-sm font-semibold text-center mt-6"
+              className="block w-full rounded-lg py-2.5 text-sm font-semibold text-center mt-auto pt-6"
               style={{ background: "#F5C200", color: "#0D1E2E" }}
             >
               Register as Developer →
@@ -247,7 +247,7 @@ export default function MarketplaceLandingPage() {
           </div>
 
           {/* Financier card */}
-          <div className="rounded-xl p-8" style={{ background: "rgba(10,37,64,0.8)", border: "1px solid rgba(0,168,107,0.2)" }}>
+          <div className="flex flex-col rounded-xl p-8" style={{ background: "rgba(10,37,64,0.8)", border: "1px solid rgba(0,168,107,0.2)" }}>
             <p className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "#00A86B" }}>
               FINANCIER / DFI
             </p>
@@ -273,7 +273,7 @@ export default function MarketplaceLandingPage() {
             </ul>
             <Link
               href="/register?type=financier"
-              className="block w-full rounded-lg py-2.5 text-sm font-semibold text-center mt-6"
+              className="block w-full rounded-lg py-2.5 text-sm font-semibold text-center mt-auto pt-6"
               style={{ background: "#00A86B", color: "white" }}
             >
               Register as Financier →
