@@ -125,7 +125,7 @@ function RegisterForm() {
 
             {/* Role indicator badge */}
             {roleType === 'developer' && (
-              <span className="mt-2 inline-block rounded-full px-3 py-1 text-xs font-semibold" style={{ background: "rgba(245,194,0,0.15)", color: "#F5C200", border: "1px solid rgba(245,194,0,0.3)" }}>Solar Developer Registration</span>
+              <span className="mt-2 inline-block rounded-full px-3 py-1 text-xs font-semibold" style={{ background: "rgba(245,194,0,0.15)", color: "#F5C200", border: "1px solid rgba(245,194,0,0.3)" }}>Developer Registration</span>
             )}
             {roleType === 'financier' && (
               <span className="mt-2 inline-block rounded-full px-3 py-1 text-xs font-semibold" style={{ background: "rgba(0,168,107,0.15)", color: "#00A86B", border: "1px solid rgba(0,168,107,0.3)" }}>Financier Registration</span>
