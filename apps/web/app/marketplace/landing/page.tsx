@@ -111,7 +111,7 @@ export default function MarketplaceLandingPage() {
 
         <p className="text-lg text-white/60 mb-10 leading-relaxed max-w-xl mx-auto"
           style={{ animation: "fadeUp 0.7s ease forwards", opacity: 0, animationDelay: "0.4s" }}>
-          Pre-screened solar developers. Pre-qualified DFIs and commercial banks.
+          Pre-screened developers. Pre-qualified DFIs and commercial banks.
           One platform purpose-built for Nigeria&apos;s energy transition.
         </p>
 
@@ -225,7 +225,7 @@ export default function MarketplaceLandingPage() {
               Developer
             </h3>
             <p className="text-sm text-white/50 mt-2 leading-relaxed">
-              List your project, get credit-scored, and connect with DFIs and commercial banks.
+              List your project, get rated, and connect with DFIs and commercial banks.
             </p>
             <ul className="mt-4 space-y-2">
               <li className="flex items-start gap-2">
@@ -264,7 +264,7 @@ export default function MarketplaceLandingPage() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1 h-1 rounded-full bg-[#00A86B] mt-1.5 shrink-0" />
-                <span className="text-xs text-white/40">Credit-scored projects</span>
+                <span className="text-xs text-white/40">Rated projects</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1 h-1 rounded-full bg-[#00A86B] mt-1.5 shrink-0" />
