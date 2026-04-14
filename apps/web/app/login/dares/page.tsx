@@ -1,5 +1,8 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import type { Route } from 'next'
 
 const demoLinks: { label: string; href: Route }[] = [
@@ -15,13 +18,22 @@ const trustBadges = [
 ]
 
 export default function DaresLoginPage() {
+  const router = useRouter()
+  const handleSignIn = (e: React.FormEvent) => {
+    e.preventDefault()
+    router.push('/dashboard')
+  }
+
   return (
     <div className="flex min-h-screen">
-      <div className="flex w-1/2 flex-col justify-center px-16 py-12 bg-background">
+      <div className="flex w-full lg:w-1/2 flex-col justify-center px-8 lg:px-16 py-12 bg-background">
         <div className="mx-auto w-full max-w-sm">
           <Link href="/" aria-label="home" className="flex items-center space-x-2">
             <span className="text-xl font-bold tracking-tight">SEF-DP</span>
             <span className="h-2 w-2 rounded-full bg-emerald-500" />
+          </Link>
+          <Link href="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors mt-1 inline-block">
+            ← Back to home
           </Link>
 
           <p className="mt-12 text-sm font-medium uppercase tracking-widest text-emerald-500">
@@ -31,7 +43,7 @@ export default function DaresLoginPage() {
             Sign in to your account
           </h1>
 
-          <form className="mt-8 space-y-5">
+          <form onSubmit={handleSignIn} className="mt-8 space-y-5">
             <div>
               <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-foreground">
                 Email Address
@@ -104,29 +116,31 @@ export default function DaresLoginPage() {
         </div>
       </div>
 
-      <div className="relative w-1/2">
-        <Image
-          src="/images/image23.jpg"
-          alt="Rooftop solar installation at sunset"
-          fill
-          className="object-cover object-center"
-          sizes="50vw"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute bottom-8 left-8 right-8">
-          <p className="text-white text-xl font-semibold leading-snug mb-4">
-            Managing Nigeria&apos;s $750M clean energy transition.
-          </p>
-          <div className="flex flex-wrap">
-            {trustBadges.map((badge) => (
-              <span
-                key={badge}
-                className="inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-blur-sm px-3 py-1 text-xs text-white mr-2 mb-2"
-              >
-                {badge}
-              </span>
-            ))}
+      <div className="relative hidden lg:block lg:w-1/2 p-6 bg-background">
+        <div className="relative h-full w-full overflow-hidden rounded-2xl shadow-2xl">
+          <Image
+            src="/images/image23.jpg"
+            alt="Rooftop solar installation at sunset"
+            fill
+            className="object-cover object-center"
+            sizes="50vw"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+          <div className="absolute bottom-8 left-8 right-8">
+            <p className="text-white text-xl font-semibold leading-snug mb-4">
+              Managing Nigeria&apos;s $750M clean energy transition.
+            </p>
+            <div className="flex flex-wrap">
+              {trustBadges.map((badge) => (
+                <span
+                  key={badge}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-blur-sm px-3 py-1 text-xs text-white mr-2 mb-2"
+                >
+                  {badge}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>

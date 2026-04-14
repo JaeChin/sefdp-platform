@@ -18,6 +18,9 @@ docs/
 .claude/
 /.claude/
 
+/prompts
+prompts/
+
 # IDE
 .vscode/
 !.vscode/extensions.json
@@ -41,6 +44,14 @@ pnpm-debug.log*
 postgres_data/
 redis_data/
 minio_data/
+docker-compose.yml
+docker-compose.prod.yml
+docker-compose.dev.yml
+docker-compose.test.yml
+docker-compose.e2e.yml
+docker-compose.staging.yml
+docker-compose.production.yml
+docker-compose.production.yml
 
 # Keys
 *.pem
