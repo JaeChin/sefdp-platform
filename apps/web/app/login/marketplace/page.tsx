@@ -248,7 +248,7 @@ export default function LoginPage() {
 
             <p className="mt-4 text-center text-xs text-slate-500">
               Don&apos;t have an account?{' '}
-              <Link href="/register" className="hover:underline" style={{ color: "#F5C200" }}>
+              <Link href="/register/marketplace" className="hover:underline" style={{ color: "#F5C200" }}>
                 Request access &rarr;
               </Link>
             </p>

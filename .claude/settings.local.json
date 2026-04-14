@@ -30,7 +30,11 @@
       "Bash(npx shadcn@latest add https://21st.dev/r/kokonutd/bento-grid)",
       "Bash(npx shadcn@latest add https://21st.dev/r/meschacirung/features-1)",
       "Bash(npx shadcn@latest add https://21st.dev/r/meschacirung/hero-section-5)",
-      "Bash(npx shadcn@latest add https://21st.dev/r/tailark/footer)"
+      "Bash(npx shadcn@latest add https://21st.dev/r/tailark/footer)",
+      "Bash(mkdir -p apps/web/app/login/marketplace apps/web/app/register/marketplace)",
+      "Bash(mv \"apps/web/app/\\(auth\\)/login/page.tsx\" apps/web/app/login/marketplace/page.tsx)",
+      "Bash(mv \"apps/web/app/\\(auth\\)/register/page.tsx\" apps/web/app/register/marketplace/page.tsx)",
+      "Bash(rmdir \"apps/web/app/\\(auth\\)/login\" \"apps/web/app/\\(auth\\)/register\")"
     ]
   }
 }

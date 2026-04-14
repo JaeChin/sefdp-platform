@@ -146,7 +146,7 @@ function RegisterForm() {
                   Registration received. Our team will be in touch.
                 </p>
                 <Link
-                  href="/login"
+                  href="/login/marketplace"
                   className="mt-4 inline-block text-sm hover:underline"
                   style={{ color: "#F5C200" }}
                 >
@@ -158,11 +158,11 @@ function RegisterForm() {
               <div className="space-y-4">
                 <p className="text-sm text-slate-300 text-center">Select your registration type</p>
                 <div className="grid grid-cols-2 gap-3">
-                  <Link href="/register?type=developer" className="rounded-xl p-4 text-center transition-all hover:scale-[1.02]" style={{ background: "rgba(245,194,0,0.08)", border: "1px solid rgba(245,194,0,0.25)" }}>
+                  <Link href="/register/marketplace?type=developer" className="rounded-xl p-4 text-center transition-all hover:scale-[1.02]" style={{ background: "rgba(245,194,0,0.08)", border: "1px solid rgba(245,194,0,0.25)" }}>
                     <p className="text-sm font-semibold text-white">Solar Developer</p>
                     <p className="text-xs text-white/40 mt-1">List projects & get matched</p>
                   </Link>
-                  <Link href="/register?type=financier" className="rounded-xl p-4 text-center transition-all hover:scale-[1.02]" style={{ background: "rgba(0,168,107,0.08)", border: "1px solid rgba(0,168,107,0.25)" }}>
+                  <Link href="/register/marketplace?type=financier" className="rounded-xl p-4 text-center transition-all hover:scale-[1.02]" style={{ background: "rgba(0,168,107,0.08)", border: "1px solid rgba(0,168,107,0.25)" }}>
                     <p className="text-sm font-semibold text-white">Financier / DFI</p>
                     <p className="text-xs text-white/40 mt-1">Browse pre-screened pipeline</p>
                   </Link>
@@ -928,7 +928,7 @@ function RegisterForm() {
               <p className="mt-6 text-center text-sm text-slate-500">
                 Already have an account?{' '}
                 <Link
-                  href="/login"
+                  href="/login/marketplace"
                   className="hover:underline"
                   style={{ color: "#F5C200" }}
                 >

@@ -88,7 +88,7 @@ export default function MarketplaceLandingPage() {
             <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#F5C200" }} />
             <span className="text-xs text-white/60">SEforALL Partner Platform</span>
           </div>
-          <Link href="/login" className="text-sm font-semibold px-4 py-2 rounded-lg transition-colors" style={{ background: "#F5C200", color: "#0D3349" }}>
+          <Link href="/login/marketplace" className="text-sm font-semibold px-4 py-2 rounded-lg transition-colors" style={{ background: "#F5C200", color: "#0D3349" }}>
             Sign In
           </Link>
         </div>
@@ -117,7 +117,7 @@ export default function MarketplaceLandingPage() {
 
         <div className="flex items-center justify-center gap-4"
           style={{ animation: "fadeUp 0.7s ease forwards", opacity: 0, animationDelay: "0.55s" }}>
-          <Link href="/login"
+          <Link href="/login/marketplace"
             className="font-semibold px-7 py-3.5 rounded-lg text-sm transition-all"
             style={{ background: "#F5C200", color: "#0D3349", animation: "amberPulse 3s ease infinite" }}>
             Access the Marketplace →
@@ -238,7 +238,7 @@ export default function MarketplaceLandingPage() {
               </li>
             </ul>
             <Link
-              href="/register?type=developer"
+              href="/register/marketplace?type=developer"
               className="block w-full rounded-lg py-2.5 text-sm font-semibold text-center mt-6"
               style={{ background: "#F5C200", color: "#0D1E2E" }}
             >
@@ -272,7 +272,7 @@ export default function MarketplaceLandingPage() {
               </li>
             </ul>
             <Link
-              href="/register?type=financier"
+              href="/register/marketplace?type=financier"
               className="block w-full rounded-lg py-2.5 text-sm font-semibold text-center mt-6"
               style={{ background: "#00A86B", color: "white" }}
             >
