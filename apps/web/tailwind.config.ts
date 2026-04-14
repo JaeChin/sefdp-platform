@@ -2,7 +2,8 @@ import type { Config } from 'tailwindcss';
 import baseConfig from '@sefdp/config/tailwind';
 
 const config: Config = {
-  ...baseConfig,
+    darkMode: ['class'],
+    ...baseConfig,
   content: [
     './app/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',

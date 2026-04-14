@@ -22,7 +22,15 @@
       "Bash(pnpm --filter @sefdp/ui run lint)",
       "Bash(pnpm --filter @sefdp/web run lint)",
       "Bash(gh api:*)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(npx shadcn@latest add https://21st.dev/r/vaib215/shuffle-grid --yes)",
+      "Bash(cat tsconfig.json tailwind.config.*)",
+      "Bash(pnpm list:*)",
+      "Bash(npx shadcn@latest add https://21st.dev/r/vaib215/shuffle-grid)",
+      "Bash(npx shadcn@latest add https://21st.dev/r/kokonutd/bento-grid)",
+      "Bash(npx shadcn@latest add https://21st.dev/r/meschacirung/features-1)",
+      "Bash(npx shadcn@latest add https://21st.dev/r/meschacirung/hero-section-5)",
+      "Bash(npx shadcn@latest add https://21st.dev/r/tailark/footer)"
     ]
   }
 }
